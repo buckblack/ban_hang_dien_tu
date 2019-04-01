@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon start.js"
+    "start": "nodemon ./bin/www"
   },
   "dependencies": {
     "client-sessions": "^0.8.0",
