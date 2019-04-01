@@ -1,0 +1,133 @@
+<% include layout/head %>
+<% include layout/header %>
+<% include layout/sidebar %>
+<section class="wrapper p-0">
+    <div class="table-agile-info p-0">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Nhập hàng
+            </div>
+            <div class="col-lg-6 col-sm-12 mx-auto">
+                <h3 class="text-center text-info">Chọn hàng cần nhập</h3>
+                <div class="form-group">
+                    <label for="">Loại sản phẩm</label>
+                    <select class="form-control" name="" id="">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Thương hiệu</label>
+                    <select class="form-control" name="" id="">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Tên sản phẩm</label>
+                    <select class="form-control" name="" id="">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Giá bán</label>
+                    <input type="number" readonly class="form-control" name="ho_ten" id="ho_ten">
+                </div>
+                <div class="form-group">
+                    <label for="">Giá nhập</label>
+                    <input type="number" class="form-control" name="ho_ten" id="ho_ten">
+                </div>
+                <div class="form-group">
+                    <label for="">Số lượng</label>
+                    <input type="number" class="form-control" name="ho_ten" id="ho_ten">
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="button" onclick="them_danh_sach()" class='btn btn-primary mb-3'>Thêm vào danh
+                    sách</button>
+            </div>
+            <div class="float-right h4 text-danger">Tổng tiền: <span id="TH_tong_tien">123,465</span> VNĐ</div>
+            <table id="example"
+                class="table table-striped table-bordered bg-light table-hover d-md-table table-responsive-sm"
+                style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Mã sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Loại hàng</th>
+                        <th>Thương hiệu</th>
+                        <th>Giá bán</th>
+                        <th>Số lượng</th>
+                        <th>Tổng tiền</th>
+
+                    </tr>
+                </thead>
+                <tbody id="TH_ds_nhap">
+                    <tr>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>3</td>
+                        <td>4</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="form-inline justify-content-center">
+                    <label for="">Nhà cung cấp</label>
+                    <select class="form-control ml-2 w-auto " name="" id="">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                </div>
+            <div class="text-center">
+                <button type="button" class='btn btn-primary my-3'>Xác nhận nhập hàng</button>
+                <button type="button" onclick="lam_lai()" class='btn btn-info my-3'>Làm lại</button>
+            </div>
+        </div>
+    </div>
+    <% include layout/footer %>
+    <script>
+        function lam_lai(){
+            TH_ds_nhap.innerHTML = ``;
+            TH_tong_tien.innerHTML=0;
+            sessionStorage.removeItem('nhap_hang')
+        }
+        function them_danh_sach() {
+            TH_ds_nhap.innerHTML = ``;
+            var nhap_hang;
+            if (sessionStorage.getItem('nhap_hang') == null) {
+                nhap_hang = [];
+            } else {
+                nhap_hang = JSON.parse(sessionStorage.getItem('nhap_hang'));
+            }
+            var sp = {
+                'masp': 1,
+                'tensp': 2
+            }
+            nhap_hang.push(sp)
+            sessionStorage.setItem('nhap_hang', JSON.stringify(nhap_hang))
+            console.log(sessionStorage.getItem('nhap_hang'))
+            nhap_hang.forEach(row => {
+                TH_ds_nhap.innerHTML +=
+                    `
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+            `
+            });
+
+        }
+    </script>

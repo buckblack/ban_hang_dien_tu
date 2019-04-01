@@ -1,0 +1,96 @@
+<% include layout/head %>
+<% include layout/header %>
+<% include layout/sidebar %>
+<section class="wrapper p-0">
+    <div class="table-agile-info p-0">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Tài khoản
+            </div>
+            <div class="bg-light row">
+                <form class="w-100">
+                    <div class="col-lg-6 col-sm-12 mx-auto">
+                        <h3 class="text-center text-info">Thông tin tài khoản</h3>
+                        <div class="form-group">
+                            <label for="">Họ tên</label>
+                            <input type="text" class="form-control" name="ho_ten" id="ho_ten">
+                        </div>
+                        <div class="form-group form-check form-check-inline">
+                            <label for="">Giới tính</label>
+                            <label class="form-check-label ml-2">
+                                <input type="radio" class="form-check-input" name="sex" id="" value="nam" checked>
+                                Nam
+                            </label>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input ml-2" name="sex" id="" value="nu" checked>
+                                Nữ
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Ngày sinh</label>
+                            <input type="date" class="form-control" name="ngay_sinh" id="ngay_sinh">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Địa chỉ</label>
+                            <input type="text" class="form-control" name="dia_chi" id="dia_chi">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Điện thoại</label>
+                            <input type="number" class="form-control" name="dien_thoai" id="dien_thoai">
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class='btn btn-primary'>Cập nhật</button>
+                    </div>
+                </form>
+                <form class="w-100 mt-5">
+                    <div class="col-lg-6 col-sm-12 mx-auto">
+                        <h3 class="text-center text-info">Thông tin đăng nhập</h3>
+                        <div class="form-group">
+                            <label for="">Email</label>
+                            <input type="text" class="form-control" name="email" id="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Mật khẩu hiện tại</label>
+                            <input type="password" class="form-control" name="password" id="password">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Mật khẩu mới</label>
+                            <input type="password" class="form-control" name="newpassword" id="newpassword">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Nhập lại mật khẩu mới</label>
+                            <input type="password" class="form-control" name="renewpassword" id="renewpassword">
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" onclick="return kiem_tra()" class='btn btn-primary'>Đổi mật khẩu</button>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+    <% include layout/footer %>
+    <script>
+        function kiem_tra()
+        {
+            if(password.value.trim()=='')
+            {
+                alert('Chưa nhập mật khẩu');
+                return false;
+            }
+            if(newpassword.value.trim()=='')
+            {
+                alert('Chưa nhập mật khẩu mới');
+                return false;
+            }
+            if(renewpassword.value.trim()!=newpassword.value.trim())
+            {
+                alert('Mật khẩu chưa trùng khớp');
+                return false;
+            }
+            return true;
+        }
+    </script>

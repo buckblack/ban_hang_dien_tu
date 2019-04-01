@@ -1,0 +1,141 @@
+<% include layout/head %>
+
+<% include layout/header %>
+
+<% include layout/nav %>
+<% include layout/thanh_trang_thai %>
+<% include thuvien/bodau%>
+
+<!-- breadcrumbs -->
+
+
+<!-- //breadcrumbs -->
+<!--- beverages --->
+	<div class="products">
+		<div class="container">
+			<div class="agileinfo_single">
+				<% sanpham.forEach(sp => {%>
+				<div class="col-md-4 agileinfo_single_left">
+					<img id="example" src="/static/images/<%= sp.loaisp[0].thu_muc_hinh%>/<%= sp.hinh_anh%>" alt=" " class="img-responsive">
+				</div>
+				<div class="col-md-8 agileinfo_single_right">
+				<h2><%= sp.ten_sp%></h2>
+
+					<div class="w3agile_description">
+						<h4>Mô tả :</h4>
+						<p><%= sp.noi_dung%></p>
+					</div>
+					<div class="snipcart-item block">
+						<div class="snipcart-thumb agileinfo_single_right_snipcart">
+							<h4 class="m-sing"><%= sp.gia_ban.toLocaleString()%> VNĐ</h4>
+						</div>
+						<div class="snipcart-details agileinfo_single_right_details">
+							<form action="#" method="post">
+								<fieldset>
+									<input type="hidden" id="">
+									<input type="hidden" name="currency_code" value="VND">
+									<input type="button" id="<%= sp._id%>" value="thêm vào giỏ" class="button btnAdd" >
+								</fieldset>
+							</form>
+						</div>
+					</div>
+				</div>
+				<%});%>
+				<div class="clearfix"> </div>
+			</div>
+
+		</div>
+	</div>
+<!-- new -->
+	<div class="newproducts-w3agile">
+		<div class="container">
+			<h3>Sản phẩm cùng loại</h3>
+				<div class="agile_top_brands_grids">
+					<% sanpham_cungloai.forEach(sp => {%>
+
+					<div class="col-md-3 top_brand_left-1" style="padding-bottom:30px;">
+						<div class="hover14 column">
+							<div class="agile_top_brand_left_grid">
+								<div class="agile_top_brand_left_grid_pos">
+
+								</div>
+								<div class="agile_top_brand_left_grid1">
+									<figure>
+										<div class="snipcart-item block">
+											<div class="snipcart-thumb">
+												<a href="/chitiet/<%= bo_dau(sp.ten_sp)%>/<%= sp._id%>/<%= sp.ma_loai%>"><img title=" " height="150px" width="200px" alt=" " src="/static/images/<%= sp.loaisp[0].thu_muc_hinh%>/<%= sp.hinh_anh%>"></a>
+												<div style="height:80px"><p><%= sp.ten_sp%></p></div>
+													<h4><%= sp.gia_ban.toLocaleString()%> VNĐ</h4>
+											</div>
+											<div class="snipcart-details top_brand_home_details">
+												<form action="#" method="post">
+													<fieldset>
+
+														<input type="hidden" id="don_gia({$san_pham->don_gia})">
+														<input type="hidden" name="currency_code" value="VND">
+														<input type="button" id="<%= sp._id%>" value="thêm vào giỏ" class="button btnAdd" >
+													</fieldset>
+												</form>
+											</div>
+										</div>
+									</figure>
+								</div>
+							</div>
+						</div>
+					</div>
+
+          <%});%>
+						<div class="clearfix"> </div>
+				</div>
+		</div>
+	</div>
+
+<!-- //new -->
+<div class="products">
+		<div class="container">
+            <h3>Bình luận:</h3>
+            <form  method="post">
+			<textarea name="binh_luan" id="binh_luan" class="ckeditor"></textarea>
+            <script>
+			CKEDITOR.replace( 'binh_luan', { customConfig : 'config_binh_luan.js' } );
+			</script>
+            <div align="left" class="login-form-grids">
+				<h5>Thông tin cá nhân</h5>
+					<input type="text" name="ten_khach_hang"  value="" id="bl_ten_kh" placeholder="Họ tên..." required >
+					<input style="margin-bottom:15px" type="email" value="" id="bl_email" name="email" placeholder="Địa chỉ Email" required >
+					<input type="text" name="dien_thoai" value="" id="bl_dien_thoai" placeholder="Nhập số điện thoại" required >
+					<input type="submit" name="btn_binh_luan" onclick="return kiem_tra_binh_luan()" value="Gửi bình luận">
+
+			</div>
+            </form>
+
+
+
+		</div>
+</div>
+<div class="container">
+<table class="table table-bordered table-dark">
+  <thead>
+    <tr>
+      <th colspan="2" scope="col">Bình luận:</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Tên 1</th>
+      <td>MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark </td>
+
+    </tr>
+    <tr>
+      <th scope="row">Tên 2</th>
+      <td>Jacob</td>
+
+    </tr>
+    <tr>
+      <th scope="row">Tên 3</th>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+        <% include layout/footer %>

@@ -1,0 +1,12 @@
+{"_id":{"$oid":"5bd11b2a088ca72064cc2c2d"},"ten_thuong_hieu":"SamSung","hinh":"samsung.png"}
+{"_id":{"$oid":"5bd11b46088ca72064cc2c2e"},"ten_thuong_hieu":"LG","hinh":"lg.png"}
+{"_id":{"$oid":"5bd11b5a088ca72064cc2c2f"},"ten_thuong_hieu":"Sony","hinh":"sony.jpg"}
+{"_id":{"$oid":"5be90a47c4741b03ecfa6221"},"ten_thuong_hieu":"Apple","hinh":"apple.png"}
+{"_id":{"$oid":"5be90a55c4741b03ecfa6222"},"ten_thuong_hieu":"Aqua","hinh":"aqua.png"}
+{"_id":{"$oid":"5be90a64c4741b03ecfa6223"},"ten_thuong_hieu":"Asus","hinh":"asus.png"}
+{"_id":{"$oid":"5be90a6dc4741b03ecfa6224"},"ten_thuong_hieu":"Dell","hinh":"dell.png"}
+{"_id":{"$oid":"5be90a75c4741b03ecfa6225"},"ten_thuong_hieu":"Hitachi","hinh":"hitachi.jpg"}
+{"_id":{"$oid":"5be90a82c4741b03ecfa6226"},"ten_thuong_hieu":"MSI","hinh":"msi.jpg"}
+{"_id":{"$oid":"5be90a88c4741b03ecfa6227"},"ten_thuong_hieu":"Oppo","hinh":"oppo.png"}
+{"_id":{"$oid":"5be90aabc4741b03ecfa6228"},"ten_thuong_hieu":"Panasonic","hinh":"panasonic.jpg"}
+{"_id":{"$oid":"5be90ab7c4741b03ecfa6229"},"ten_thuong_hieu":"Toshiba","hinh":"toshiba.png"}

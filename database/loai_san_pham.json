@@ -1,0 +1,8 @@
+{"_id":{"$oid":"5bd11b8b088ca72064cc2c30"},"ten_loai":"tivi","thu_muc_hinh":"tivi"}
+{"_id":{"$oid":"5bd11b9c088ca72064cc2c31"},"ten_loai":"điện thoại","thu_muc_hinh":"dienthoai"}
+{"_id":{"$oid":"5bd11ba6088ca72064cc2c32"},"ten_loai":"máy lạnh","thu_muc_hinh":"maylanh"}
+{"_id":{"$oid":"5bd11bb9088ca72064cc2c33"},"ten_loai":"máy giặt","thu_muc_hinh":"maygiat"}
+{"_id":{"$oid":"5be914a2c4741b03ecfa622b"},"ten_loai":"tủ lạnh","thu_muc_hinh":"tulanh"}
+{"_id":{"$oid":"5be914d6c4741b03ecfa622c"},"ten_loai":"laptop","thu_muc_hinh":"laptop"}
+{"_id":{"$oid":"5be914dfc4741b03ecfa622d"},"ten_loai":"desktop","thu_muc_hinh":"desktop"}
+{"_id":{"$oid":"5be914ebc4741b03ecfa622e"},"ten_loai":"linh phụ kiện","thu_muc_hinh":"phukien"}
