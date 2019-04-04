@@ -15,7 +15,7 @@ router.get('/', async function (req, res, next) {
         ngay_tao: 1,
       }
     },
-    { $limit : 12 },
+    { $limit : 8 },
     {
       $lookup: {
         from: 'loai_san_pham',

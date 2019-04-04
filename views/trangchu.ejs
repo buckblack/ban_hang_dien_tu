@@ -1,613 +1,431 @@
 <% include layout/head %>
 <% include layout/header %>
 <% include layout/nav %>
-	<div class="container page-container">
-			<div class="page home-page custom-container">
-			<% include layout/slider %>
-					<div class="generalMarginSupporter">
-							<h2 class="generalTitle text-sm-center">Cảm ơn bạn đã đến Gear Store</h2>
+<% include thuvien/bodau %>
+<div class="container page-container">
+	<div class="page home-page custom-container">
+		<% include layout/slider %>
+		<div class="generalMarginSupporter">
+			<h2 class="generalTitle text-sm-center">Cảm ơn bạn đã đến Gear Store</h2>
+		</div>
+
+		<div class="categoryGrid">
+			<div class="flex-grid row">
+				<div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-2">
+					<div class="card pb-0">
+						<div class="list-picture">
+							<a href="/electronics" title="Show products in category Electronics">
+								<img class="img-fluid img-thumbnail" alt="Hình ảnh tivi" src="/static/images/tivi.jpg"
+									title="Hình ảnh tivi">
+							</a>
+						</div>
+						<div class="list-title mt-3 text-center">
+							<h3 class="h5 card-title m-0 p-0">
+								<a href="/electronics">
+									Tivi
+								</a>
+							</h3>
+						</div>
 					</div>
-
-					<div class="categoryGrid">
-							<div class="flex-grid row">
-									<div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-2">
-											<div class="card pb-0">
-													<div class="list-picture">
-															<a href="/electronics" title="Show products in category Electronics">
-																	<img class="img-fluid img-thumbnail" alt="Hình ảnh tivi"
-																			src="/static/images/tivi.jpg" title="Hình ảnh tivi">
-															</a>
-													</div>
-													<div class="list-title mt-3 text-center">
-															<h3 class="h5 card-title m-0 p-0">
-																	<a href="/electronics">
-																			Tivi
-																	</a>
-															</h3>
-													</div>
-											</div>
-									</div>
-									<div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-2">
-											<div class="card pb-0">
-													<div class="list-picture">
-															<a href="/electronics" title="Show products in category Electronics">
-																	<img class="img-fluid img-thumbnail" alt="Hình ảnh tủ lạnh"
-																			src="/static/images/tulanh.jpg" title="Hình ảnh tủ lạnh">
-															</a>
-													</div>
-													<div class="list-title mt-3 text-center">
-															<h3 class="h5 card-title m-0 p-0">
-																	<a href="/electronics">
-																			Tủ lạnh
-																	</a>
-															</h3>
-													</div>
-											</div>
-									</div>
-									<div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-2">
-											<div class="card pb-0">
-													<div class="list-picture">
-															<a href="/electronics" title="Show products in category Electronics">
-																	<img class="img-fluid img-thumbnail" alt="Hình ảnh máy lạnh"
-																			src="/static/images/maylanh.jpg" title="Hình ảnh máy lạnh">
-															</a>
-													</div>
-													<div class="list-title mt-3 text-center">
-															<h3 class="h5 card-title m-0 p-0">
-																	<a href="/electronics">
-																			Máy lạnh
-																	</a>
-															</h3>
-													</div>
-											</div>
-									</div>
-									<div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-2">
-											<div class="card pb-0">
-													<div class="list-picture">
-															<a href="/electronics" title="Show products in category Electronics">
-																	<img class="img-fluid img-thumbnail" alt="Hình ảnh máy giặt"
-																			src="/static/images/maygiat.png" title="Hình ảnh máy giặt">
-															</a>
-													</div>
-													<div class="list-title mt-3 text-center">
-															<h3 class="h5 card-title m-0 p-0">
-																	<a href="/electronics">
-																			Máy giặt
-																	</a>
-															</h3>
-													</div>
-											</div>
-									</div>
-									<div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-2">
-											<div class="card pb-0">
-													<div class="list-picture">
-															<a href="/apparel" title="Show products in category Apparel">
-																	<img class="img-fluid img-thumbnail" alt="Hình ảnh điện thoại"
-																			src="/static/images/dienthoai.jpg" title="Hình ảnh điện thoại">
-															</a>
-													</div>
-													<div class="list-title mt-3 text-center">
-															<h3 class="h5 card-title m-0 p-0">
-																	<a href="/apparel">
-																			Điện thoại
-																	</a>
-															</h3>
-													</div>
-											</div>
-									</div>
-									<div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-2">
-											<div class="card pb-0">
-													<div class="list-picture">
-															<a href="/books" title="Show products in category Books">
-																	<img class="img-fluid img-thumbnail" alt="Hình ảnh laptop"
-																			src="/static/images/laptop.jpg" title="Hình ảnh laptop">
-															</a>
-													</div>
-													<div class="list-title mt-3 text-center">
-															<h3 class="h5 card-title m-0 p-0">
-																	<a href="/books">
-																			Laptop
-																	</a>
-															</h3>
-													</div>
-											</div>
-									</div>
-							</div>
+				</div>
+				<div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-2">
+					<div class="card pb-0">
+						<div class="list-picture">
+							<a href="/electronics" title="Show products in category Electronics">
+								<img class="img-fluid img-thumbnail" alt="Hình ảnh tủ lạnh"
+									src="/static/images/tulanh.jpg" title="Hình ảnh tủ lạnh">
+							</a>
+						</div>
+						<div class="list-title mt-3 text-center">
+							<h3 class="h5 card-title m-0 p-0">
+								<a href="/electronics">
+									Tủ lạnh
+								</a>
+							</h3>
+						</div>
 					</div>
-
-
-
-
-					<div class="home-page-product-grid generalMarginSupporter">
-							<h2 class="generalTitle text-center">Sản phẩm mới</h2>
-							<div class="row px-3">
-									<div class="col-xl-3 col-lg-4 col-sm-6 col-6 product-container">
-											<div class="card gen" data-productid="5c861fb957d5a11c9042120a">
-													<a class="picture" href="/25-virtual-gift-card"
-															title="Show details for $25 Virtual Gift Card">
-															<img class="card-img-top img-fluid" alt="Picture of $25 Virtual Gift Card"
-																	src="http://demo.grandnode.com/content/images/thumbs/5c861fb957d5a11c9042120e_25-virtual-gift-card_415.jpeg"
-																	title="Show details for $25 Virtual Gift Card">
-													</a>
-													<div class="card-body p-0">
-															<div class="card-buttons">
-																	<div class="btn-group">
-																			<input type="button" class="btn btn-info btnAdd" value="Thêm vào giỏ">
-																			<button type="button" value="Quick View" title="Xem nhanh"
-																					class="btn btn-secondary btn-quick-view" data-toggle="modal"
-																					data-target="#modal-search">
-																					<span class="sr-only">Xem nhanh</span>
-																					<span class="material-icons mat">
-																							search
-																					</span>
-																			</button>
-
-																	</div>
-															</div>
-															<div class="card-body-content">
-																	<h3 class="h6 card-title mb-0">
-																			<strong><a href="/25-virtual-gift-card">$25 Virtual Gift Card</a></strong>
-																	</h3>
-
-																	<div class="col-12 px-0">
-																			<div class="product-rating-box" title="1 review(s)">
-																					<div class="rating">
-																							<div class="rating-ghost">
-																									☆☆☆☆☆
-																							</div>
-																							<div class="rating-real" style="width: 80%">
-																									★★★★★
-																							</div>
-																					</div>
-																			</div>
-																	</div>
-																	<div class="d-inline-flex pb-0 pt-0">
-
-																			<div class="p-0 pr-2 align-self-center actual-price-container">
-																					<span class="h5 card-subtitle">
-																							<span class="price actual-price">$25.00</span>
-																					</span>
-																			</div>
-																	</div>
-																	<p class="card-text d-none">
-																			$25 Gift Card. Gift Cards must be redeemed through our site Web site toward
-																			the purchase of eligible products.
-																	</p>
-															</div>
-													</div>
-
-											</div>
-									</div>
-									<div class="col-xl-3 col-lg-4 col-sm-6 col-6 product-container">
-											<div class="card gen" data-productid="5c861fb357d5a11c90420fee">
-													<a class="picture" href="/apple-macbook-pro-13-inch"
-															title="Show details for Apple MacBook Pro 13-inch">
-															<img class="card-img-top img-fluid" alt="Picture of Apple MacBook Pro 13-inch"
-																	src="http://demo.grandnode.com/content/images/thumbs/5c861fb357d5a11c90421012_apple-macbook-pro-13-inch_415.jpeg"
-																	title="Show details for Apple MacBook Pro 13-inch">
-													</a>
-													<span class="change-percent bg-success text-white">
-															<span>-10%</span>
-													</span>
-													<div class="card-body p-0">
-															<div class="card-buttons">
-																	<div class="btn-group">
-																			<input type="button" class="btn btn-info btnAdd" value="Thêm vào giỏ">
-																			<button type="button" value="Quick View" title="Xem nhanh"
-																					class="btn btn-secondary btn-quick-view" data-toggle="modal"
-																					data-target="#modal-search">
-																					<span class="sr-only">Xem nhanh</span>
-																					<span class="material-icons mat">
-																							search
-																					</span>
-																			</button>
-																	</div>
-															</div>
-															<div class="card-body-content">
-																	<h3 class="h6 card-title mb-0">
-																			<strong><a href="/apple-macbook-pro-13-inch">Apple MacBook Pro
-																							13-inch</a></strong>
-																	</h3>
-
-																	<div class="col-12 px-0">
-																			<div class="product-rating-box" title="1 review(s)">
-																					<div class="rating">
-																							<div class="rating-ghost">
-																									☆☆☆☆☆
-																							</div>
-																							<div class="rating-real" style="width: 100%">
-																									★★★★★
-																							</div>
-																					</div>
-																			</div>
-																	</div>
-																	<div class="d-inline-flex pb-0 pt-0">
-
-																			<div class="p-0 pr-2 align-self-center actual-price-container">
-																					<span class="h5 card-subtitle">
-																							<span class="price actual-price">$1,800.00</span>
-																					</span>
-																			</div>
-																			<div class="col px-0 align-self-center">
-																					<span class="h6 card-subtitle">
-																							<span class="price old-price">$2,000.00</span>
-																					</span>
-																			</div>
-																	</div>
-																	<p class="card-text d-none">
-																			A groundbreaking Retina display. A new force-sensing trackpad. All-flash
-																			architecture. Powerful dual-core and quad-core Intel processors. Together,
-																			these features take the notebook to a new level of performance. And they
-																			will do the same for you in everything you create.
-																	</p>
-															</div>
-													</div>
-
-											</div>
-									</div>
-									<div class="col-xl-3 col-lg-4 col-sm-6 col-6 product-container">
-											<div class="card gen" data-productid="5c861fb257d5a11c90420fc4">
-													<a class="picture" href="/build-your-own-computer"
-															title="Show details for Build your own computer">
-															<img class="card-img-top img-fluid" alt="Picture of Build your own computer"
-																	src="http://demo.grandnode.com/content/images/thumbs/5c861fb257d5a11c90420fde_build-your-own-computer_415.jpeg"
-																	title="Show details for Build your own computer">
-													</a>
-													<div class="card-body p-0">
-															<div class="card-buttons">
-																	<div class="btn-group">
-																			<input type="button" class="btn btn-info btnAdd" value="Thêm vào giỏ">
-																			<button type="button" value="Quick View" title="Xem nhanh"
-																					class="btn btn-secondary btn-quick-view" data-toggle="modal"
-																					data-target="#modal-search">
-																					<span class="sr-only">Xem nhanh</span>
-																					<span class="material-icons mat">
-																							search
-																					</span>
-																			</button>
-																	</div>
-															</div>
-															<div class="card-body-content">
-																	<h3 class="h6 card-title mb-0">
-																			<strong><a href="/build-your-own-computer">Build your own
-																							computer</a></strong>
-																	</h3>
-
-																	<div class="col-12 px-0">
-																			<div class="product-rating-box" title="1 review(s)">
-																					<div class="rating">
-																							<div class="rating-ghost">
-																									☆☆☆☆☆
-																							</div>
-																							<div class="rating-real" style="width: 100%">
-																									★★★★★
-																							</div>
-																					</div>
-																			</div>
-																	</div>
-																	<div class="d-inline-flex pb-0 pt-0">
-
-																			<div class="p-0 pr-2 align-self-center actual-price-container">
-																					<span class="h5 card-subtitle">
-																							<span class="price actual-price">$1,200.00</span>
-																					</span>
-																			</div>
-																	</div>
-																	<p class="card-text d-none">
-																			Build it
-																	</p>
-															</div>
-													</div>
-
-											</div>
-									</div>
-									<div class="col-xl-3 col-lg-4 col-sm-6 col-6 product-container">
-											<div class="card gen" data-productid="5c861fb557d5a11c90421115">
-													<a class="picture" href="/htc-one-m8-android-l-50-lollipop"
-															title="Show details for HTC One M8 Android L 5.0 Lollipop">
-															<img class="card-img-top img-fluid"
-																	alt="Picture of HTC One M8 Android L 5.0 Lollipop"
-																	src="http://demo.grandnode.com/content/images/thumbs/5c861fb557d5a11c9042111a_htc-one-m8-android-l-50-lollipop_415.jpeg"
-																	title="Show details for HTC One M8 Android L 5.0 Lollipop">
-													</a>
-													<span class="new-product-label bg-info text-white">Mới</span>
-													<div class="card-body p-0">
-															<div class="card-buttons">
-																	<div class="btn-group">
-																			<input type="button" class="btn btn-info btnAdd" value="Thêm vào giỏ">
-																			<button type="button" value="Quick View" title="Xem nhanh"
-																					class="btn btn-secondary btn-quick-view" data-toggle="modal"
-																					data-target="#modal-search">
-																					<span class="sr-only">Xem nhanh</span>
-																					<span class="material-icons mat">
-																							search
-																					</span>
-																			</button>
-																	</div>
-															</div>
-															<div class="card-body-content">
-																	<h3 class="h6 card-title mb-0">
-																			<strong><a href="/htc-one-m8-android-l-50-lollipop">HTC One M8 Android L 5.0
-																							Lollipop</a></strong>
-																	</h3>
-
-																	<div class="col-12 px-0">
-																			<div class="product-rating-box" title="0 review(s)">
-																					<div class="rating">
-																							<div class="rating-ghost">
-																									☆☆☆☆☆
-																							</div>
-																							<div class="rating-real" style="width: 0%">
-																									★★★★★
-																							</div>
-																					</div>
-																			</div>
-																	</div>
-																	<div class="d-inline-flex pb-0 pt-0">
-
-																			<div class="p-0 pr-2 align-self-center actual-price-container">
-																					<span class="h5 card-subtitle">
-																							<span class="price actual-price">$245.00</span>
-																					</span>
-																			</div>
-																	</div>
-																	<p class="card-text d-none">
-																			HTC - One (M8) 4G LTE Cell Phone with 32GB Memory - Gunmetal (Sprint)
-																	</p>
-															</div>
-													</div>
-
-											</div>
-									</div>
-							</div>
-
+				</div>
+				<div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-2">
+					<div class="card pb-0">
+						<div class="list-picture">
+							<a href="/electronics" title="Show products in category Electronics">
+								<img class="img-fluid img-thumbnail" alt="Hình ảnh máy lạnh"
+									src="/static/images/maylanh.jpg" title="Hình ảnh máy lạnh">
+							</a>
+						</div>
+						<div class="list-title mt-3 text-center">
+							<h3 class="h5 card-title m-0 p-0">
+								<a href="/electronics">
+									Máy lạnh
+								</a>
+							</h3>
+						</div>
 					</div>
-
-					<div class="home-page-product-grid generalMarginSupporter">
-							<h2 class="generalTitle text-center">Sản phẩm bán chạy</h2>
-							<div class="row px-3">
-									<div class="col-xl-3 col-lg-4 col-sm-6 col-6 product-container">
-											<div class="card gen" data-productid="5c861fb957d5a11c9042120a">
-													<a class="picture" href="/25-virtual-gift-card"
-															title="Show details for $25 Virtual Gift Card">
-															<img class="card-img-top img-fluid" alt="Picture of $25 Virtual Gift Card"
-																	src="http://demo.grandnode.com/content/images/thumbs/5c861fb957d5a11c9042120e_25-virtual-gift-card_415.jpeg"
-																	title="Show details for $25 Virtual Gift Card">
-													</a>
-													<div class="card-body p-0">
-															<div class="card-buttons">
-																	<div class="btn-group">
-																			<input type="button" class="btn btn-info btnAdd" value="Thêm vào giỏ">
-																			<button type="button" value="Quick View" title="Xem nhanh"
-																					class="btn btn-secondary btn-quick-view" data-toggle="modal"
-																					data-target="#modal-search">
-																					<span class="sr-only">Xem nhanh</span>
-																					<span class="material-icons mat">
-																							search
-																					</span>
-																			</button>
-
-																	</div>
-															</div>
-															<div class="card-body-content">
-																	<h3 class="h6 card-title mb-0">
-																			<strong><a href="/25-virtual-gift-card">$25 Virtual Gift Card</a></strong>
-																	</h3>
-
-																	<div class="col-12 px-0">
-																			<div class="product-rating-box" title="1 review(s)">
-																					<div class="rating">
-																							<div class="rating-ghost">
-																									☆☆☆☆☆
-																							</div>
-																							<div class="rating-real" style="width: 80%">
-																									★★★★★
-																							</div>
-																					</div>
-																			</div>
-																	</div>
-																	<div class="d-inline-flex pb-0 pt-0">
-
-																			<div class="p-0 pr-2 align-self-center actual-price-container">
-																					<span class="h5 card-subtitle">
-																							<span class="price actual-price">$25.00</span>
-																					</span>
-																			</div>
-																	</div>
-																	<p class="card-text d-none">
-																			$25 Gift Card. Gift Cards must be redeemed through our site Web site toward
-																			the purchase of eligible products.
-																	</p>
-															</div>
-													</div>
-
-											</div>
-									</div>
-									<div class="col-xl-3 col-lg-4 col-sm-6 col-6 product-container">
-											<div class="card gen" data-productid="5c861fb357d5a11c90420fee">
-													<a class="picture" href="/apple-macbook-pro-13-inch"
-															title="Show details for Apple MacBook Pro 13-inch">
-															<img class="card-img-top img-fluid" alt="Picture of Apple MacBook Pro 13-inch"
-																	src="http://demo.grandnode.com/content/images/thumbs/5c861fb357d5a11c90421012_apple-macbook-pro-13-inch_415.jpeg"
-																	title="Show details for Apple MacBook Pro 13-inch">
-													</a>
-													<span class="change-percent bg-success text-white">
-															<span>-10%</span>
-													</span>
-													<div class="card-body p-0">
-															<div class="card-buttons">
-																	<div class="btn-group">
-																			<input type="button" class="btn btn-info btnAdd" value="Thêm vào giỏ">
-																			<button type="button" value="Quick View" title="Xem nhanh"
-																					class="btn btn-secondary btn-quick-view" data-toggle="modal"
-																					data-target="#modal-search">
-																					<span class="sr-only">Xem nhanh</span>
-																					<span class="material-icons mat">
-																							search
-																					</span>
-																			</button>
-																	</div>
-															</div>
-															<div class="card-body-content">
-																	<h3 class="h6 card-title mb-0">
-																			<strong><a href="/apple-macbook-pro-13-inch">Apple MacBook Pro
-																							13-inch</a></strong>
-																	</h3>
-
-																	<div class="col-12 px-0">
-																			<div class="product-rating-box" title="1 review(s)">
-																					<div class="rating">
-																							<div class="rating-ghost">
-																									☆☆☆☆☆
-																							</div>
-																							<div class="rating-real" style="width: 100%">
-																									★★★★★
-																							</div>
-																					</div>
-																			</div>
-																	</div>
-																	<div class="d-inline-flex pb-0 pt-0">
-
-																			<div class="p-0 pr-2 align-self-center actual-price-container">
-																					<span class="h5 card-subtitle">
-																							<span class="price actual-price">$1,800.00</span>
-																					</span>
-																			</div>
-																			<div class="col px-0 align-self-center">
-																					<span class="h6 card-subtitle">
-																							<span class="price old-price">$2,000.00</span>
-																					</span>
-																			</div>
-																	</div>
-																	<p class="card-text d-none">
-																			A groundbreaking Retina display. A new force-sensing trackpad. All-flash
-																			architecture. Powerful dual-core and quad-core Intel processors. Together,
-																			these features take the notebook to a new level of performance. And they
-																			will do the same for you in everything you create.
-																	</p>
-															</div>
-													</div>
-
-											</div>
-									</div>
-									<div class="col-xl-3 col-lg-4 col-sm-6 col-6 product-container">
-											<div class="card gen" data-productid="5c861fb257d5a11c90420fc4">
-													<a class="picture" href="/build-your-own-computer"
-															title="Show details for Build your own computer">
-															<img class="card-img-top img-fluid" alt="Picture of Build your own computer"
-																	src="http://demo.grandnode.com/content/images/thumbs/5c861fb257d5a11c90420fde_build-your-own-computer_415.jpeg"
-																	title="Show details for Build your own computer">
-													</a>
-													<div class="card-body p-0">
-															<div class="card-buttons">
-																	<div class="btn-group">
-																			<input type="button" class="btn btn-info btnAdd" value="Thêm vào giỏ">
-																			<button type="button" value="Quick View" title="Xem nhanh"
-																					class="btn btn-secondary btn-quick-view" data-toggle="modal"
-																					data-target="#modal-search">
-																					<span class="sr-only">Xem nhanh</span>
-																					<span class="material-icons mat">
-																							search
-																					</span>
-																			</button>
-																	</div>
-															</div>
-															<div class="card-body-content">
-																	<h3 class="h6 card-title mb-0">
-																			<strong><a href="/build-your-own-computer">Build your own
-																							computer</a></strong>
-																	</h3>
-
-																	<div class="col-12 px-0">
-																			<div class="product-rating-box" title="1 review(s)">
-																					<div class="rating">
-																							<div class="rating-ghost">
-																									☆☆☆☆☆
-																							</div>
-																							<div class="rating-real" style="width: 100%">
-																									★★★★★
-																							</div>
-																					</div>
-																			</div>
-																	</div>
-																	<div class="d-inline-flex pb-0 pt-0">
-
-																			<div class="p-0 pr-2 align-self-center actual-price-container">
-																					<span class="h5 card-subtitle">
-																							<span class="price actual-price">$1,200.00</span>
-																					</span>
-																			</div>
-																	</div>
-																	<p class="card-text d-none">
-																			Build it
-																	</p>
-															</div>
-													</div>
-
-											</div>
-									</div>
-									<div class="col-xl-3 col-lg-4 col-sm-6 col-6 product-container">
-											<div class="card gen" data-productid="5c861fb557d5a11c90421115">
-													<a class="picture" href="/htc-one-m8-android-l-50-lollipop"
-															title="Show details for HTC One M8 Android L 5.0 Lollipop">
-															<img class="card-img-top img-fluid"
-																	alt="Picture of HTC One M8 Android L 5.0 Lollipop"
-																	src="http://demo.grandnode.com/content/images/thumbs/5c861fb557d5a11c9042111a_htc-one-m8-android-l-50-lollipop_415.jpeg"
-																	title="Show details for HTC One M8 Android L 5.0 Lollipop">
-													</a>
-													<span class="new-product-label bg-info text-white">Mới</span>
-													<div class="card-body p-0">
-															<div class="card-buttons">
-																	<div class="btn-group">
-																			<input type="button" class="btn btn-info btnAdd" value="Thêm vào giỏ">
-																			<button type="button" value="Quick View" title="Xem nhanh"
-																					class="btn btn-secondary btn-quick-view" data-toggle="modal"
-																					data-target="#modal-search">
-																					<span class="sr-only">Xem nhanh</span>
-																					<span class="material-icons mat">
-																							search
-																					</span>
-																			</button>
-																	</div>
-															</div>
-															<div class="card-body-content">
-																	<h3 class="h6 card-title mb-0">
-																			<strong><a href="/htc-one-m8-android-l-50-lollipop">HTC One M8 Android L 5.0
-																							Lollipop</a></strong>
-																	</h3>
-
-																	<div class="col-12 px-0">
-																			<div class="product-rating-box" title="0 review(s)">
-																					<div class="rating">
-																							<div class="rating-ghost">
-																									☆☆☆☆☆
-																							</div>
-																							<div class="rating-real" style="width: 0%">
-																									★★★★★
-																							</div>
-																					</div>
-																			</div>
-																	</div>
-																	<div class="d-inline-flex pb-0 pt-0">
-
-																			<div class="p-0 pr-2 align-self-center actual-price-container">
-																					<span class="h5 card-subtitle">
-																							<span class="price actual-price">$245.00</span>
-																					</span>
-																			</div>
-																	</div>
-																	<p class="card-text d-none">
-																			HTC - One (M8) 4G LTE Cell Phone with 32GB Memory - Gunmetal (Sprint)
-																	</p>
-															</div>
-													</div>
-
-											</div>
-									</div>
-							</div>
-
+				</div>
+				<div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-2">
+					<div class="card pb-0">
+						<div class="list-picture">
+							<a href="/electronics" title="Show products in category Electronics">
+								<img class="img-fluid img-thumbnail" alt="Hình ảnh máy giặt"
+									src="/static/images/maygiat.png" title="Hình ảnh máy giặt">
+							</a>
+						</div>
+						<div class="list-title mt-3 text-center">
+							<h3 class="h5 card-title m-0 p-0">
+								<a href="/electronics">
+									Máy giặt
+								</a>
+							</h3>
+						</div>
 					</div>
-
+				</div>
+				<div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-2">
+					<div class="card pb-0">
+						<div class="list-picture">
+							<a href="/apparel" title="Show products in category Apparel">
+								<img class="img-fluid img-thumbnail" alt="Hình ảnh điện thoại"
+									src="/static/images/dienthoai.jpg" title="Hình ảnh điện thoại">
+							</a>
+						</div>
+						<div class="list-title mt-3 text-center">
+							<h3 class="h5 card-title m-0 p-0">
+								<a href="/apparel">
+									Điện thoại
+								</a>
+							</h3>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-2">
+					<div class="card pb-0">
+						<div class="list-picture">
+							<a href="/books" title="Show products in category Books">
+								<img class="img-fluid img-thumbnail" alt="Hình ảnh laptop"
+									src="/static/images/laptop.jpg" title="Hình ảnh laptop">
+							</a>
+						</div>
+						<div class="list-title mt-3 text-center">
+							<h3 class="h5 card-title m-0 p-0">
+								<a href="/books">
+									Laptop
+								</a>
+							</h3>
+						</div>
+					</div>
+				</div>
 			</div>
+		</div>
+
+
+
+
+		<div class="home-page-product-grid generalMarginSupporter">
+			<h2 class="generalTitle text-center">Sản phẩm mới</h2>
+			<div class="row px-3">
+				<% for(var i=0; i<sanpham.length; i++) {%>
+				<div class="col-xl-3 col-lg-4 col-sm-6 col-6 product-container ">
+					<div class="card gen border">
+						<a class="picture" href="/chitiet/<%= bo_dau(sanpham[i].ten_sp)%>/<%= sanpham[i]._id%>/<%= sanpham[i].ma_loai%>"
+							title="Xem chi tiết <%= sanpham[i].ten_sp%>">
+							<img class="card-img-top img-fluid" alt="Picture of HTC One M8 Android L 5.0 Lollipop"
+								src="/static/images/<%= sanpham[i].loaisp[0].thu_muc_hinh%>/<%= sanpham[i].hinh_anh%>"
+								title="Xem chi tiết <%= sanpham[i].ten_sp%>">
+						</a>
+						<span class="new-product-label bg-info text-white">Mới</span>
+						<div class="card-body p-0">
+							<div class="card-buttons">
+								<div class="btn-group">
+									<input type="button" class="btn btn-info btnAdd" id="<%= sanpham[i]._id%>" value="Thêm vào giỏ">
+									<button type="button" value="Quick View" title="Xem nhanh"
+										class="btn btn-secondary btn-quick-view" data-toggle="modal"
+										data-target="#modal-search">
+										<span class="sr-only">Xem nhanh</span>
+										<span class="material-icons mat">
+											search
+										</span>
+									</button>
+								</div>
+							</div>
+							<div class="card-body-content px-1">
+								<h3 class="h6 card-title mb-0">
+									<strong><a href="/htc-one-m8-android-l-50-lollipop"><%= sanpham[i].ten_sp%></a></strong>
+								</h3>
+
+								<div class="col-12 px-0">
+									<div class="product-rating-box" title="0 review(s)">
+										<div class="rating">
+											<div class="rating-ghost">
+												☆☆☆☆☆
+											</div>
+											<div class="rating-real" style="width: 0%">
+												★★★★★
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="d-inline-flex pb-0 pt-0">
+
+									<div class="p-0 pr-2 align-self-center actual-price-container">
+										<span class="h5 card-subtitle">
+											<span class="price actual-price"><%= (sanpham[i].gia_ban).toLocaleString()%> VNĐ</span>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<%};%>
+			</div>
+
+		</div>
+
+		<div class="home-page-product-grid generalMarginSupporter">
+			<h2 class="generalTitle text-center">Sản phẩm bán chạy</h2>
+			<div class="row px-3">
+				<div class="col-xl-3 col-lg-4 col-sm-6 col-6 product-container">
+					<div class="card gen" data-productid="5c861fb957d5a11c9042120a">
+						<a class="picture" href="/25-virtual-gift-card" title="Show details for $25 Virtual Gift Card">
+							<img class="card-img-top img-fluid" alt="Picture of $25 Virtual Gift Card"
+								src="http://demo.grandnode.com/content/images/thumbs/5c861fb957d5a11c9042120e_25-virtual-gift-card_415.jpeg"
+								title="Show details for $25 Virtual Gift Card">
+						</a>
+						<div class="card-body p-0">
+							<div class="card-buttons">
+								<div class="btn-group">
+									<input type="button" class="btn btn-info btnAdd" value="Thêm vào giỏ">
+									<button type="button" value="Quick View" title="Xem nhanh"
+										class="btn btn-secondary btn-quick-view" data-toggle="modal"
+										data-target="#modal-search">
+										<span class="sr-only">Xem nhanh</span>
+										<span class="material-icons mat">
+											search
+										</span>
+									</button>
+
+								</div>
+							</div>
+							<div class="card-body-content">
+								<h3 class="h6 card-title mb-0">
+									<strong><a href="/25-virtual-gift-card">$25 Virtual Gift Card</a></strong>
+								</h3>
+
+								<div class="col-12 px-0">
+									<div class="product-rating-box" title="1 review(s)">
+										<div class="rating">
+											<div class="rating-ghost">
+												☆☆☆☆☆
+											</div>
+											<div class="rating-real" style="width: 80%">
+												★★★★★
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="d-inline-flex pb-0 pt-0">
+
+									<div class="p-0 pr-2 align-self-center actual-price-container">
+										<span class="h5 card-subtitle">
+											<span class="price actual-price">$25.00</span>
+										</span>
+									</div>
+								</div>
+								<p class="card-text d-none">
+									$25 Gift Card. Gift Cards must be redeemed through our site Web site toward
+									the purchase of eligible products.
+								</p>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="col-xl-3 col-lg-4 col-sm-6 col-6 product-container">
+					<div class="card gen" data-productid="5c861fb357d5a11c90420fee">
+						<a class="picture" href="/apple-macbook-pro-13-inch"
+							title="Show details for Apple MacBook Pro 13-inch">
+							<img class="card-img-top img-fluid" alt="Picture of Apple MacBook Pro 13-inch"
+								src="http://demo.grandnode.com/content/images/thumbs/5c861fb357d5a11c90421012_apple-macbook-pro-13-inch_415.jpeg"
+								title="Show details for Apple MacBook Pro 13-inch">
+						</a>
+						<span class="change-percent bg-success text-white">
+							<span>-10%</span>
+						</span>
+						<div class="card-body p-0">
+							<div class="card-buttons">
+								<div class="btn-group">
+									<input type="button" class="btn btn-info btnAdd" value="Thêm vào giỏ">
+									<button type="button" value="Quick View" title="Xem nhanh"
+										class="btn btn-secondary btn-quick-view" data-toggle="modal"
+										data-target="#modal-search">
+										<span class="sr-only">Xem nhanh</span>
+										<span class="material-icons mat">
+											search
+										</span>
+									</button>
+								</div>
+							</div>
+							<div class="card-body-content">
+								<h3 class="h6 card-title mb-0">
+									<strong><a href="/apple-macbook-pro-13-inch">Apple MacBook Pro
+											13-inch</a></strong>
+								</h3>
+
+								<div class="col-12 px-0">
+									<div class="product-rating-box" title="1 review(s)">
+										<div class="rating">
+											<div class="rating-ghost">
+												☆☆☆☆☆
+											</div>
+											<div class="rating-real" style="width: 100%">
+												★★★★★
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="d-inline-flex pb-0 pt-0">
+
+									<div class="p-0 pr-2 align-self-center actual-price-container">
+										<span class="h5 card-subtitle">
+											<span class="price actual-price">$1,800.00</span>
+										</span>
+									</div>
+									<div class="col px-0 align-self-center">
+										<span class="h6 card-subtitle">
+											<span class="price old-price">$2,000.00</span>
+										</span>
+									</div>
+								</div>
+								<p class="card-text d-none">
+									A groundbreaking Retina display. A new force-sensing trackpad. All-flash
+									architecture. Powerful dual-core and quad-core Intel processors. Together,
+									these features take the notebook to a new level of performance. And they
+									will do the same for you in everything you create.
+								</p>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="col-xl-3 col-lg-4 col-sm-6 col-6 product-container">
+					<div class="card gen" data-productid="5c861fb257d5a11c90420fc4">
+						<a class="picture" href="/build-your-own-computer"
+							title="Show details for Build your own computer">
+							<img class="card-img-top img-fluid" alt="Picture of Build your own computer"
+								src="http://demo.grandnode.com/content/images/thumbs/5c861fb257d5a11c90420fde_build-your-own-computer_415.jpeg"
+								title="Show details for Build your own computer">
+						</a>
+						<div class="card-body p-0">
+							<div class="card-buttons">
+								<div class="btn-group">
+									<input type="button" class="btn btn-info btnAdd" value="Thêm vào giỏ">
+									<button type="button" value="Quick View" title="Xem nhanh"
+										class="btn btn-secondary btn-quick-view" data-toggle="modal"
+										data-target="#modal-search">
+										<span class="sr-only">Xem nhanh</span>
+										<span class="material-icons mat">
+											search
+										</span>
+									</button>
+								</div>
+							</div>
+							<div class="card-body-content">
+								<h3 class="h6 card-title mb-0">
+									<strong><a href="/build-your-own-computer">Build your own
+											computer</a></strong>
+								</h3>
+
+								<div class="col-12 px-0">
+									<div class="product-rating-box" title="1 review(s)">
+										<div class="rating">
+											<div class="rating-ghost">
+												☆☆☆☆☆
+											</div>
+											<div class="rating-real" style="width: 100%">
+												★★★★★
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="d-inline-flex pb-0 pt-0">
+
+									<div class="p-0 pr-2 align-self-center actual-price-container">
+										<span class="h5 card-subtitle">
+											<span class="price actual-price">$1,200.00</span>
+										</span>
+									</div>
+								</div>
+								<p class="card-text d-none">
+									Build it
+								</p>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="col-xl-3 col-lg-4 col-sm-6 col-6 product-container">
+					<div class="card gen" data-productid="5c861fb557d5a11c90421115">
+						<a class="picture" href="/htc-one-m8-android-l-50-lollipop"
+							title="Show details for HTC One M8 Android L 5.0 Lollipop">
+							<img class="card-img-top img-fluid" alt="Picture of HTC One M8 Android L 5.0 Lollipop"
+								src="http://demo.grandnode.com/content/images/thumbs/5c861fb557d5a11c9042111a_htc-one-m8-android-l-50-lollipop_415.jpeg"
+								title="Show details for HTC One M8 Android L 5.0 Lollipop">
+						</a>
+						<span class="new-product-label bg-info text-white">Mới</span>
+						<div class="card-body p-0">
+							<div class="card-buttons">
+								<div class="btn-group">
+									<input type="button" class="btn btn-info btnAdd" value="Thêm vào giỏ">
+									<button type="button" value="Quick View" title="Xem nhanh"
+										class="btn btn-secondary btn-quick-view" data-toggle="modal"
+										data-target="#modal-search">
+										<span class="sr-only">Xem nhanh</span>
+										<span class="material-icons mat">
+											search
+										</span>
+									</button>
+								</div>
+							</div>
+							<div class="card-body-content">
+								<h3 class="h6 card-title mb-0">
+									<strong><a href="/htc-one-m8-android-l-50-lollipop">HTC One M8 Android L 5.0
+											Lollipop</a></strong>
+								</h3>
+
+								<div class="col-12 px-0">
+									<div class="product-rating-box" title="0 review(s)">
+										<div class="rating">
+											<div class="rating-ghost">
+												☆☆☆☆☆
+											</div>
+											<div class="rating-real" style="width: 0%">
+												★★★★★
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="d-inline-flex pb-0 pt-0">
+
+									<div class="p-0 pr-2 align-self-center actual-price-container">
+										<span class="h5 card-subtitle">
+											<span class="price actual-price">$245.00</span>
+										</span>
+									</div>
+								</div>
+								<p class="card-text d-none">
+									HTC - One (M8) 4G LTE Cell Phone with 32GB Memory - Gunmetal (Sprint)
+								</p>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+
 	</div>
+</div>
 <% include layout/footer %>

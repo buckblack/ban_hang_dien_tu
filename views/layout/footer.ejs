@@ -262,6 +262,38 @@
         </div>
     </div>
     <script src="/js/scripts.js"></script>
+    <script>
+    if(sessionStorage.getItem('gio_hang') != null)
+	{
+		so_san_pham.innerHTML=JSON.parse(sessionStorage.getItem('gio_hang')).length
+	}
+        $(".btnAdd").click(function(){
+            if($(this).val()=="Thêm vào giỏ")
+            {
+                $(this).css({"background-color":"#9C3"})
+                $(this).val("✔ đã thêm")
+                $this=$(this)
+                setTimeout(function(){
+                    $this.val("Thêm vào giỏ")
+                    $this.css({"background-color":"##0091b5"});
+                    },1000)
+                var id=$(this).attr("id");
+                alert(id)
+                var gio_hang;
+                if (sessionStorage.getItem('gio_hang') == null) {
+                    gio_hang = [];
+                } else {
+                    gio_hang = JSON.parse(sessionStorage.getItem('gio_hang'));
+                }
+                if(gio_hang.find(x=>x.id==id)==undefined)
+                {
+                    gio_hang.push({'id':id,'so_luong':1})
+                    sessionStorage.setItem('gio_hang', JSON.stringify(gio_hang))
+                    so_san_pham.innerHTML=gio_hang.length
+                }
+            }
+        });
+    </script>
     <script type='text/javascript' data-cfasync='false'>
         window.purechatApi = {
             l: [],
