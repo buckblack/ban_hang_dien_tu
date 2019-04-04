@@ -34,7 +34,7 @@ router.get('/', async function (req, res, next) {
     }
   ]).toArray(function (err, result) {
       res.render('trangchu', {
-        tieude: 'Trang chủ',
+        tieude: 'Gear Store | Trang chủ',
         sanpham: result,
         thuonghieu: thuonghieu
       });

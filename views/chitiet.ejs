@@ -14,33 +14,31 @@
 	<div class="products">
 		<div class="container">
 			<div class="agileinfo_single">
-				<% sanpham.forEach(sp => {%>
 				<div class="col-md-4 agileinfo_single_left">
-					<img id="example" src="/static/images/<%= sp.loaisp[0].thu_muc_hinh%>/<%= sp.hinh_anh%>" alt=" " class="img-responsive">
+					<img id="example" src="/static/images/<%= sanpham[0].loaisp[0].thu_muc_hinh%>/<%= sanpham[0].hinh_anh%>" alt=" " class="img-responsive">
 				</div>
 				<div class="col-md-8 agileinfo_single_right">
-				<h2><%= sp.ten_sp%></h2>
+				<h2><%= sanpham[0].ten_sp%></h2>
 
 					<div class="w3agile_description">
 						<h4>Mô tả :</h4>
-						<p><%= sp.noi_dung%></p>
+						<p><%= sanpham[0].noi_dung%></p>
 					</div>
 					<div class="snipcart-item block">
 						<div class="snipcart-thumb agileinfo_single_right_snipcart">
-							<h4 class="m-sing"><%= sp.gia_ban.toLocaleString()%> VNĐ</h4>
+							<h4 class="m-sing"><%= sanpham[0].gia_ban.toLocaleString()%> VNĐ</h4>
 						</div>
 						<div class="snipcart-details agileinfo_single_right_details">
 							<form action="#" method="post">
 								<fieldset>
 									<input type="hidden" id="">
 									<input type="hidden" name="currency_code" value="VND">
-									<input type="button" id="<%= sp._id%>" value="thêm vào giỏ" class="button btnAdd" >
+									<input type="button" id="<%= sanpham[0]._id%>" value="thêm vào giỏ" class="button btnAdd" >
 								</fieldset>
 							</form>
 						</div>
 					</div>
 				</div>
-				<%});%>
 				<div class="clearfix"> </div>
 			</div>
 
@@ -99,10 +97,14 @@
             <script>
 			CKEDITOR.replace( 'binh_luan', { customConfig : 'config_binh_luan.js' } );
 			</script>
+			<button type="button" class="btn btn-primary text-center">Gửi bình luận</button>
             <div align="left" class="login-form-grids">
 				<h5>Thông tin cá nhân</h5>
 					<input type="text" name="ten_khach_hang"  value="" id="bl_ten_kh" placeholder="Họ tên..." required >
 					<input style="margin-bottom:15px" type="email" value="" id="bl_email" name="email" placeholder="Địa chỉ Email" required >
+					<% if (1<3) { %>
+					<input type="text" name="dien_thoai" value="" id="bl_dien_thoai" placeholder="Nhập số điện thoại" required >
+					<% } %>
 					<input type="text" name="dien_thoai" value="" id="bl_dien_thoai" placeholder="Nhập số điện thoại" required >
 					<input type="submit" name="btn_binh_luan" onclick="return kiem_tra_binh_luan()" value="Gửi bình luận">
 
@@ -120,21 +122,14 @@
       <th colspan="2" scope="col">Bình luận:</th>
     </tr>
   </thead>
-  <tbody>
+	<tbody>
+	<% sanpham[0].binh_luan.forEach(row => {%>
     <tr>
-      <th scope="row">Tên 1</th>
-      <td>MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark MarkMark </td>
+      <th scope=""><%= row.khach_hang.ho_ten%></th>
+      <td><%= row.noi_dung%></td>
 
-    </tr>
-    <tr>
-      <th scope="row">Tên 2</th>
-      <td>Jacob</td>
-
-    </tr>
-    <tr>
-      <th scope="row">Tên 3</th>
-      <td>@twitter</td>
-    </tr>
+		</tr>
+	<%});%>
   </tbody>
 </table>
 </div>

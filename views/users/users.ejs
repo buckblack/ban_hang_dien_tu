@@ -19,12 +19,17 @@
         <input type="text" name="dia_chi" id="dang_ky_dia_chi" placeholder="Địa chỉ..." required >
         <input type="text" name="dien_thoai" id="dang_ky_dien_thoai" placeholder="Điện thoại..." required >
       <h6>Thông tin đăng nhập</h6>
-        <input style="margin-bottom:15px" type="text" name="ten_dang_nhap" id="dang_ky_ten_dang_nhap" placeholder="Tên đăng nhập" readonly >
         <input type="email" name="email" id="dang_ky_email" placeholder="Địa chỉ Email" readonly >
-        <input type="submit" name="btn_dang_ky" value="Cập nhật" onclick="return kiem_tra_thong_tin_dang_ky()">
+        <input type="submit" name="btn_dang_ky" value="Cập nhật">
       </form>
     </div>
 
   </div>
 </div>
  <% include ../layout/footer %>
+ <script>
+    dang_ky_ten_khach_hang.value=sessionStorage.getItem('khach_hang_Ten')
+    dang_ky_dia_chi.value=sessionStorage.getItem('khach_hang_Dia_chi')
+    dang_ky_dien_thoai.value=sessionStorage.getItem('khach_hang_Dien_thoai')
+    dang_ky_email.value=sessionStorage.getItem('khach_hang_Email')
+ </script>

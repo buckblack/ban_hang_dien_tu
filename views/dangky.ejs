@@ -11,24 +11,86 @@
 			<h2>Đăng ký</h2>
 			<div class="login-form-grids">
 				<h5>Thông tin cá nhân</h5>
-				<form  method="post">
 					<input type="text" name="ten_khach_hang" id="dang_ky_ten_khach_hang" placeholder="Họ tên..." required >
-					<input type="text" name="dia_chi" id="dang_ky_dia_chi" placeholder="Địa chỉ..." required >
-                    <input type="text" name="dien_thoai" id="dang_ky_dien_thoai" placeholder="Điện thoại..." required >
-
-
+					<input type="text" name="dia_chi" id="dang_ky_dia_chi" placeholder="Địa chỉ..." style="margin:1rem 0" required >
+					<input type="text" name="dien_thoai" id="dang_ky_dien_thoai" placeholder="Điện thoại..." required >
+					<div class="form-group form-inline" style="margin-top:1rem">
+						<span>Giới tính</span>
+						<select class="form-control" name="" id="gioi_tinh">
+							<option value="nam" selected>Nam</option>
+							<option value="nữ">Nữ</option>
+						</select>
+					</div>
 				<h6>Thông tin đăng nhập</h6>
-					<input style="margin-bottom:15px" type="text" name="ten_dang_nhap" id="dang_ky_ten_dang_nhap" placeholder="Tên đăng nhập" required >
-
 					<input type="email" name="email" id="dang_ky_email" placeholder="Địa chỉ Email" required >
 					<input type="password" name="mat_khau" id="dang_ky_mat_khau" placeholder="Mật khẩu" required >
 					<input type="password" name="nhap_lai_mat_khau" id="dang_ky_nhap_lai_mat_khau"  placeholder="Nhập lại mật khẩu" required >
 
-					<input type="submit" name="btn_dang_ky" value="Đăng ký" onclick="return kiem_tra_thong_tin_dang_ky()">
-				</form>
+					<input type="button" class="btn btn-primary" style="width:100%;margin-top:10px" name="btn_dang_ky" id="btn_dang_ky" value="Đăng ký" onclick="return kiem_tra_thong_tin_dang_ky()">
 			</div>
 
 		</div>
 	</div>
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary btn-lg" id="modal_thongbao" style="display:none" data-toggle="modal" data-target="#modelId">
+	  Launch
+	</button>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Thông báo</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+				</div>
+				<div class="modal-body" id="TH_thongbao">
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+				</div>
+			</div>
+		</div>
+	</div>
 <!-- //register -->
 <% include layout/footer %>
+<script>
+	btn_dang_ky.onclick=()=>{
+		TH_thongbao.innerHTML='Đang xử lý...'
+		modal_thongbao.click()
+		var form_data={
+			'email':dang_ky_email.value,
+			'ho_ten' : dang_ky_ten_khach_hang.value,
+			'dia_chi' : dang_ky_dia_chi.value,
+			'password' : dang_ky_mat_khau.value,
+			'chuc_vu' : 'khách hàng',
+			'dien_thoai' : dang_ky_dien_thoai.value,
+			'gioi_tinh' : gioi_tinh.value
+		}
+		$.ajax(
+			{
+				url:window.location.origin+"/dangky",
+				type:"POST",
+				data:form_data,
+				success:(data)=>{
+					data=JSON.parse(data)
+					if(data.errorCode==0)
+					{
+						TH_thongbao.innerHTML=data.message
+						setTimeout(() => {
+							window.location=window.location.origin+"/dangnhap"
+    					}, 3000);
+					}
+					else
+					{
+						TH_thongbao.innerHTML=data.message
+					}
+				}
+	
+			}
+		)
+	}
+</script>

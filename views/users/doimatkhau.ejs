@@ -13,14 +13,79 @@
 <div class="register">
   <div class="container">
     <div class="login-form-grids">
-      <form  method="post">
-        <input type="password" name="" id="" placeholder="Mật khẩu hiện tại..." required >
-        <input type="password" name="" id="" placeholder="Mật khẩu mới..." required >
-        <input type="password" name="" id="" placeholder="Mhật lại mật khẩu mới..." required >
-        <input type="submit" name="btn_dang_ky" value="Cập nhật" onclick="return kiem_tra_thong_tin_dang_ky()">
+      <form >
+        <input type="password" name="" id="mat_khau_hien_tai" placeholder="Mật khẩu hiện tại..." required >
+        <input type="password" name="" id="mat_khau_moi" placeholder="Mật khẩu mới..." required >
+        <input type="password" name="" id="nhap_lai_mat_khau" placeholder="Mhật lại mật khẩu mới..." required >
+        <input type="button" class="btn btn-primary" style="width:100%; margin-top:1rem" id="btn_doi_mat_khau" name="btn_doi_mat_khau" value="Cập nhật">
       </form>
     </div>
 
   </div>
 </div>
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary btn-lg" id="modal_thongbao" style="display:none" data-toggle="modal" data-target="#modelId">
+	  Launch
+	</button>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+		<div class="modal-dialog modal-sm" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Thông báo</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+				</div>
+				<div class="modal-body" id="TH_thongbao">
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+				</div>
+			</div>
+		</div>
+	</div>
  <% include ../layout/footer %>
+ <script>
+   btn_doi_mat_khau.onclick=()=>{
+    if(mat_khau_hien_tai.value.trim()=='')
+    {
+       TH_thongbao.innerHTML=`Chưa nhập mật khẩu hiện tại`
+       modal_thongbao.click();
+       return;
+    }
+    if(mat_khau_moi.value.trim()=='')
+     {
+        TH_thongbao.innerHTML=`Chưa nhập mật khẩu mới`
+        modal_thongbao.click();
+        return;
+     }
+     if(mat_khau_moi.value.trim()!=nhap_lai_mat_khau.value.trim())
+     {
+        TH_thongbao.innerHTML=`Mật khẩu chưa trùng khớp`
+        modal_thongbao.click();
+        return;
+     }
+     TH_thongbao.innerHTML='Đang xử lý...'
+      modal_thongbao.click();
+     var form_data={
+			'id' : sessionStorage.getItem('khach_hang_Id'),
+      'mat_khau_moi' : mat_khau_moi.value.trim(),
+      'mat_khau_hien_tai' : mat_khau_hien_tai.value.trim()
+		}
+		$.ajax(
+			{
+				url:window.location.origin+"/doimatkhau",
+				type:"POST",
+				data:form_data,
+				success:(data)=>{
+					data=JSON.parse(data)
+          TH_thongbao.innerHTML=data.message
+				}
+	
+			}
+		)
+   }
+ </script>

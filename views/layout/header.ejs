@@ -1,41 +1,188 @@
-<!-- header -->
-	<div class="agileits_header">
-		<div class="container">
-			<div class="w3l_offers">
-				<a href="/" style="float:left"><img src="/static/images/logo/logo.png" height="38px"  /></a>
-                <div class="product_list_header" style="padding-right: 10px;float:right" onclick="window.location='/giohang'">
+<body class="is-ready">
+    <div class="ajax-loading-block-window" style="display: none">
+        <div id="loading">
+            <div class="loader"></div>
+        </div>
+    </div>
+    <div id="bar-notification" class="generalNote card text-white text-xs-center" style="display:none;">
+        <span class="close" title="Close"><span class="material-icons" aria-hidden="true">close</span></span>
+    </div>
+    <a class="popup-action-banner" data-mfp-src="#action_modal_banner" style="display:none"></a>
+    <div id="action_modal_banner" class="zoom-anim-dialog mfp-hide">
+        <div id="action-body-banner"></div>
+    </div>
+    <a class="popup-action-form" data-mfp-src="#action_modal_form" style="display:none"></a>
+    <div id="action_modal_form" class="zoom-anim-dialog mfp-hide">
+        <form method="post" id="interactive-form" action="/popupinteractiveform">
+            <div class="message-error">
+                <div class="validation-summary-errors">
+                    <div id="errorMessages"></div>
+                </div>
+            </div>
+            <div id="action-body-form"></div>
+            <div style="padding: 20px 0px 0px 0px;">
+                <input type="submit" id="send-interactive-form" class="btn btn-success interactive-form-button"
+                    value="SEND">
+            </div>
+            <input name="__RequestVerificationToken" type="hidden"
+                value="CfDJ8AVMRiWDjlhHqVrV9aYtsghQNDPKV9OlzkLWPs6iVhYEfq7QeGsfC5PeBOponMp-N2n87ILC0Wvy37vYWp7oJQ5DTBsZzkZHgCDwRoBvYqYdS9T3KZ8XQfzTWjHtZXSpkb0RPdW-cB7MH3DOE6_WzIY">
+        </form>
+    </div>
+    <div class="modal fade" id="ModalAddToCart" tabindex="-1" role="dialog" aria-labelledby="ModalAddToCartLabel"
+        aria-hidden="true">
+    </div>
+    <div class="modal fade" id="ModalQuickView" tabindex="-2" role="dialog" aria-labelledby="ModalQuickViewLabel"
+        aria-hidden="true">
+    </div>
+    <div class="modal fade" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header p-0 border-bottom-0">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body p-0">
+                    <div id="dialog_error" class="bg-danger"></div>
+                    <div id="dialog_success" class="bg-success"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main class="c-offcanvas-content-wrap" role="main">
+        <header role="presentation">
+            <nav class="navbar fixed-top navbar-light navUp mobile-top p-0" role="navigation">
+                <ul class="mobile-top-menu container px-2 px-sm-0 d-lg-none d-flex mb-0">
+                    <li class="logo-mobile"></li>
+                    <li class="nav-item d-flex align-items-center d-lg-none mobile-search" data-toggle="modal"
+                        data-target="#searchModal">
+                        <a class="nav-link">
+                            <span class="material-icons mat">
+                                search
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav header-links flex-row container px-lg-3 px-0">
+                    <li class="nav-item col d-lg-none d-flex menu-open-button">
+                        <a class="js-offcanvas-trigger nav-link c-button" data-offcanvas-trigger="left" href="#left"
+                            role="button" aria-controls="left" aria-expanded="false"><span class="c-button__text">
+                                <div id="mobile-menu-opener"><span></span><span></span><span></span></div>
+                                <span class="d-lg-none d-block text-muted mobile-desc">Menu</span>
+                            </span></a>
+                    </li>
 
-						<input type="hidden" name="cmd" value="_cart">
-						<input type="hidden" name="display" value="1">
-						<button class="w3view-cart" type="button" name="submit" value="" ><i class="fa fa-cart-arrow-down" aria-hidden="true"><sup style="font-size:12px">(<b style="color:#F00" id="so_san_pham">0</b>)</sup></i></button>
 
-			</div>
-                <div style="float:right" class="agile-login">
-				<ul>
+                    <li class="nav-item col d-flex">
+                        <a class="nav-link mr-2" href="/login">
+                            <span class="hl-label">
+                                <span class="material-icons mat">
+                                    lock_open
+                                </span>
+                            </span>
+                            <span class="d-flex align-items-center mobile-desc">Đăng nhập</span>
+                        </a>
+                        <a class="nav-link ml-2" href="/login">
+                            <span class="hl-label">
+                                <span class="material-icons mat">
+                                    lock
+                                </span>
+                            </span>
+                            <span class="d-flex align-items-center mobile-desc">Đăng ký</span>
+                        </a>
+                    </li>
+                    <li class="nav-item col" id="topcartlink">
+                        <div class="btn-group dropdown">
+                            <a class="nav-link js-offcanvas-trigger c-button" data-offcanvas-trigger="right"
+                                onclick="window.location=window.location.origin+'/giohang'" href="#" role="button"
+                                aria-controls="right" aria-expanded="false"><span class="c-button__text">
+                                    <span class="cart-label hl-label">
+                                        <span class="material-icons mat">
+                                            shopping_cart
+                                        </span>
+                                    </span>
+                                    <span class="d-flex align-items-center cart-name mobile-desc">
+                                        Giỏ hàng
+                                    </span>
+                                    <span class="cart-qty">0</span>
+                                </span></a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="container">
+                <div class="headBottom d-flex align-items-center d-lg-inline-flex text-lg-left text-center mt-0 mb-0">
+                    <div class="header-logo pr-0 pl-0 d-lg-block d-none">
+                        <h1 class="store-logo mb-0">
+                            <a href="/">
+                                <img class="img-fluid" title="" alt="Your store name"
+                                    src="http://demo.grandnode.com/Themes/DefaultClean/Content/images/logo.png">
+                                <span class="sr-only">Logo</span>
+                            </a>
+                        </h1>
 
-					<li><a href="/dangky"> Đăng ký </a></li>
-					<li><a href="/dangnhap"> Đăng nhập </a></li>
-
-				</ul>
-				</div>
-
-			</div>
-            <div  class="w3l_search">
-
-			<form action="tim_kiem" method="post">
-				<input id="keyword"  name="q" type="search"  placeholder="Tìm sản phẩm..." required>
-				<button type="button" class="btn btn-default search" onclick="kiem_tra_tim_kiem()" name="btn_tim_kiem" aria-label="Left Align">
-					<i class="fa fa-search" aria-hidden="true"> </i>
-				</button>
-
-			</form>
-		</div>
+                    </div>
+                    <div class="col-lg-6 col formSearch ml-auto pr-0 d-none d-lg-block">
+                        <form method="get" id="small-search-box-form" action="/search" novalidate="novalidate">
+                            <input type="hidden" value="true" data-val="true"
+                                data-val-required="The Box field is required." id="Box" name="Box">
+                            <label for="small-searchterms" class="sr-only">Search store</label>
+                            <div class="input-group flex-row">
+                                <input type="text" class="form-control search-box-text ui-autocomplete-input"
+                                    id="small-searchterms" autocomplete="off" name="q" placeholder="Nhập từ khóa...">
 
 
+                                <div class="input-group-append">
+                                    <button type="submit"
+                                        class="btn btn-info search-box-button float-sm-right d-inline-flex">
+                                        <span class="sr-only">Search store</span>
+                                        <span class="material-icons mat">
+                                            search
+                                        </span>
+                                    </button>
+                                </div>
+                                <ul class="advanced-search-results row">
+                                    <li class="left-side col-md-6 col-12">
+                                        <ul>
+                                            <li class="categories-container">
+                                                <a class="title">Categories</a>
+                                                <div class="no-data pl-md-3 pl-0">No categories were found that matched
+                                                    your criteria.</div>
+                                                <ul></ul>
+                                            </li>
+                                            <li class="manufacturers-container">
+                                                <a href="/manufacturer/all" class="title">Manufacturers</a>
+                                                <div class="no-data pl-0">No manufacturers were found that matched your
+                                                    criteria.</div>
+                                                <ul></ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="right-side col-md-6 col-12">
+                                        <a class="products-title title">Products</a>
+                                        <div class="no-data pl-md-3 pl-0">No products were found that matched your
+                                            criteria.</div>
+                                        <ul class="products-container"></ul>
+                                    </li>
+                                    <li class="center-side col-12">
+                                        <ul>
+                                            <li class="blog-container mb-3">
+                                                <a href="/blog" class="title">Blog</a>
+                                                <div class="no-data pl-md-3 pl-0">No blog posts were found that matched
+                                                    your criteria.</div>
+                                                <ul></ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
 
 
-		</div>
-	</div>
 
+                        </form>
 
-<!-- //header -->
+                    </div>
+                </div>
+            </div>
+        </header>
