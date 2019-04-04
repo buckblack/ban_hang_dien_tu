@@ -261,7 +261,7 @@
             </div>
         </div>
     </div>
-    <script src="/js/scripts.js"></script>
+    
     <script>
     if(sessionStorage.getItem('gio_hang') != null)
 	{
@@ -278,7 +278,6 @@
                     $this.css({"background-color":"##0091b5"});
                     },1000)
                 var id=$(this).attr("id");
-                alert(id)
                 var gio_hang;
                 if (sessionStorage.getItem('gio_hang') == null) {
                     gio_hang = [];

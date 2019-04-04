@@ -1,109 +1,95 @@
 <% include layout/head %>
-
 <% include layout/header %>
-
 <% include layout/nav %>
-
-<% include layout/thanh_trang_thai %>
+<% include thuvien/bodau %>
 <!-- checkout -->
+<div class="container page-container">
+	<div class="page home-page custom-container" id="checkout">
+	<h2 class="generalTitle text-sm-center">Giỏ hàng</h2>
+					<table class="table table-striped table-hover" style="width:100%">
+						<caption style="text-align:right; font-weight:bold">
+							<a href="#" onclick="xoa_gio_hang()">XOÁ GIỎ HÀNG</a>
+						</caption>
+						<thead>
+							<tr>
+								<th>STT</th>
+								<th>Hình ảnh</th>
+								<th>số lượng</th>
+								<th>Tên sản phẩm</th>
+								<th>Giá</th>
+								<th>Xoá</th>
+							</tr>
+						</thead>
+						<tbody id="TH_gio_hang">
 
-<div class="checkout" id="checkout">
-  <div class="container">
-    <div class="checkout-right">
-      <table class="timetable_sub">
-        <caption style="text-align:right; font-weight:bold">
-        <a href="#" onclick="xoa_gio_hang()">XOÁ GIỎ HÀNG</a>
-        </caption>
-        <thead>
-          <tr>
-            <th>STT</th>
-            <th>Hình ảnh</th>
-            <th>số lượng</th>
-            <th>Tên sản phẩm</th>
-            <th>Giá</th>
-            <th>Xoá</th>
-          </tr>
-				</thead>
-				<tbody  id="TH_gio_hang">
+						</tbody>
+						<tr class="rem3">
+							<td style="font-size:20px; font-weight:bold" colspan="6" class="invert">Tổng tiền: <span
+									id="tinh_tong_tien">100000000</span> VNĐ</td>
+						</tr>
 
-				</tbody>
-        <tr class="rem3">
-          <td style="font-size:20px; font-weight:bold" colspan="6" class="invert">Tổng tiền: <span id="tinh_tong_tien">100000000</span> VNĐ</td>
-        </tr>
+					</table>
+				<div class="checkout-left">
+					<div class="checkout-left-basket">
+						<h4><a href="xac_nhan_thanh_toan" style="color:#FFF">tiến hành Thanh toán</a></h4>
+					</div>
+					<div class="checkout-right-basket"> <a href="."><span class="glyphicon glyphicon-menu-left"
+								aria-hidden="true"></span>Tiếp tục mua sắm</a> </div>
+				</div>
+			
 
-      </table>
-    </div>
-    <div class="checkout-left">
-      <div class="checkout-left-basket">
-        <h4><a href="xac_nhan_thanh_toan" style="color:#FFF">tiến hành Thanh toán</a></h4>
-      </div>
-      <div class="checkout-right-basket"> <a href="."><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Tiếp tục mua sắm</a> </div>
-      <div class="clearfix"> </div>
-    </div>
-  </div>
-  
-  </div>
-
+	</div>
+</div>
 <!-- //checkout -->
 <script>
-var tongtien=0;
-async function doi_so_luong(id,giaban)
-{
-	var gio_hang=JSON.parse(sessionStorage.getItem('gio_hang'));
-	var sl=document.getElementById('so_luong_'+id).value
-	if(Number(sl)<=0)
-	{
-		alert('Số lượng không hợp lệ!')
-		return
-	}
-	await gio_hang.forEach(row => {
-			if(row.id==id)
-			{
-				tongtien-=Number(row.so_luong)*Number(giaban)
-				row.so_luong=Number(sl)
-				tongtien+=Number(sl)*Number(giaban)
-				tinh_tong_tien.innerHTML=tongtien.toLocaleString('en-GB')
+	var tongtien = 0;
+	async function doi_so_luong(id, giaban) {
+		var gio_hang = JSON.parse(sessionStorage.getItem('gio_hang'));
+		var sl = document.getElementById('so_luong_' + id).value
+		if (Number(sl) <= 0) {
+			alert('Số lượng không hợp lệ!')
+			return
+		}
+		await gio_hang.forEach(row => {
+			if (row.id == id) {
+				tongtien -= Number(row.so_luong) * Number(giaban)
+				row.so_luong = Number(sl)
+				tongtien += Number(sl) * Number(giaban)
+				tinh_tong_tien.innerHTML = tongtien.toLocaleString('en-GB')
 			}
-	});
-	sessionStorage.setItem('gio_hang',JSON.stringify(gio_hang))
-}
-
-function xoa_gio_hang()
-{
-	if(confirm("Xác nhận xoá giỏ hàng"))
-	{
-		sessionStorage.removeItem('gio_hang')
-		window.location="/giohang"
+		});
+		sessionStorage.setItem('gio_hang', JSON.stringify(gio_hang))
 	}
-	
-}
 
-function xoa_1_gio_hang(id)
-{
-	gio_hang=JSON.parse(sessionStorage.getItem('gio_hang'));
-	gio_hang=gio_hang.filter(x=>x.id!=id)
-	if(gio_hang.length==0)
-	{
-		sessionStorage.removeItem('gio_hang')
-		window.location="/giohang"
-	}
-	else
-	{
-		sessionStorage.setItem('gio_hang',JSON.stringify(gio_hang))
-		window.location="/giohang"
-	}
-}
+	function xoa_gio_hang() {
+		if (confirm("Xác nhận xoá giỏ hàng")) {
+			sessionStorage.removeItem('gio_hang')
+			window.location = "/giohang"
+		}
 
-function doc_san_pham(id,stt,soluong){
-	$.ajax(
-		{
-			url:window.location.origin+"/tim-kiem/gio-hang/"+id,
-			type:"GET",
-			success:(data)=>{
-				var kq= JSON.parse(data)
-				tongtien+=Number(soluong)*Number(kq[0].gia_ban)
-				tinh_tong_tien.innerHTML=tongtien.toLocaleString('en-GB')
-				TH_gio_hang.innerHTML+=`
+	}
+
+	function xoa_1_gio_hang(id) {
+		gio_hang = JSON.parse(sessionStorage.getItem('gio_hang'));
+		gio_hang = gio_hang.filter(x => x.id != id)
+		if (gio_hang.length == 0) {
+			sessionStorage.removeItem('gio_hang')
+			window.location = "/giohang"
+		} else {
+			sessionStorage.setItem('gio_hang', JSON.stringify(gio_hang))
+			window.location = "/giohang"
+		}
+	}
+
+	function doc_san_pham(id, stt, soluong) {
+		$.ajax({
+			url: window.location.origin + "/tim-kiem/gio-hang/" + id,
+			type: "GET",
+			success: (data) => {
+				var kq = JSON.parse(data)
+				tongtien += Number(soluong) * Number(kq[0].gia_ban)
+				tinh_tong_tien.innerHTML = tongtien.toLocaleString('en-GB')
+				TH_gio_hang.innerHTML += `
 				<tr>
 					<td class="invert">${stt}</td>
 					<td class="invert-image"><a href="/chitiet/${bo_dau(kq[0].ten_sp)}/${kq[0]._id}/${kq[0].loaisp[0]._id}">
@@ -121,21 +107,18 @@ function doc_san_pham(id,stt,soluong){
 				`
 			}
 
-		}
-	)
-}
-if (sessionStorage.getItem('gio_hang') == null) {
-	checkout.innerHTML=`
+		})
+	}
+	if (sessionStorage.getItem('gio_hang') == null) {
+		checkout.innerHTML = `
 	<p align="center" style="color:#F00; font-size:24px; font-weight:bold"><br>Chưa có sản phẩm nào trong giỏ</p>
 	`
-} else {
-	var gio_hang = JSON.parse(sessionStorage.getItem('gio_hang'));
-	var stt=1;
-	gio_hang.forEach(row => {
-			doc_san_pham(row.id,stt++,row.so_luong)
-	});
-}
-
+	} else {
+		var gio_hang = JSON.parse(sessionStorage.getItem('gio_hang'));
+		var stt = 1;
+		gio_hang.forEach(row => {
+			doc_san_pham(row.id, stt++, row.so_luong)
+		});
+	}
 </script>
 <% include layout/footer %>
-
