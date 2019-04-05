@@ -1,0 +1,987 @@
+<html>
+
+<head>
+    <title>Your store</title>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="grandnode">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link href="../giaodien/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../giaodien/css/style.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="http://demo.grandnode.com/favicon.ico">
+</head>
+
+<body class="is-ready">
+    <div class="ajax-loading-block-window" style="display: none">
+        <div id="loading">
+            <div class="loader"></div>
+        </div>
+    </div>
+    <div id="bar-notification" class="generalNote card text-white text-xs-center" style="display:none;">
+        <span class="close" title="Close"><span class="material-icons" aria-hidden="true">close</span></span>
+    </div>
+    <a class="popup-action-banner" data-mfp-src="#action_modal_banner" style="display:none"></a>
+    <div id="action_modal_banner" class="zoom-anim-dialog mfp-hide">
+        <div id="action-body-banner"></div>
+    </div>
+    <a class="popup-action-form" data-mfp-src="#action_modal_form" style="display:none"></a>
+    <div id="action_modal_form" class="zoom-anim-dialog mfp-hide">
+        <form method="post" id="interactive-form" action="/popupinteractiveform">
+            <div class="message-error">
+                <div class="validation-summary-errors">
+                    <div id="errorMessages"></div>
+                </div>
+            </div>
+            <div id="action-body-form"></div>
+            <div style="padding: 20px 0px 0px 0px;">
+                <input type="submit" id="send-interactive-form" class="btn btn-success interactive-form-button"
+                    value="SEND">
+            </div>
+            <input name="__RequestVerificationToken" type="hidden"
+                value="CfDJ8AVMRiWDjlhHqVrV9aYtsghQNDPKV9OlzkLWPs6iVhYEfq7QeGsfC5PeBOponMp-N2n87ILC0Wvy37vYWp7oJQ5DTBsZzkZHgCDwRoBvYqYdS9T3KZ8XQfzTWjHtZXSpkb0RPdW-cB7MH3DOE6_WzIY">
+        </form>
+    </div>
+    <div class="modal fade" id="ModalAddToCart" tabindex="-1" role="dialog" aria-labelledby="ModalAddToCartLabel"
+        aria-hidden="true">
+    </div>
+    <div class="modal fade" id="ModalQuickView" tabindex="-2" role="dialog" aria-labelledby="ModalQuickViewLabel"
+        aria-hidden="true">
+    </div>
+    <div class="modal fade" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header p-0 border-bottom-0">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body p-0">
+                    <div id="dialog_error" class="bg-danger"></div>
+                    <div id="dialog_success" class="bg-success"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main class="c-offcanvas-content-wrap" role="main">
+        <header role="presentation">
+            <nav class="navbar fixed-top navbar-light navUp mobile-top p-0" role="navigation">
+                <ul class="mobile-top-menu container px-2 px-sm-0 d-lg-none d-flex mb-0">
+                    <li class="logo-mobile"></li>
+                    <li class="nav-item d-flex align-items-center d-lg-none mobile-search" data-toggle="modal"
+                        data-target="#searchModal">
+                        <a class="nav-link">
+                            <span class="material-icons mat">
+                                search
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav header-links flex-row container px-lg-3 px-0">
+                    <li class="nav-item col d-lg-none d-flex menu-open-button">
+                        <a class="js-offcanvas-trigger nav-link c-button" data-offcanvas-trigger="left" href="#left"
+                            role="button" aria-controls="left" aria-expanded="false"><span class="c-button__text">
+                                <div id="mobile-menu-opener"><span></span><span></span><span></span></div>
+                                <span class="d-lg-none d-block text-muted mobile-desc">Menu</span>
+                            </span></a>
+                    </li>
+
+
+                    <li class="nav-item col d-flex">
+                        <a class="nav-link mr-2" href="/login">
+                            <span class="hl-label">
+                                <span class="material-icons mat">
+                                    lock_open
+                                </span>
+                            </span>
+                            <span class="d-flex align-items-center mobile-desc">Đăng nhập</span>
+                        </a>
+                        <a class="nav-link ml-2" href="/login">
+                            <span class="hl-label">
+                                <span class="material-icons mat">
+                                    lock
+                                </span>
+                            </span>
+                            <span class="d-flex align-items-center mobile-desc">Đăng ký</span>
+                        </a>
+                    </li>
+                    <li class="nav-item col" id="topcartlink">
+                        <div class="btn-group dropdown">
+                            <a class="nav-link js-offcanvas-trigger c-button" data-offcanvas-trigger="right"
+                                onclick="window.location=window.location.origin+'/giohang'" href="#" role="button"
+                                aria-controls="right" aria-expanded="false"><span class="c-button__text">
+                                    <span class="cart-label hl-label">
+                                        <span class="material-icons mat">
+                                            shopping_cart
+                                        </span>
+                                    </span>
+                                    <span class="d-flex align-items-center cart-name mobile-desc">
+                                        Giỏ hàng
+                                    </span>
+                                    <span class="cart-qty">0</span>
+                                </span></a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="container">
+                <div class="headBottom d-flex align-items-center d-lg-inline-flex text-lg-left text-center mt-0 mb-0">
+                    <div class="header-logo pr-0 pl-0 d-lg-block d-none">
+                        <h1 class="store-logo mb-0">
+                            <a href="/">
+                                <img class="img-fluid" title="" alt="Your store name"
+                                    src="http://demo.grandnode.com/Themes/DefaultClean/Content/images/logo.png">
+                                <span class="sr-only">Logo</span>
+                            </a>
+                        </h1>
+
+                    </div>
+                    <div class="col-lg-6 col formSearch ml-auto pr-0 d-none d-lg-block">
+                        <form method="get" id="small-search-box-form" action="/search" novalidate="novalidate">
+                            <input type="hidden" value="true" data-val="true"
+                                data-val-required="The Box field is required." id="Box" name="Box">
+                            <label for="small-searchterms" class="sr-only">Search store</label>
+                            <div class="input-group flex-row">
+                                <input type="text" class="form-control search-box-text ui-autocomplete-input"
+                                    id="small-searchterms" autocomplete="off" name="q" placeholder="Nhập từ khóa...">
+
+
+                                <div class="input-group-append">
+                                    <button type="submit"
+                                        class="btn btn-info search-box-button float-sm-right d-inline-flex">
+                                        <span class="sr-only">Search store</span>
+                                        <span class="material-icons mat">
+                                            search
+                                        </span>
+                                    </button>
+                                </div>
+                                <ul class="advanced-search-results row">
+                                    <li class="left-side col-md-6 col-12">
+                                        <ul>
+                                            <li class="categories-container">
+                                                <a class="title">Categories</a>
+                                                <div class="no-data pl-md-3 pl-0">No categories were found that matched
+                                                    your criteria.</div>
+                                                <ul></ul>
+                                            </li>
+                                            <li class="manufacturers-container">
+                                                <a href="/manufacturer/all" class="title">Manufacturers</a>
+                                                <div class="no-data pl-0">No manufacturers were found that matched your
+                                                    criteria.</div>
+                                                <ul></ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="right-side col-md-6 col-12">
+                                        <a class="products-title title">Products</a>
+                                        <div class="no-data pl-md-3 pl-0">No products were found that matched your
+                                            criteria.</div>
+                                        <ul class="products-container"></ul>
+                                    </li>
+                                    <li class="center-side col-12">
+                                        <ul>
+                                            <li class="blog-container mb-3">
+                                                <a href="/blog" class="title">Blog</a>
+                                                <div class="no-data pl-md-3 pl-0">No blog posts were found that matched
+                                                    your criteria.</div>
+                                                <ul></ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <nav class="navbar mainNav navbar-expand-sm offcanvas-desktop">
+            <div class="navbar-collapse container">
+                <ul class="navbar-nav">
+
+                    <li class="nav-item dropdown">
+
+                        <a id="5c861fb157d5a11c90420f7f-menu" class="nav-link dropdown-toggle  " data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" href="/computers">
+                            <span>Tivi</span>
+                            <span class="material-icons mat arrow-down">
+                                keyboard_arrow_down
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu first-level" aria-labelledby="5c861fb157d5a11c90420f7f-menu">
+                            <li class="nav-item cat-back d-lg-none d-inline-flex">
+                                <a class="nav-link justify-content-start align-items-center"
+                                    onclick="$(this).parent().removeClass('show');">
+                                    <span class="material-icons mat">
+                                        keyboard_arrow_left
+                                    </span>
+                                    <span>Quay lại</span>
+                                </a>
+                            </li>
+                            <li class="nav-item d-lg-none d-inline-flex sub-cat-name-container">
+                                <a class="nav-link sub-cat-name" href="/computers">
+                                    <span><strong>Tất cả</strong></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f81-menu" class="nav-link  " href="/desktops">
+                                    <span>SAMSUNG</span>
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f83-menu" class="nav-link  " href="/notebooks">
+                                    <span>LG</span>
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f85-menu" class="nav-link  " href="/software">
+                                    <span>SONY</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+
+                        <a id="5c861fb157d5a11c90420f87-menu" class="nav-link dropdown-toggle  " data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" href="/electronics">
+                            <span>Tủ lạnh</span>
+                            <span class="material-icons mat arrow-down">
+                                keyboard_arrow_down
+                            </span>
+                        </a>
+
+                        <ul class="dropdown-menu first-level" aria-labelledby="5c861fb157d5a11c90420f87-menu">
+                            <li class="nav-item cat-back d-lg-none d-inline-flex">
+                                <a class="nav-link justify-content-start align-items-center"
+                                    onclick="$(this).parent().removeClass('show');">
+                                    <span class="material-icons mat">
+                                        keyboard_arrow_left
+                                    </span>
+                                    <span>Quay lại</span>
+                                </a>
+                            </li>
+                            <li class="nav-item d-lg-none d-inline-flex sub-cat-name-container">
+                                <a class="nav-link sub-cat-name" href="/electronics">
+                                    <span><strong>Tất cả</strong></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f89-menu" class="nav-link  " href="/camera-photo">
+                                    <span>SAMSUNG</span>
+                                </a>
+
+                            </li>
+
+
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f8b-menu" class="nav-link  " href="/cell-phones">
+                                    <span>TOSHIBA</span>
+                                </a>
+
+                            </li>
+
+
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f8d-menu" class="nav-link  " href="/others">
+                                    <span>PANASONIC</span>
+                                </a>
+
+                            </li>
+
+
+                        </ul>
+                    </li>
+
+
+                    <li class="nav-item dropdown">
+
+                        <a id="5c861fb157d5a11c90420f8f-menu" class="nav-link dropdown-toggle  " data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" href="/apparel">
+                            <span>Máy lạnh</span>
+                            <span class="material-icons mat arrow-down">
+                                keyboard_arrow_down
+                            </span>
+                        </a>
+
+                        <ul class="dropdown-menu first-level" aria-labelledby="5c861fb157d5a11c90420f8f-menu">
+                            <li class="nav-item cat-back d-lg-none d-inline-flex">
+                                <a class="nav-link justify-content-start align-items-center"
+                                    onclick="$(this).parent().removeClass('show');">
+                                    <span class="material-icons mat">
+                                        keyboard_arrow_left
+                                    </span>
+                                    <span>Quay lại</span>
+                                </a>
+                            </li>
+                            <li class="nav-item d-lg-none d-inline-flex sub-cat-name-container">
+                                <a class="nav-link sub-cat-name" href="/apparel">
+                                    <span><strong>Tất cả</strong></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f91-menu" class="nav-link  " href="/shoes">
+                                    <span>LG</span>
+                                </a>
+
+                            </li>
+
+
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f93-menu" class="nav-link  " href="/clothing">
+                                    <span>PANASONIC</span>
+                                </a>
+
+                            </li>
+
+
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f95-menu" class="nav-link  " href="/accessories">
+                                    <span>TOSHIBA</span>
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f95-menu" class="nav-link  " href="/accessories">
+                                    <span>HITACHI</span>
+                                </a>
+
+                            </li>
+
+
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+
+                        <a id="5c861fb157d5a11c90420f8f-menu" class="nav-link dropdown-toggle  " data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" href="/apparel">
+                            <span>Máy giặt</span>
+                            <span class="material-icons mat arrow-down">
+                                keyboard_arrow_down
+                            </span>
+                        </a>
+
+                        <ul class="dropdown-menu first-level" aria-labelledby="5c861fb157d5a11c90420f8f-menu">
+                            <li class="nav-item cat-back d-lg-none d-inline-flex">
+                                <a class="nav-link justify-content-start align-items-center"
+                                    onclick="$(this).parent().removeClass('show');">
+                                    <span class="material-icons mat">
+                                        keyboard_arrow_left
+                                    </span>
+                                    <span>Quay lại</span>
+                                </a>
+                            </li>
+                            <li class="nav-item d-lg-none d-inline-flex sub-cat-name-container">
+                                <a class="nav-link sub-cat-name" href="/apparel">
+                                    <span><strong>Tất cả</strong></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f91-menu" class="nav-link  " href="/shoes">
+                                    <span>LG</span>
+                                </a>
+
+                            </li>
+
+
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f93-menu" class="nav-link  " href="/clothing">
+                                    <span>AQUA</span>
+                                </a>
+
+                            </li>
+
+
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f95-menu" class="nav-link  " href="/accessories">
+                                    <span>TOSHIBA</span>
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f95-menu" class="nav-link  " href="/accessories">
+                                    <span>SAMSUNG</span>
+                                </a>
+
+                            </li>
+
+
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+
+                        <a id="5c861fb157d5a11c90420f8f-menu" class="nav-link dropdown-toggle  " data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" href="/apparel">
+                            <span>Điện thoại</span>
+                            <span class="material-icons mat arrow-down">
+                                keyboard_arrow_down
+                            </span>
+                        </a>
+
+                        <ul class="dropdown-menu first-level" aria-labelledby="5c861fb157d5a11c90420f8f-menu">
+                            <li class="nav-item cat-back d-lg-none d-inline-flex">
+                                <a class="nav-link justify-content-start align-items-center"
+                                    onclick="$(this).parent().removeClass('show');">
+                                    <span class="material-icons mat">
+                                        keyboard_arrow_left
+                                    </span>
+                                    <span>Quay lại</span>
+                                </a>
+                            </li>
+                            <li class="nav-item d-lg-none d-inline-flex sub-cat-name-container">
+                                <a class="nav-link sub-cat-name" href="/apparel">
+                                    <span><strong>Tất cả</strong></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f91-menu" class="nav-link  " href="/shoes">
+                                    <span>IPHONE</span>
+                                </a>
+
+                            </li>
+
+
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f93-menu" class="nav-link  " href="/clothing">
+                                    <span>SAMSUNG</span>
+                                </a>
+
+                            </li>
+
+
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f95-menu" class="nav-link  " href="/accessories">
+                                    <span>OPPO</span>
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f95-menu" class="nav-link  " href="/accessories">
+                                    <span>VIVO</span>
+                                </a>
+
+                            </li>
+
+
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+
+                        <a id="5c861fb157d5a11c90420f8f-menu" class="nav-link dropdown-toggle  " data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" href="/apparel">
+                            <span>Laptop</span>
+                            <span class="material-icons mat arrow-down">
+                                keyboard_arrow_down
+                            </span>
+                        </a>
+
+                        <ul class="dropdown-menu first-level" aria-labelledby="5c861fb157d5a11c90420f8f-menu">
+                            <li class="nav-item cat-back d-lg-none d-inline-flex">
+                                <a class="nav-link justify-content-start align-items-center"
+                                    onclick="$(this).parent().removeClass('show');">
+                                    <span class="material-icons mat">
+                                        keyboard_arrow_left
+                                    </span>
+                                    <span>Quay lại</span>
+                                </a>
+                            </li>
+                            <li class="nav-item d-lg-none d-inline-flex sub-cat-name-container">
+                                <a class="nav-link sub-cat-name" href="/apparel">
+                                    <span><strong>Tất cả</strong></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f91-menu" class="nav-link  " href="/shoes">
+                                    <span>APPLE</span>
+                                </a>
+
+                            </li>
+
+
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f93-menu" class="nav-link  " href="/clothing">
+                                    <span>DELL</span>
+                                </a>
+
+                            </li>
+
+
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f95-menu" class="nav-link  " href="/accessories">
+                                    <span>ASUS</span>
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f95-menu" class="nav-link  " href="/accessories">
+                                    <span>MSI</span>
+                                </a>
+
+                            </li>
+
+
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+
+                        <a id="5c861fb157d5a11c90420f8f-menu" class="nav-link dropdown-toggle  " data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" href="/apparel">
+                            <span>Linh phụ kiện</span>
+                            <span class="material-icons mat arrow-down">
+                                keyboard_arrow_down
+                            </span>
+                        </a>
+
+                        <ul class="dropdown-menu first-level" aria-labelledby="5c861fb157d5a11c90420f8f-menu">
+                            <li class="nav-item cat-back d-lg-none d-inline-flex">
+                                <a class="nav-link justify-content-start align-items-center"
+                                    onclick="$(this).parent().removeClass('show');">
+                                    <span class="material-icons mat">
+                                        keyboard_arrow_left
+                                    </span>
+                                    <span>Quay lại</span>
+                                </a>
+                            </li>
+                            <li class="nav-item d-lg-none d-inline-flex sub-cat-name-container">
+                                <a class="nav-link sub-cat-name" href="/apparel">
+                                    <span><strong>Tất cả</strong></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f91-menu" class="nav-link  " href="/shoes">
+                                    <span>Tai nghe có dây</span>
+                                </a>
+
+                            </li>
+
+
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f93-menu" class="nav-link  " href="/clothing">
+                                    <span>Tai nghe không dây</span>
+                                </a>
+
+                            </li>
+
+
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f95-menu" class="nav-link  " href="/accessories">
+                                    <span>Pin sạc dự phòng</span>
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+
+                                <a id="5c861fb157d5a11c90420f95-menu" class="nav-link  " href="/accessories">
+                                    <span>Dây, cáp sạc</span>
+                                </a>
+
+                            </li>
+
+
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+
+                        <a id="5c861fb257d5a11c90420f9d-menu" class="nav-link  " href="/gift-cards">
+                            <span>Liên hệ</span>
+                        </a>
+
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container page-container">
+            <div class="page home-page custom-container">
+                <div class="page login-page">
+                    <div class="mb-2">
+                        <div class="row flex-md-row mt-3 mb-3">
+                            <div class="col-lg-6 col-12">
+                                <div class="card">
+                                    <form method="post" action="/login" novalidate="novalidate">
+                                        <h5 class="card-header"><strong>Đăng nhập</strong></h5>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-12 form-group mb-0">
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-3 col-12">
+                                                            <label class="col-form-label" for="Email">Email:</label>
+                                                        </div>
+                                                        <div class="col-lg-9 col-12">
+                                                            <input class="form-control email" autofocus="autofocus"
+                                                                type="text" data-val="true" data-val-email="Wrong email"
+                                                                data-val-required="Please enter your email" id="Email"
+                                                                name="Email" value="">
+                                                            <span class="field-validation-valid" data-valmsg-for="Email"
+                                                                data-valmsg-replace="true"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-lg-3 col-12">
+                                                            <label class="col-form-label"
+                                                                for="Password">Password:</label>
+                                                        </div>
+                                                        <div class="col-lg-9 col-12">
+                                                            <input class="form-control password" type="password"
+                                                                id="Password" name="Password">
+                                                            <span class="field-validation-valid"
+                                                                data-valmsg-for="Password"
+                                                                data-valmsg-replace="true"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="inputs d-flex flex-row">
+                                                        <span class="ml-3 forgot-password">
+                                                            <a href="/passwordrecovery">Quên mật khẩu?</a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="buttons">
+                                                <input class="btn btn-info login-button" type="submit"
+                                                    value="Đăng nhập">
+                                            </div>
+                                        </div>
+                                        <input name="__RequestVerificationToken" type="hidden"
+                                            value="CfDJ8AVMRiWDjlhHqVrV9aYtsghTe8F5OCgtVwSVeEr_Y5blaOwAULsstM4U1_-2c5SA2mMZUPlSx98wgJ5va2FalCSjya5ewP8z2lp3trgbyScMTLDygK--vshCiA3V5Hsn7mXFPNnUUnHqnDKSsdG7-X0"><input
+                                            name="RememberMe" type="hidden" value="false">
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-12">
+                                <div class="card-body register-block">
+                                    <h5><strong>Khách hàng mới</strong></h5>
+                                    <div class="text generalMarginSupporter">
+                                        Nếu là khách hàng mới, vui lòng nhấn nút đăng ký phía dưới để tạo tài khoản
+                                    </div>
+                                    <div class="buttons">
+                                        <input type="button" class="btn btn-secondary register-button"
+                                            onclick="location.href='/register'" value="Register">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="newsletter mt-3 bg-info col-12">
+            <div class="d-flex justify-content-center justify-content-lg-start">
+                <div class="newsletter-subscribe container w-100" id="newsletter-subscribe-block">
+                    <div class="d-flex flex-row row">
+                        <div class="col-lg-7 col-12 px-0 d-flex flex-column align-items-start">
+                            <div class="newsletter-title">
+                                Nhận thông báo
+                            </div>
+                            <div class="newsletter-desc">
+                                Đăng ký để nhận thông báo từ cửa hàng
+                            </div>
+                        </div>
+                        <div
+                            class="col-lg-5 col-12 px-lg-3 pr-lg-0 px-0 mt-lg-0 mt-3 input-group flex-row align-items-center newsletter-inputs">
+                            <input class="form-control" id="newsletter-email" placeholder="Nhập email..."
+                                aria-label="Enter your email here..." type="text" name="NewsletterEmail" value="">
+                            <label for="newsletter-email" class="sr-only">newsletter</label>
+                            <div class="input-group-prepend newsletter-button-container">
+                                <button class="btn btn-outline-white d-flex align-items-center" aria-hidden="true"
+                                    id="newsletter-subscribe-button" type="button"><span
+                                        class="material-icons mat">local_post_office</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <footer class="mt-3">
+            <div class="container max-100">
+                <div class="row flex-row">
+
+                    <div id="footer-block-my-account"
+                        class="col-lg-12 col-md-12 col-sm-12 footer-block my-account block">
+                        <div class="step-title card mb-1 p-3 d-lg-none">
+                            <blockquote class="card-bodyquote">
+                                <span class="h5"><strong>My account</strong></span>
+                                <span class="lnr linearicons-chevron-down d-lg-none float-right"
+                                    aria-hidden="true"></span>
+                            </blockquote>
+                        </div>
+                        <div class="viewBox">
+                            <ul class="pl-0 list-group list-pad">
+                                <li class="list-group-item"><a href="/customer/info">Tài khoản</a></li>
+                                <li class="list-group-item"><a href="/order/history">Đơn hàng</a></li>
+                                <li class="list-group-item"><a href="/customer/addresses">Địa chỉ giao</a></li>
+                                <li class="list-group-item"><a href="/cart">Giỏ hàng</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="footer-block-about-us" class="col-lg-12 col-md-12 col-sm-12 footer-block about-us block">
+                        <div class="viewBox">
+                            <ul class="pl-0 list-group list-pad">
+                                <li class="list-group-item">
+                                    <span>Địa chỉ:</span>
+                                    <span>140 Lê Trọng Tấn</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <span>Email:</span>
+                                    <span>company@email.com</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <span>Điện thoại:</span>
+                                    <span>(123) 456-78901</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <span>Giờ mở cửa:</span>
+                                    <span>8:00AM - 18:00PM</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <ol
+                        class="d-flex flex-row list-group justify-content-center w-100 flex-wrap social-icons list-pad pb-0">
+                        <li class="list-group-item facebook">
+                            <a title="facebook" href="https://www.facebook.com/grandnodecom" rel="noopener"
+                                target="_blank">
+                                <i class="fa fa-facebook"></i>
+
+                            </a>
+                        </li>
+                        <li class="list-group-item twitter">
+                            <a title="twitter" href="https://twitter.com/grandnode" rel="noopener" target="_blank">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-group-item youtube">
+                            <a title="youtube" href="http://www.youtube.com/user/grandnode" rel="noopener"
+                                target="_blank">
+                                <i class="fa fa-youtube-play"></i>
+                            </a>
+                        </li>
+                        <li class="list-group-item instagram">
+                            <a href="https://www.instagram.com/grandnode/" rel="noopener" target="_blank">
+                                <i class="fa fa-instagram"></i>
+                            </a>
+                        </li>
+                    </ol>
+                </div>
+                <div class="footer-lower small">
+                    <div class="row">
+                        <div class="col-12 col-md pb-1 pt-1 flex-column text-lg-left text-center copyright">
+                            <span class="footer-disclaimer">Copyright © 2019 Your store name. All rights
+                                reserved.</span>
+                        </div>
+
+                        <div class="col-12 col-md-4  pb-1 pt-1 text-center text-lg-right">
+                            <a class="pr-1 text-success" href="http://www.grandNode.com/">GrandNode</a><span>- Powered
+                                by </span><a href="http://www.nopcommerce.com/">nopCommerce </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </footer>
+        <a href="#" id="back-to-top" title="Lên trên" class="">
+            <span class="material-icons mat">
+                keyboard_arrow_up
+            </span>
+        </a>
+    </main>
+    <aside class="js-offcanvas mobile-menu c-offcanvas c-offcanvas--left c-offcanvas--overlay is-closed" id="left"
+        role="dialog" tabindex="-1" aria-hidden="true">
+        <ul class="nav nav-pills" id="pills-mobile-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-menu-tab" data-toggle="pill" href="#pills-menu" role="tab"
+                    aria-controls="pills-menu" aria-selected="true">Menu</a>
+            </li>
+            <li class="nav-item" style="display: none;">
+                <a class="nav-link" id="pills-manufacturers-tab" data-toggle="pill" href="#pills-manufacturers"
+                    role="tab" aria-controls="pills-manufacturers" aria-selected="false">Manufacturers</a>
+            </li>
+            <li class="nav-item" style="display: none;">
+                <a class="nav-link" id="pills-links-tab" data-toggle="pill" href="#pills-links" role="tab"
+                    aria-controls="pills-links" aria-selected="false">Links</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="pills-mobile-tabContent">
+            <div class="tab-pane fade show active" id="pills-menu" role="tabpanel" aria-labelledby="pills-menu-tab">
+            </div>
+            <div class="tab-pane fade" id="pills-manufacturers" role="tabpanel"
+                aria-labelledby="pills-manufacturers-tab"></div>
+            <div class="tab-pane fade" id="pills-links" role="tabpanel" aria-labelledby="pills-links-tab">
+                <ul class="dropdown-menu links-dropdown first-level"></ul>
+            </div>
+        </div>
+    </aside>
+    <a class="js-offcanvas-trigger filter-button btn btn-outline-info d-none mb-3 c-button"
+        data-offcanvas-trigger="leftSide" href="#leftSide" role="button" aria-controls="leftSide"
+        aria-expanded="false"><span class="c-button__text"><span class="material-icons">tune</span><span
+                class="ml-3">Filters</span></span></a>
+    <aside class="js-offcanvas mobile-filters c-offcanvas is-closed c-offcanvas--left c-offcanvas--overlay"
+        data-offcanvas-options="{&quot;modifiers&quot;:&quot;left,overlay&quot;,&quot;modal&quot;:true,&quot;resize&quot;:true}"
+        id="leftSide" role="dialog" tabindex="-1" aria-hidden="true"></aside>
+    <aside class="js-offcanvas flycart-container c-offcanvas is-closed c-offcanvas--right c-offcanvas--overlay"
+        data-offcanvas-options="{&quot;modifiers&quot;:&quot;right,overlay&quot;,&quot;modal&quot;:true,&quot;resize&quot;:true}"
+        id="right" role="dialog" tabindex="-1" aria-hidden="true">
+        <div class="flyout-cart">
+            <div class="flyout-cart-header">
+                <div class="text-center w-100">
+                </div>
+            </div>
+    </aside>
+    <!-- Search Modal -->
+    <div class="modal fade" id="modal-search" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog modal-quickview" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xem nhanh</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="page product-details-page">
+                        <div class="item-container col d-md-inline-flex d-md-flex px-0">
+                            <!--product pictures-->
+                            <div class="gallery col-12 col-md-6 pt-lg-0 pt-3 px-0">
+                                <div class="zoom picture-5c861fb357d5a11c90420fee mb-1"
+                                    style="position: relative; overflow: hidden;">
+                                    <a title="Picture of Apple MacBook Pro 13-inch"
+                                        id="main-product-img-lightbox-anchor-5c861fb357d5a11c90420fee">
+                                        <img class="img-fluid" alt="Picture of Apple MacBook Pro 13-inch"
+                                            src="http://demo.grandnode.com/content/images/thumbs/5c861fb357d5a11c90421012_apple-macbook-pro-13-inch_550.jpeg"
+                                            data-fullsize="http://demo.grandnode.com/content/images/thumbs/5c861fb357d5a11c90421012_apple-macbook-pro-13-inch.jpeg"
+                                            title="Picture of Apple MacBook Pro 13-inch" itemprop="image"
+                                            id="main-product-img-5c861fb357d5a11c90420fee">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="overview col-12 col-md-6">
+                                <h2 class="generalTitle" itemprop="name">
+                                    Apple MacBook Pro 13-inch
+                                </h2>
+                                <div class="short-description generalMarginSupporter">
+                                    A groundbreaking Retina display. A new force-sensing trackpad. All-flash
+                                    architecture. Powerful dual-core and quad-core Intel processors. Together,
+                                    these features take the notebook to a new level of performance. And they
+                                    will do the same for you in everything you create.
+                                </div>
+                                <!--product reviews-->
+                                <div class="quickview-reviews">
+                                    <div class="product-reviews-overview d-inline-flex align-items-center flex-wrap"
+                                        itemprop="aggregateRating" itemscope=""
+                                        itemtype="http://schema.org/AggregateRating">
+                                        <div class="product-review-box d-inline-block">
+                                            <div class="rating">
+                                                <div class="rating-ghost">
+                                                    ☆☆☆☆☆
+                                                </div>
+                                                <div class="rating-real" style="width: 100%">
+                                                    ★★★★★
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="manufacturers generalMarginSupporter">
+                                    <span class="label">Manufacturer:</span>
+                                    <span class="value">
+                                        <a href="/apple">Apple</a>
+                                    </span>
+                                </div>
+                                <!--availability-->
+                                <div class="availability generalMarginSupporter">
+                                    <div class="stock">
+                                        <span class="label">Availability:</span>
+                                        <span class="value" id="stock-availability-value-5c861fb357d5a11c90420fee">
+                                            <link itemprop="availability" href="http://schema.org/InStock">
+                                            In stock
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 px-0">
+                                    <span itemprop="price" content="1800.00"
+                                        class="actual-price price-value-5c861fb357d5a11c90420fee">
+                                        <strong class="actual-price">25,000,000 VNĐ</strong>
+                                    </span>
+                                </div>
+                                <div class="col-lg-12 generalAdToCart px-0 my-3">
+                                    <div class="btn-group product-simple-share my-2 d-inline-flex flex-wrap">
+                                        <label for="" class="sr-only">Add to cart</label>
+                                        <input class="form-control qty-input text-center" type="number" value="1">
+                                        <button type="button" class="btn btn-primary">
+                                            <span class="material-icons mat d-sm-block">shopping_cart</span><span
+                                                class="d-lg-block d-none">Thêm vào giỏ</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../giaodien/js/slider.js"></script>
+    <script>
+        $(".btnAdd").click(function () {
+            if ($(this).val() == "Thêm vào giỏ") {
+                $(this).css({
+                    "background-color": "#9C3"
+                })
+                $(this).val("✔ Đã thêm")
+                $this = $(this)
+                setTimeout(function () {
+                    $this.val("Thêm vào giỏ")
+                    $this.css({
+                        "background-color": "#3399cc"
+                    });
+                }, 1000)
+            }
+        });
+    </script>
+</body>
+
+</html>
