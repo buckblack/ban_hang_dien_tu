@@ -13,7 +13,7 @@ router.get('/', async function(req, res, next) {
 router.get('/samsung/', async function(req, res, next) {
   let db = await xl_mongo.Get();
   db.collection(cl_san_pham).find({ma_loai:ObjectId("5be914a2c4741b03ecfa622b"),ma_thuong_hieu:ObjectId("5bd11b2a088ca72064cc2c2d")}).toArray((err,tulanh)=>{
-    res.render('sanpham',{tieude:'Tủ Lạnh SamSung',trangthai:'Tủ Lạnh/ SAMSUNG',sanpham:tulanh,thumuc:'tulanh'});
+    res.render('sanpham',{tieude:'Tủ Lạnh SamSung',trangthai:'Tủ Lạnh / SAMSUNG',sanpham:tulanh,thumuc:'tulanh'});
   });
 });
 

@@ -124,17 +124,15 @@
 
                     </div>
                     <div class="col-lg-6 col formSearch ml-auto pr-0 d-none d-lg-block">
-                        <form method="get" id="small-search-box-form" action="/search" novalidate="novalidate">
                             <input type="hidden" value="true" data-val="true"
                                 data-val-required="The Box field is required." id="Box" name="Box">
                             <label for="small-searchterms" class="sr-only">Search store</label>
                             <div class="input-group flex-row">
                                 <input type="text" class="form-control search-box-text ui-autocomplete-input"
-                                    id="small-searchterms" autocomplete="off" name="q" placeholder="Nhập từ khóa...">
-
-
+                                    id="keyword" autocomplete="off" name="q" placeholder="Nhập từ khóa...">
                                 <div class="input-group-append">
-                                    <button type="submit"
+                                    <button type="button"
+                                        onclick="kiem_tra_tim_kiem()"
                                         class="btn btn-info search-box-button float-sm-right d-inline-flex">
                                         <span class="sr-only">Search store</span>
                                         <span class="material-icons mat">
@@ -178,9 +176,6 @@
                                 </ul>
                             </div>
 
-
-
-                        </form>
 
                     </div>
                 </div>

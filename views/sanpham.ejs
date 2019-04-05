@@ -1,63 +1,246 @@
+
 <% include layout/head %>
-
 <% include layout/header %>
-
 <% include layout/nav %>
-
+<% include thuvien/bodau %>
 <% include layout/thanh_trang_thai %>
-<% include thuvien/bodau%>
-<!-- breadcrumbs -->
+<div class="container page-container">
+<div class="page home-page custom-container">
+<div class="container page-container">
+    <div class="d-lg-flex d-grid flex-md-row custom-container mx-0">
+        <div class="col-lg-3 col-md-12 generalLeftSide pl-lg-0 px-3">
 
+            <div id="block-category-navigation"
+                class="col-sm--12 block block-category-navigation d-lg-block d-none">
+                <h2 class="h5"><strong>Danh mục</strong></h2>
+                <div class="viewBox listbox">
+                    <ul class="list">
+                        <li class="active">
+                            <a href="/tivi">
+                                Tivi
+                            </a>
+                            <ul class="sublist">
+                                <li class="active last">
+                                    <a href="/desktops">
+                                        SAMSUNG
+                                    </a>
+                                </li>
 
-<!-- //breadcrumbs -->
-<!--- beverages --->
+                                <li class="inactive">
+                                    <a href="/notebooks">
+                                        SONY
+                                    </a>
+                                </li>
 
-<div class="products">
-<div class="container" style="margin-top:-50px">
-  <div class="col-md-12 products-right">
+                                <li class="inactive">
+                                    <a href="/software">
+                                        LG
+                                    </a>
+                                </li>
 
-    <% sanpham.forEach(sp => {%>
-      <div class="agile_top_brands_grids">
-        <div class="col-md-3 top_brand_left" style="padding-bottom:30px">
-          <div class="hover14 column">
-            <div class="agile_top_brand_left_grid" style="background:none">
-              <div class="agile_top_brand_left_grid1">
-                <figure>
-                  <div class="snipcart-item block">
-                    <div class="snipcart-thumb"><a href="/chitiet/<%= bo_dau(sp.ten_sp)%>/<%= sp._id%>/<%= sp.ma_loai%>"><img title=" " width="200px" height="150px" alt=" " src="/static/images/<%= thumuc%>/<%= sp.hinh_anh%>"></a>
-                      <div style="height:80px">
-                        <p><%= sp.ten_sp%></p>
-                      </div>
-                      <h4 style="color:#F00; font-size:20px;"><%= (sp.gia_ban).toLocaleString()%> VNĐ</h4>
-                    </div>
-                    <div class="snipcart-details top_brand_home_details">
-                      <form action="#" method="post">
-                        <fieldset>
-                          <input type="hidden" id="don_gia({$san_pham->don_gia})">
-                          <input type="hidden" name="currency_code" value="VND">
-                          <input type="button" id="<%= sp._id%>" value="thêm vào giỏ" class="button btnAdd" >
-                        </fieldset>
-                      </form>
-                    </div>
-                  </div>
-                </figure>
-              </div>
+                            </ul>
+                        </li>
+
+                        <li class="inactive">
+                            <a href="/tulanh">
+                                Tủ lạnh
+                            </a>
+                        </li>
+
+                        <li class="inactive">
+                            <a href="/maylanh">
+                                Máy lạnh
+                            </a>
+                        </li>
+
+                        <li class="inactive">
+                            <a href="/digital-downloads">
+                                Máy giặt
+                            </a>
+                        </li>
+
+                        <li class="inactive">
+                            <a href="/books">
+                                Điện thoại
+                            </a>
+                        </li>
+
+                        <li class="inactive">
+                            <a href="/jewelry">
+                                Laptop
+                            </a>
+                        </li>
+
+                        <li class="inactive">
+                            <a href="/gift-cards">
+                                Linh phụ kiện
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
             </div>
-          </div>
+
+            <div id="block-popular-tags" class="block block-popular-tags">
+                <h2 class="h5 d-block"><strong>Từ khóa phổ biến</strong></h2>
+                <div class="viewBox btn-toolbar">
+                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
+                        href="/producttag/apparel" style="font-size:100%;">apparel</a>
+                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
+                        href="/producttag/awesome" style="font-size:150%;">awesome</a>
+                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
+                        href="/producttag/book" style="font-size:85%;">book</a>
+                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
+                        href="/producttag/camera" style="font-size:85%;">camera</a>
+                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
+                        href="/producttag/cell" style="font-size:85%;">cell</a>
+                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
+                        href="/producttag/compact" style="font-size:90%;">compact</a>
+                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
+                        href="/producttag/computer" style="font-size:120%;">computer</a>
+                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
+                        href="/producttag/cool" style="font-size:150%;">cool</a>
+                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
+                        href="/producttag/digital" style="font-size:85%;">digital</a>
+                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
+                        href="/producttag/gift" style="font-size:85%;">gift</a>
+                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
+                        href="/producttag/jeans" style="font-size:85%;">jeans</a>
+                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
+                        href="/producttag/jewelry" style="font-size:85%;">jewelry</a>
+                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
+                        href="/producttag/nice" style="font-size:90%;">nice</a>
+                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
+                        href="/producttag/shirt" style="font-size:85%;">shirt</a>
+                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
+                        href="/producttag/shoes" style="font-size:85%;">shoes</a>
+                    <div class="view-all mt-2">
+                        <a class="btn btn-outline-info" href="/producttag/all">View all</a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    <%});%>
-      <div class="clearfix"> </div>
-      <nav class="numbering">  </nav>
+        <div class="col-lg-9 col-md-12 generalSideRight pl-lg-3 pl-0 pr-0">
 
 
+            <div class="page category-page">
+                <h2 class="generalTitle"><%= trang_thai(trangthai) %></h2>
+                <div class="generalMarginSupporter categoryGrid catalog-selectors">
+                    <a class="js-offcanvas-trigger filter-button btn btn-outline-info d-lg-none d-flex mb-3 c-button"
+                        data-offcanvas-trigger="leftSide" href="#leftSide" role="button"
+                        aria-controls="leftSide" aria-expanded="false"><span
+                            class="c-button__text"><span class="material-icons">tune</span><span
+                                class="ml-3">Lọc</span></span></a>
+                                <div class="d-flex flex-row row px-3">
+                                <div class="sort-container">
+                                    <label class="mb-0" for="custom-select">Sort by</label>
+                                    <div class="selectdiv ml-4">
+                                        <select class="form-control custom-select" id="custom-select"
+                                            name="custom-select" onchange="">
+                                            <option selected="selected"
+                                                value="">Mặc định
+                                            </option>
+                                            <option value="">Tên: A
+                                                đến Z</option>
+                                            <option value="">Tên: Z
+                                                đến A</option>
+                                            <option value="">Giá giảm dần</option>
+                                            <option value="">Giá tăng dần</option>
+                                            <option value="">Dưới 5.000.000</option>
+                                            <option value="">5.000.000 - 10.000.000</option>
+                                            <option value="">Trên 10.000.000</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="sort-container">
+                                    <label class="mb-0" for="custom-select">Display</label>
+                                    <div class="selectdiv ml-4">
+                                        <select class="custom-select form-control" id=""
+                                            onchange="">
+                                            <option value="">10
+                                            </option>
+                                            <option selected="selected"
+                                                value="">25</option>
+                                            <option value="">50
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
 
+                <div class="subCategoryList">
+                    <div class="row flex-grid">
+                    <% sanpham.forEach(sp => {%>
+                        <div class="col-lg-4 col-sm-6 col-6 product-container">
+                            <div class="card gen border p-1" >
+                                <a class="picture" href="/chitiet/<%= bo_dau(sp.ten_sp)%>/<%= sp._id%>/<%= sp.ma_loai%>"
+                                    title="Xem chi tiết <%= sp.ten_sp%>">
+                                    <img class="card-img-top img-fluid"
+                                        alt="Xem chi tiết <%= sp.ten_sp%>"
+                                        src="/static/images/<%= thumuc%>/<%= sp.hinh_anh%>"
+                                        title="Xem chi tiết <%= sp.ten_sp%>">
+                                </a>
+                                <div class="card-body p-0">
+                                    <div class="card-buttons">
+                                        <div class="btn-group">
+                                            <input type="button" id="<%= sp._id%>" class="btn btn-info btnAdd"
+                                                value="Thêm vào giỏ">
+                                            <button type="button" value="Quick View" title="Xem nhanh"
+                                                class="btn btn-secondary btn-quick-view"
+                                                data-toggle="modal" data-target="#modal-search">
+                                                <span class="sr-only">Xem nhanh</span>
+                                                <span class="material-icons mat">
+                                                    search
+                                                </span>
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                    <div class="card-body-content">
+                                        <h3 class="h6 card-title mb-0">
+                                            <strong><a href="/build-your-own-computer"><%= sp.ten_sp%></a></strong>
+                                        </h3>
+
+
+                                        <div class="col-12 px-0">
+                                            <div class="product-rating-box" title="1 review(s)">
+                                                <div class="rating">
+                                                    <div class="rating-ghost">
+                                                        ☆☆☆☆☆
+                                                    </div>
+                                                    <div class="rating-real" style="width: 80%">
+                                                        ★★★★★
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-inline-flex pb-0 pt-0">
+
+                                            <div
+                                                class="p-0 pr-2 align-self-center actual-price-container">
+                                                <span class="h5 card-subtitle">
+                                                    <span class="price actual-price"><%= (sp.gia_ban).toLocaleString()%> VNĐ</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    <%});%>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
     </div>
 
-
-    <div class="clearfix"> </div>
-  </div>
 </div>
-
-
+</div>
+</div>
 <% include layout/footer %>

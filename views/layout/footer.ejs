@@ -35,7 +35,7 @@
                         class="col-lg-12 col-md-12 col-sm-12 footer-block my-account block">
                         <div class="step-title card mb-1 p-3 d-lg-none">
                             <blockquote class="card-bodyquote">
-                                <span class="h5"><strong>My account</strong></span>
+                                <span class="h5"><strong>Thông tin tài khoản</strong></span>
                                 <span class="lnr linearicons-chevron-down d-lg-none float-right"
                                     aria-hidden="true"></span>
                             </blockquote>
@@ -293,6 +293,26 @@
             }
         });
     </script>
+    <script>
+    function kiem_tra_tim_kiem()
+    {
+        var tim_kiem=document.getElementById("keyword")
+        if(tim_kiem.value.trim()=="")
+        {
+            alert("Vui lòng nhập từ khoá tìm kiếm")
+            ten_khach_hang.focus()
+        }
+        else
+        {
+            window.location='/tim-kiem/'+tim_kiem.value.trim()
+        }
+    }
+    </script>
+    <script type="text/javascript">
+		$(document).ready(function() {
+			$('.fancybox').fancybox();
+		});
+	</script>
     <script type='text/javascript' data-cfasync='false'>
         window.purechatApi = {
             l: [],
