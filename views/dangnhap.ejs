@@ -1,27 +1,74 @@
 <% include layout/head %>
-
 <% include layout/header %>
-
 <% include layout/nav %>
-
+<% include thuvien/bodau %>
 <% include layout/thanh_trang_thai %>
-<!-- login -->
-	<div class="login">
-		<div class="container">
-			<h2>Đăng nhập</h2>
-
-			<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
-				<input type="email" name="email" id="dang_nhap_email" placeholder="Email" required >
-				<input type="password" name="mat_khau" id="dang_nhap_mat_khau" placeholder="Mật khẩu" required >
-				<input type="button" class="btn btn-primary" style="width:100%;margin-top:10px" name="btn_dang_nhap" id="btn_dang_nhap" value="Đăng nhập" onclick="return kiem_tra_thong_tin_dang_nhap()">
-			</div>
-			<h4>Thành viên mới</h4>
-			<p><a href="dang_ky">Đăng ký</a> (hoặc) Quay lại <a href=".">Trang chủ<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
-		</div>
-
-	</div>
-
-<!-- //login -->
+<script>
+    if(sessionStorage.getItem('khach_hang_Ten')!=null && sessionStorage.getItem('khach_hang_Id')!=null)
+    {
+        window.location=window.location.origin
+    }
+</script>
+<div class="container page-container">
+    <div class="page home-page custom-container">
+        <div class="page login-page">
+            <div class="mb-2">
+                <div class="row flex-md-row mt-3 mb-3">
+                    <div class="col-lg-6 col-12">
+                        <div class="card">
+                            <h5 class="card-header"><strong>Đăng nhập</strong></h5>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12 form-group mb-0">
+                                        <div class="form-group row">
+                                            <div class="col-lg-3 col-12">
+                                                <label class="col-form-label" for="Email">Email:</label>
+                                            </div>
+                                            <div class="col-lg-9 col-12">
+                                                <input class="form-control email" autofocus="autofocus" type="text" id="dang_nhap_email" placeholder="Nhập email" value="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-lg-3 col-12">
+                                                <label class="col-form-label" for="Password">Mật khẩu:</label>
+                                            </div>
+                                            <div class="col-lg-9 col-12">
+                                                <input class="form-control password" type="password"id="dang_nhap_mat_khau" placeholder="Nhập mật khẩu">
+                                            </div>
+                                        </div>
+                                        <div class="inputs d-flex flex-row">
+                                            <span class="ml-3 forgot-password">
+                                                <a href="/passwordrecovery">Quên mật khẩu?</a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="buttons">
+                                    <input class="btn btn-info login-button" id="btn_dang_nhap" type="button" value="Đăng nhập" onclick="return kiem_tra_thong_tin_dang_nhap()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                        <div class="card-body register-block">
+                            <h5><strong>Khách hàng mới</strong></h5>
+                            <div class="text generalMarginSupporter">
+                                Nếu là khách hàng mới, vui lòng nhấn nút đăng ký phía dưới để tạo tài khoản
+                            </div>
+                            <div class="buttons">
+                                <input type="button" class="btn btn-secondary register-button"
+                                    onclick="location.href='/register'" value="Register">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 	<!-- Button trigger modal -->
 	<button type="button" class="btn btn-primary btn-lg" id="modal_thongbao" style="display:none" data-toggle="modal" data-target="#modelId">
 	  Launch

@@ -1,61 +1,118 @@
+
 <% include layout/head %>
-
 <% include layout/header %>
-
 <% include layout/nav %>
-
+<% include thuvien/bodau %>
 <% include layout/thanh_trang_thai %>
-<!-- register -->
-	<div class="register">
-		<div class="container">
-			<h2>Đăng ký</h2>
-			<div class="login-form-grids">
-				<h5>Thông tin cá nhân</h5>
-					<input type="text" name="ten_khach_hang" id="dang_ky_ten_khach_hang" placeholder="Họ tên..." required >
-					<input type="text" name="dia_chi" id="dang_ky_dia_chi" placeholder="Địa chỉ..." style="margin:1rem 0" required >
-					<input type="text" name="dien_thoai" id="dang_ky_dien_thoai" placeholder="Điện thoại..." required >
-					<div class="form-group form-inline" style="margin-top:1rem">
-						<span>Giới tính</span>
-						<select class="form-control" name="" id="gioi_tinh">
-							<option value="nam" selected>Nam</option>
-							<option value="nữ">Nữ</option>
-						</select>
-					</div>
-				<h6>Thông tin đăng nhập</h6>
-					<input type="email" name="email" id="dang_ky_email" placeholder="Địa chỉ Email" required >
-					<input type="password" name="mat_khau" id="dang_ky_mat_khau" placeholder="Mật khẩu" required >
-					<input type="password" name="nhap_lai_mat_khau" id="dang_ky_nhap_lai_mat_khau"  placeholder="Nhập lại mật khẩu" required >
+<script>
+    if(sessionStorage.getItem('khach_hang_Ten')!=null && sessionStorage.getItem('khach_hang_Id')!=null)
+    {
+        window.location=window.location.origin
+    }
+</script>
+<div class="container page-container">
+<div class="page home-page custom-container">
+                <form novalidate="novalidate">
+                    <div class="page registration-page">
+                        <div class="card mb-3">
+                            <h3 class="h4 card-header">Thông tin cá nhân</h3>
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <fieldset class="col-sm-12 col-12 form-group">
+                                        <legend class="sr-only">Giới tính</legend>
+                                        <label class="col-form-label" for="FirstName">Giới tính:</label>
+                                        <select class="col custom-select" id="gioi_tinh">
+                                            <option value="nam" selected>Nam</option>
+                                            <option value="nữ">Nữ</option>
+                                        </select>
+                                    </fieldset>
+                                </div>
+                                <div class="form-row">
+                                    <fieldset class="col-sm-12 col-12 form-group">
+                                        <legend class="sr-only">Họ tên</legend>
+                                        <label class="col-form-label" for="FirstName">Họ tên:</label>
+                                        <input class="form-control" type="text" id="dang_ky_ten_khach_hang" placeholder="Họ tên..." name="FirstName" value="">
 
-					<input type="button" class="btn btn-primary" style="width:100%;margin-top:10px" name="btn_dang_ky" id="btn_dang_ky" value="Đăng ký" onclick="return kiem_tra_thong_tin_dang_ky()">
-			</div>
+                                    </fieldset>
+                                </div>
+                                <div class="form-row">
+                                    <fieldset class="col-sm-12 col-12 form-group">
+                                        <legend class="sr-only">Địa chỉ</legend>
+                                        <label class="col-form-label" for="FirstName">Địa chỉ:</label>
+                                        <input class="form-control" type="text" id="dang_ky_dia_chi" placeholder="Địa chỉ..." name="dia_chi" value="">
+                                    </fieldset>
+                                </div>
+                                <div class="form-row">
+                                    <fieldset class="col-sm-12 col-12 form-group">
+                                        <legend class="sr-only">Điện thoại</legend>
+                                        <label class="col-form-label" for="FirstName">Điện thoại:</label>
+                                        <input class="form-control" type="text" id="dang_ky_dien_thoai" placeholder="Điện thoại..." name="dien_thoai"
+                                            value="">
+                                    </fieldset>
+                                </div>
 
-		</div>
-	</div>
-	<!-- Button trigger modal -->
-	<button type="button" class="btn btn-primary btn-lg" id="modal_thongbao" style="display:none" data-toggle="modal" data-target="#modelId">
-	  Launch
-	</button>
-	
-	<!-- Modal -->
-	<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Thông báo</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-				</div>
-				<div class="modal-body" id="TH_thongbao">
-					
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-				</div>
+
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <h3 class="h5 card-header">Thông tin đăng nhập</h3>
+                            <div class="card-body">
+                                <fieldset class="form-group col-md-12 mail">
+                                    <legend class="sr-only">Email</legend>
+                                    <div class="row">
+                                        <label class="col-form-label" for="Email">Email:</label>
+                                        <input class="form-control" type="text"
+										id="dang_ky_email" placeholder="Địa chỉ Email" name="Email" value="">
+                                    </div>
+                                </fieldset>
+                                <div class="form-group col-12">
+                                    <div class="row">
+                                        <label class="col-form-label" for="Password">Mật khẩu:</label>
+                                        <input class="form-control" type="password" id="dang_ky_mat_khau" placeholder="Mật khẩu" name="Password">
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-12">
+                                    <div class="row">
+                                        <label class="col-form-label" for="ConfirmPassword">Nhập lại mật khẩu:</label>
+                                        <input class="form-control" type="password" id="dang_ky_nhap_lai_mat_khau"  placeholder="Nhập lại mật khẩu"
+                                            name="ConfirmPassword">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <input type="button"
+                        class="btn btn-secondary register-next-step-button mt-3 mb-3" id="btn_dang_ky" value="Đăng ký" onclick="return kiem_tra_thong_tin_dang_ky()"
+                        name="register-button">
+                </form>
 			</div>
 		</div>
-	</div>
-<!-- //register -->
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" id="modal_thongbao" style="display:none" data-toggle="modal" data-target="#modelId">
+Launch
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		  <div class="modal-header">
+			  <h5 class="modal-title">Thông báo</h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					  <span aria-hidden="true">&times;</span>
+				  </button>
+		  </div>
+		  <div class="modal-body" id="TH_thongbao">
+			  
+		  </div>
+		  <div class="modal-footer">
+			  <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+		  </div>
+	  </div>
+  </div>
+</div>
 <% include layout/footer %>
 <script>
 	btn_dang_ky.onclick=()=>{
