@@ -99,7 +99,7 @@ router.get('/:tensp/:id/:maloai', async function (req, res, next) {
       }
     ]).toArray(function (er, sp_cungloai) {
       res.render('chitiet', {
-        tieude: 'Chi Tiết sản phẩm',
+        tieude: 'Gear Srore | Chi Tiết sản phẩm',
         trangthai: 'Chi tiết sản phẩm',
         sanpham: sanpham,
         sanpham_cungloai: sp_cungloai

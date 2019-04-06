@@ -6,7 +6,7 @@ cl_san_pham = 'san_pham'
 cl_hoa_don = 'hoa_don'
 
 router.get('/giohang', function(req, res, next) {
-  res.render('giohang', { tieude: 'Giỏ hàng',trangthai:"Giỏ hàng" });
+  res.render('giohang', { tieude: 'Gear Srore | Giỏ hàng',trangthai:"Giỏ hàng" });
 });
 
 

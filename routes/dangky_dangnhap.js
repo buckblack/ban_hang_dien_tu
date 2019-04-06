@@ -7,7 +7,7 @@ var md5=require('md5');
 cl_nguoi_dung = 'nguoi_dung'
 
 router.get('/dangky', function(req, res, next) {
-  res.render('dangky', { tieude: 'Đăng ký',trangthai:"Đăng ký" });
+  res.render('dangky', { tieude: 'Gear Srore | Đăng ký',trangthai:"Đăng ký" });
 });
 
 router.post('/dangky',async function(req, res, next) {
@@ -53,7 +53,7 @@ router.post('/dangky',async function(req, res, next) {
 });
 
 router.get('/dangnhap', function(req, res, next) {
-  res.render('dangnhap', { tieude: 'Đăng nhập',trangthai:"Đăng nhập" });
+  res.render('dangnhap', { tieude: 'Gear Srore | Đăng nhập',trangthai:"Đăng nhập" });
 });
 
 router.post('/dangnhap',async function(req, res, next) {
