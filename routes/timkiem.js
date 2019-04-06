@@ -47,6 +47,14 @@ router.get('/gio-hang/:id', async function (req, res, next) {
         foreignField: '_id',
         as: 'loaisp'
       }
+    },
+    {
+      $lookup: {
+        from: 'thuong_hieu',
+        localField: 'ma_thuong_hieu',
+        foreignField: '_id',
+        as: 'thuonghieu'
+      }
     }
   ]).toArray(function (err, result) {
     res.json(JSON.stringify(result));

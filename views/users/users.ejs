@@ -1,30 +1,35 @@
 <% include ../layout/head %>
-
 <% include ../layout/header %>
-
 <% include ../layout/nav %>
-
 <% include ../layout/thanh_trang_thai %>
-<div class="container">
-  <button type="button" class="btn btn-info btn-lg" name="button" onclick="window.location='/users/doi-mat-khau'">Đổi mật khẩu</button>
-  <button type="button" class="btn btn-info btn-lg disabled" name="button">Thông tin cá nhân</button>
-  <button type="button" class="btn btn-info btn-lg" name="button" onclick="window.location='/users/don-hang'">Thông tin đơn hàng</button>
-</div>
-<div class="register">
-  <div class="container">
-    <div class="login-form-grids">
-      <h5>Thông tin cá nhân</h5>
-      <form  method="post">
-        <input type="text" name="ten_khach_hang" id="dang_ky_ten_khach_hang" placeholder="Họ tên..." required >
-        <input type="text" name="dia_chi" id="dang_ky_dia_chi" placeholder="Địa chỉ..." required >
-        <input type="text" name="dien_thoai" id="dang_ky_dien_thoai" placeholder="Điện thoại..." required >
-      <h6>Thông tin đăng nhập</h6>
-        <input type="email" name="email" id="dang_ky_email" placeholder="Địa chỉ Email" readonly >
-        <input type="submit" name="btn_dang_ky" value="Cập nhật">
-      </form>
-    </div>
+<div class="container page-container">
+  <div class="page home-page custom-container">
+  <ul class="nav nav-pills nav-fill m-3">
+      <li class="nav-item" >
+          <a class="nav-link btn btn-info mx-2 mt-2 text-white" onclick="window.location='/users/doi-mat-khau'">Đổi mật khẩu</a>
+      </li>
+      <li class="nav-item disabled">
+          <a class="nav-link btn btn-info mx-2 mt-2 text-white disabled">Thông tin cá nhân</a>
+      </li>
+      <li class="nav-item" onclick="window.location='/users/don-hang'">
+          <a class="nav-link btn btn-info mx-2 mt-2 text-white">Thông tin đơn hàng</a>
+      </li>
+  </ul>
+  <div class="register">
+    <div class="container">
+      <div class="text-center">
+        <h5 class="my-3">Thông tin cá nhân</h5>
+          <input type="text" name="ten_khach_hang" class="form-control my-3" id="dang_ky_ten_khach_hang" placeholder="Họ tên..." required >
+          <input type="text" name="dia_chi" class="form-control my-3" id="dang_ky_dia_chi" placeholder="Địa chỉ..." required >
+          <input type="text" name="dien_thoai"class="form-control my-3" id="dang_ky_dien_thoai" placeholder="Điện thoại..." required >
+        <h5 class="my-3">Thông tin đăng nhập</h5>
+          <input type="email" name="email" class="form-control my-3" id="dang_ky_email" placeholder="Địa chỉ Email" readonly >
+          <input type="button" class="btn btn-primary my-3" name="btn_dang_ky" value="Cập nhật">
+      </div>
 
-  </div>
+      </div>
+      </div>
+    </div>
 </div>
  <% include ../layout/footer %>
  <script>

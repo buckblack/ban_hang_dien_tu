@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var sockIO = require("socket.io")();
 var localStorage = require('localStorage')
 session = require('client-sessions')
 
@@ -22,6 +23,14 @@ var adminRouter=require('./routes/admin');
 
 
 var app = express();
+app.sockIO= sockIO;
+sockIO.on('connection', function(socket){
+  console.log(`A client connection occurred!: ${socket.id}`);
+  socket.on('user-send-message', function(data){
+    sockIO.sockets.emit('server-send-mesage', data);
+  });
+});
+
 app.use(session({
   cookieName: 'Nguoi_dung',
   secret: '2eca38b4-28d1-11e7-93ae-92361f002671',

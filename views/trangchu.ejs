@@ -14,14 +14,14 @@
 				<div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-2">
 					<div class="card pb-0">
 						<div class="list-picture">
-							<a href="/electronics" title="Show products in category Electronics">
+							<a href="/tivi" title="Show products in category Electronics">
 								<img class="img-fluid img-thumbnail" alt="Hình ảnh tivi" src="/static/images/tivi.jpg"
 									title="Hình ảnh tivi">
 							</a>
 						</div>
 						<div class="list-title mt-3 text-center">
 							<h3 class="h5 card-title m-0 p-0">
-								<a href="/electronics">
+								<a href="/tivi">
 									Tivi
 								</a>
 							</h3>
@@ -31,14 +31,14 @@
 				<div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-2">
 					<div class="card pb-0">
 						<div class="list-picture">
-							<a href="/electronics" title="Show products in category Electronics">
+							<a href="/tulanh" title="Show products in category Electronics">
 								<img class="img-fluid img-thumbnail" alt="Hình ảnh tủ lạnh"
 									src="/static/images/tulanh.jpg" title="Hình ảnh tủ lạnh">
 							</a>
 						</div>
 						<div class="list-title mt-3 text-center">
 							<h3 class="h5 card-title m-0 p-0">
-								<a href="/electronics">
+								<a href="/tulanh">
 									Tủ lạnh
 								</a>
 							</h3>
@@ -48,14 +48,14 @@
 				<div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-2">
 					<div class="card pb-0">
 						<div class="list-picture">
-							<a href="/electronics" title="Show products in category Electronics">
+							<a href="/maylanh" title="Show products in category Electronics">
 								<img class="img-fluid img-thumbnail" alt="Hình ảnh máy lạnh"
 									src="/static/images/maylanh.jpg" title="Hình ảnh máy lạnh">
 							</a>
 						</div>
 						<div class="list-title mt-3 text-center">
 							<h3 class="h5 card-title m-0 p-0">
-								<a href="/electronics">
+								<a href="/maylanh">
 									Máy lạnh
 								</a>
 							</h3>
@@ -133,7 +133,7 @@
 							<div class="card-buttons">
 								<div class="btn-group">
 									<input type="button" class="btn btn-info btnAdd" id="<%= sanpham[i]._id%>" value="Thêm vào giỏ">
-									<button type="button" value="Quick View" title="Xem nhanh"
+									<button type="button" onclick="quick_view_click('<%= sanpham[i]._id%>')" value="Quick View" title="Xem nhanh"
 										class="btn btn-secondary btn-quick-view" data-toggle="modal"
 										data-target="#modal-search">
 										<span class="sr-only">Xem nhanh</span>

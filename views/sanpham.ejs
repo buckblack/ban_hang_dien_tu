@@ -45,6 +45,26 @@
                             <a href="/tulanh">
                                 Tủ lạnh
                             </a>
+                            <ul class="sublist d-none">
+                                <li class="inactive">
+                                    <a href="/desktops">
+                                        SAMSUNG
+                                    </a>
+                                </li>
+
+                                <li class="inactive">
+                                    <a href="/notebooks">
+                                        SONY
+                                    </a>
+                                </li>
+
+                                <li class="inactive">
+                                    <a href="/software">
+                                        LG
+                                    </a>
+                                </li>
+
+                            </ul>
                         </li>
 
                         <li class="inactive">
@@ -186,7 +206,7 @@
                                         <div class="btn-group">
                                             <input type="button" id="<%= sp._id%>" class="btn btn-info btnAdd"
                                                 value="Thêm vào giỏ">
-                                            <button type="button" value="Quick View" title="Xem nhanh"
+                                            <button type="button" onclick="quick_view_click('<%= sp._id%>')" value="Quick View" title="Xem nhanh"
                                                 class="btn btn-secondary btn-quick-view"
                                                 data-toggle="modal" data-target="#modal-search">
                                                 <span class="sr-only">Xem nhanh</span>
