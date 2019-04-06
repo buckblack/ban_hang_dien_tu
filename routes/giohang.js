@@ -4,6 +4,7 @@ var ObjectId = require('mongodb').ObjectID;
 var xl_mongo = require('../public/js/KET_NOI')
 cl_san_pham = 'san_pham'
 cl_hoa_don = 'hoa_don'
+cl_thong_bao = 'thong_bao'
 
 router.get('/giohang', function(req, res, next) {
   res.render('giohang', { tieude: 'Gear Srore | Giỏ hàng',trangthai:"Giỏ hàng" });
@@ -35,11 +36,18 @@ router.post('/thanh-toan', async function(req, res, next) {
             'gia_ban':res_search[0].gia_ban
           }
           db.collection(cl_hoa_don).update({'ma_hd': ma_hd}, {$push: {chi_tiet:chi_tiet}},()=>{
-            dem++;
-            if(dem==ct.length)
-            {
-              res.json({'errorCode':0,'ma_hd':ma_hd,'message':'Đặt hàng thành công'});
+            var thong_bao={
+              'ma_hd': ma_hd,
+              'ngay_tao': new Date(),
+              'noi_dung' : `Hóa đơn mới (${ma_hd}) cần xác nhận`
             }
+            db.collection(cl_thong_bao).insert(thong_bao,(err_tb,res_tb)=>{
+              dem++;
+              if(dem==ct.length)
+              {
+                res.json({'errorCode':0,'ma_hd':ma_hd,'message':'Đặt hàng thành công'});
+              }
+            })
           });
         })
       });

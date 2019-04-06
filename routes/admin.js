@@ -29,4 +29,8 @@ router.get('/nhap-hang', function(req, res, next) {
   res.render('admin/nhap_hang', {});
 });
 
+router.get('/thong-bao', function(req, res, next) {
+  res.render('admin/thong_bao', {});
+});
+
 module.exports = router;

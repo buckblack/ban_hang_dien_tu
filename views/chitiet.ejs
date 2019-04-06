@@ -118,7 +118,7 @@
                         <div class="tab-content" id="product_tab_content">
                             <div class="tab-pane fade show active" id="desc" role="tabpanel" aria-labelledby="desc-tab"
                                 itemprop="description">
-                                <%= sanpham[0].noi_dung%>
+                                <%- sanpham[0].noi_dung%>
                             </div>
                             <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
 
@@ -187,7 +187,7 @@
                                             <div class="btn-group">
                                                 <input type="button" class="btn btn-info btnAdd" value="Thêm vào giỏ">
                                                 <button type="button" value="Quick View" title="Xem nhanh"
-                                                    class="btn btn-secondary btn-quick-view" data-toggle="modal" oclick=""
+                                                    class="btn btn-secondary btn-quick-view" data-toggle="modal" onclick="quick_view_click('<%= sp._id%>')"
                                                     data-target="#modal-search">
                                                     <span class="sr-only">Xem nhanh</span>
                                                     <span class="material-icons mat">

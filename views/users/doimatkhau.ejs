@@ -2,6 +2,12 @@
 <% include ../layout/header %>
 <% include ../layout/nav %>
 <% include ../layout/thanh_trang_thai %>
+<script>
+  if(sessionStorage.getItem('khach_hang_Ten')==null || sessionStorage.getItem('khach_hang_Id')==null)
+    {
+        window.location=window.location.origin
+    }
+</script>
 <div class="container page-container">
   <div class="page home-page custom-container">
   <ul class="nav nav-pills nav-fill m-3">
