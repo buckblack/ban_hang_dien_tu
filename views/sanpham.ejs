@@ -28,56 +28,54 @@
                             <a href="/tulanh">
                                 Tủ lạnh
                             </a>
-                            <ul class="sublist d-none">
-                                <li class="inactive">
-                                    <a href="/desktops">
-                                        SAMSUNG
-                                    </a>
-                                </li>
-
-                                <li class="inactive">
-                                    <a href="/notebooks">
-                                        SONY
-                                    </a>
-                                </li>
-
-                                <li class="inactive">
-                                    <a href="/software">
-                                        LG
-                                    </a>
-                                </li>
-
-                            </ul>
+                            <% if ( typeof sublist_tulanh != "undefined") { %>
+                                <%-  sublist_tulanh%> 
+                            <% } %>
                         </li>
 
                         <li class="inactive">
                             <a href="/maylanh">
                                 Máy lạnh
                             </a>
+                            <% if ( typeof sublist_maylanh != "undefined") { %>
+                                <%-  sublist_maylanh%> 
+                            <% } %>
                         </li>
 
                         <li class="inactive">
-                            <a href="/digital-downloads">
+                            <a href="/maygiat">
                                 Máy giặt
                             </a>
+                            <% if ( typeof sublist_maygiat != "undefined") { %>
+                                <%-  sublist_maygiat%> 
+                            <% } %>
                         </li>
 
                         <li class="inactive">
-                            <a href="/books">
+                            <a href="/dienthoai">
                                 Điện thoại
                             </a>
+                            <% if ( typeof sublist_dienthoai != "undefined") { %>
+                                <%-  sublist_dienthoai%> 
+                            <% } %>
                         </li>
 
                         <li class="inactive">
-                            <a href="/jewelry">
+                            <a href="/laptop">
                                 Laptop
                             </a>
+                            <% if ( typeof sublist_laptop != "undefined") { %>
+                                <%-  sublist_laptop%> 
+                            <% } %>
                         </li>
 
                         <li class="inactive">
-                            <a href="/gift-cards">
+                            <a href="/linhkien">
                                 Linh phụ kiện
                             </a>
+                            <% if ( typeof sublist_linhkien != "undefined") { %>
+                                <%-  sublist_linhkien%> 
+                            <% } %>
                         </li>
 
                     </ul>
@@ -190,7 +188,7 @@ function xuat_danh_sach(arr,thu_muc)
                         title="Xem chi tiết ${row.ten_sp}">
                         <img class="card-img-top img-fluid"
                             alt="Xem chi tiết ${row.ten_sp}"
-                            src="/static/images/${thu_muc.replace(' ','')}/${row.hinh_anh}"
+                            src="/static/images/${thu_muc.replace(' ','').replace('\n','')}/${row.hinh_anh}"
                             title="Xem chi tiết ${row.ten_sp}">
                     </a>
                     <div class="card-body p-0">

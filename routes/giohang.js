@@ -24,6 +24,7 @@ router.post('/thanh-toan', async function(req, res, next) {
       'ngay_lap':new Date(),
       'loai_hd':'xuất',
       'trang_thai':'Chưa xác nhận',
+      'ghi_chu':'',
       'chi_tiet':[]
     }
     db.collection(cl_hoa_don).insert(hd,(err_ins,res_ins)=>{
