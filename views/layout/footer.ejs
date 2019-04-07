@@ -252,10 +252,11 @@
         }
     </script>
     <script>
-    if(sessionStorage.getItem('gio_hang') != null)
-	{
-		so_san_pham.innerHTML=JSON.parse(sessionStorage.getItem('gio_hang')).length
-	}
+    $(document).ready(function () {
+        if(sessionStorage.getItem('gio_hang') != null)
+        {
+            so_san_pham.innerHTML=JSON.parse(sessionStorage.getItem('gio_hang')).length
+        }
         $(".btnAdd").click(function(){
             if($(this).val()=="Thêm vào giỏ")
             {
@@ -281,6 +282,7 @@
                 }
             }
         });
+    });
     </script>
     <script>
 	if(sessionStorage.getItem('khach_hang_Ten')==null || sessionStorage.getItem('khach_hang_Id')==null)
