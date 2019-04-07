@@ -87,7 +87,6 @@ router.post('/don-hang/chi-tiet',async function(req, res, next) {
     res.json(sanpham[0].chi_tiet)
   });
 });
-
 router.get('/don-hang/:id', function(req, res, next) {
   res.render('users/chitietdonhang',{tieude:'Gear Srore | Chi tiết đơn hàng',trangthai:'Chi tiết đơn hàng',madonhang:req.params.id});
 });

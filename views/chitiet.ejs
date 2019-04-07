@@ -75,9 +75,12 @@
                             <div class="availability generalMarginSupporter">
                                 <div class="stock">
                                     <span class="label">Tình trạng:</span>
-                                    <span class="value" id="stock-availability-value-5c861fb357d5a11c90420fee">
-                                        <link itemprop="availability" href="http://schema.org/InStock">
+                                    <span class="value">
+                                    <% if (sanpham[0].trang_thai=="kinh doanh") { %>
                                         Còn hàng
+                                    <% } else { %>
+                                     Hết hàng
+                                    <% } %>
                                     </span>
                                 </div>
                             </div>
