@@ -86,38 +86,19 @@
                 <h2 class="h5 d-block"><strong>Từ khóa phổ biến</strong></h2>
                 <div class="viewBox btn-toolbar">
                     <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/apparel" style="font-size:100%;">apparel</a>
+                        href="/tivi" style="font-size:100%;">tivi</a>
                     <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/awesome" style="font-size:150%;">awesome</a>
+                        href="/tulanh" style="font-size:150%;">tủ lạnh</a>
                     <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/book" style="font-size:85%;">book</a>
+                        href="/maylanh" style="font-size:85%;">máy lạnh</a>
                     <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/camera" style="font-size:85%;">camera</a>
+                        href="/maygiat" style="font-size:85%;">maygat</a>
                     <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/cell" style="font-size:85%;">cell</a>
+                        href="/dienthoai" style="font-size:85%;">diện thoại</a>
                     <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/compact" style="font-size:90%;">compact</a>
+                        href="/laptop" style="font-size:90%;">laptop</a>
                     <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/computer" style="font-size:120%;">computer</a>
-                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/cool" style="font-size:150%;">cool</a>
-                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/digital" style="font-size:85%;">digital</a>
-                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/gift" style="font-size:85%;">gift</a>
-                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/jeans" style="font-size:85%;">jeans</a>
-                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/jewelry" style="font-size:85%;">jewelry</a>
-                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/nice" style="font-size:90%;">nice</a>
-                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/shirt" style="font-size:85%;">shirt</a>
-                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/shoes" style="font-size:85%;">shoes</a>
-                    <div class="view-all mt-2">
-                        <a class="btn btn-outline-info" href="/producttag/all">View all</a>
-                    </div>
+                        href="/linhkien" style="font-size:120%;">linh kiện</a>
                 </div>
             </div>
         </div>
@@ -198,7 +179,7 @@ function xuat_danh_sach(arr,thu_muc)
                                     value="Thêm vào giỏ">
                                 <button type="button" onclick="quick_view_click('${row._id}')" value="Quick View" title="Xem nhanh"
                                     class="btn btn-secondary btn-quick-view"
-                                    data-toggle="modal" data-target="#modal-search">
+                                    data-toggle="modal" data-target="#modal-quick-search">
                                     <span class="sr-only">Xem nhanh</span>
                                     <span class="material-icons mat">
                                         search
@@ -295,7 +276,6 @@ function Tao_The_Hien_Phan_trang(Tong_so_san_pham, So_san_pham_cho_mot_trang, Th
     dia_chi = window.location.pathname;
     var Tong_trang = (Tong_so_san_pham % So_san_pham_cho_mot_trang == 0) ? Tong_so_san_pham /
         So_san_pham_cho_mot_trang : parseInt(Tong_so_san_pham / So_san_pham_cho_mot_trang) + 1
-        console.log(window.location)
     var noi_dung_HTML = `<nav aria-label="Page navigation">`
     noi_dung_HTML += `
         <ul class="pagination justify-content-center">

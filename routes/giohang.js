@@ -17,6 +17,12 @@ router.post('/thanh-toan', async function(req, res, next) {
   var ct=JSON.parse(req.body.chi_tiet)
   await db.collection(cl_hoa_don).find({}).toArray((err_hd,res_hd)=>{
     ma_hd=Number(res_hd.length) +1
+    var thong_bao={
+      'ma_hd': ma_hd,
+      'ngay_tao': new Date(),
+      'noi_dung' : `Hóa đơn mới (${ma_hd}) cần xác nhận`
+    }
+    db.collection(cl_thong_bao).insert(thong_bao);
     var hd={
       'ma_hd':ma_hd,
       'khach_hang':ObjectId(req.body.khach_hang_Id),
@@ -37,18 +43,11 @@ router.post('/thanh-toan', async function(req, res, next) {
             'gia_ban':res_search[0].gia_ban
           }
           db.collection(cl_hoa_don).update({'ma_hd': ma_hd}, {$push: {chi_tiet:chi_tiet}},()=>{
-            var thong_bao={
-              'ma_hd': ma_hd,
-              'ngay_tao': new Date(),
-              'noi_dung' : `Hóa đơn mới (${ma_hd}) cần xác nhận`
+            dem++;
+            if(dem==ct.length)
+            {
+              res.json({'errorCode':0,'ma_hd':ma_hd,'message':'Đặt hàng thành công'});
             }
-            db.collection(cl_thong_bao).insert(thong_bao,(err_tb,res_tb)=>{
-              dem++;
-              if(dem==ct.length)
-              {
-                res.json({'errorCode':0,'ma_hd':ma_hd,'message':'Đặt hàng thành công'});
-              }
-            })
           });
         })
       });

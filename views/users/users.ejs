@@ -25,22 +25,63 @@ if(sessionStorage.getItem('khach_hang_Ten')==null || sessionStorage.getItem('kha
     <div class="container">
       <div class="text-center">
         <h5 class="my-3">Thông tin cá nhân</h5>
-          <input type="text" name="ten_khach_hang" class="form-control my-3" id="dang_ky_ten_khach_hang" placeholder="Họ tên..." required >
-          <input type="text" name="dia_chi" class="form-control my-3" id="dang_ky_dia_chi" placeholder="Địa chỉ..." required >
-          <input type="text" name="dien_thoai"class="form-control my-3" id="dang_ky_dien_thoai" placeholder="Điện thoại..." required >
+          <input type="text" name="ten_khach_hang" class="form-control my-3" id="cap_nhat_ten_khach_hang" placeholder="Họ tên..." required >
+          <input type="text" name="dia_chi" class="form-control my-3" id="cap_nhat_dia_chi" placeholder="Địa chỉ..." required >
+          <input type="text" name="dien_thoai"class="form-control my-3" id="cap_nhat_dien_thoai" placeholder="Điện thoại..." required >
         <h5 class="my-3">Thông tin đăng nhập</h5>
           <input type="email" name="email" class="form-control my-3" id="dang_ky_email" placeholder="Địa chỉ Email" readonly >
-          <input type="button" class="btn btn-primary my-3" name="btn_dang_ky" value="Cập nhật">
+          <input type="button" class="btn btn-primary my-3" name="btn_cap_nhat" onclick="cap_nhat_thong_tin()" value="Cập nhật" data-toggle="modal" data-target="#modal_thong_bao_cap_nhat">
       </div>
 
       </div>
       </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="modal_thong_bao_cap_nhat" tabindex="-1" role="dialog" aria-labelledby="modal_thong_bao_cap_nhat" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thông báo</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body" id="TH_thong_bao_cap_nhat">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
  <% include ../layout/footer %>
  <script>
-    dang_ky_ten_khach_hang.value=sessionStorage.getItem('khach_hang_Ten')
-    dang_ky_dia_chi.value=sessionStorage.getItem('khach_hang_Dia_chi')
-    dang_ky_dien_thoai.value=sessionStorage.getItem('khach_hang_Dien_thoai')
+    cap_nhat_ten_khach_hang.value=sessionStorage.getItem('khach_hang_Ten')
+    cap_nhat_dia_chi.value=sessionStorage.getItem('khach_hang_Dia_chi')
+    cap_nhat_dien_thoai.value=sessionStorage.getItem('khach_hang_Dien_thoai')
     dang_ky_email.value=sessionStorage.getItem('khach_hang_Email')
  </script>
+<script>
+  function cap_nhat_thong_tin()
+  {
+    TH_thong_bao_cap_nhat.innerHTML=`Đang xử lý...`
+    var form_data={
+      'id':sessionStorage.getItem('khach_hang_Id'),
+      'ho_ten':cap_nhat_ten_khach_hang.value,
+      'dia_chi':cap_nhat_dia_chi.value,
+      'dien_thoai':cap_nhat_dien_thoai.value
+    }
+    $.ajax({
+      url: window.location.origin+'/users/cap-nhat',
+      type: "POST",
+      data: form_data,
+      success: (data) => {
+        TH_thong_bao_cap_nhat.innerHTML=data.message
+        sessionStorage.setItem('khach_hang_Ten',data.ho_ten)
+        sessionStorage.setItem('khach_hang_Dia_chi',data.dia_chi)
+        sessionStorage.setItem('khach_hang_Dien_thoai',data.dien_thoai)
+      }
+    })
+  }
+</script>

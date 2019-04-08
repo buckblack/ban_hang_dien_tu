@@ -3,6 +3,7 @@ var router = express.Router();
 var ObjectId = require('mongodb').ObjectID;
 var xl_mongo = require('../public/js/KET_NOI')
 cl_hoa_don='hoa_don'
+cl_nguoi_dung='nguoi_dung'
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -22,6 +23,22 @@ router.post('/don-hang',async function(req, res, next) {
   db.collection(cl_hoa_don).find({'khach_hang':ObjectId(req.body.khach_hang_Id)}).toArray((error,result)=>{
     res.json(result)
   });
+});
+
+router.post('/cap-nhat',async function(req, res, next) {
+  let db = await xl_mongo.Get();
+  db.collection(cl_nguoi_dung).update({'_id':ObjectId(req.body.id)},{$set:{
+    'ho_ten':req.body.ho_ten,
+    'dia_chi':req.body.dia_chi,
+    'dien_thoai':req.body.dien_thoai
+  }},()=>{
+    res.json({
+      'message':'Cập nhật thành công',
+      'ho_ten':req.body.ho_ten,
+      'dia_chi':req.body.dia_chi,
+      'dien_thoai':req.body.dien_thoai
+    })
+  })
 });
 
 router.post('/don-hang/chi-tiet',async function(req, res, next) {

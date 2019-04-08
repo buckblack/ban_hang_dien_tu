@@ -13,11 +13,10 @@
                         <div
                             class="col-lg-5 col-12 px-lg-3 pr-lg-0 px-0 mt-lg-0 mt-3 input-group flex-row align-items-center newsletter-inputs">
                             <input class="form-control" id="newsletter-email" placeholder="Nhập email..."
-                                aria-label="Enter your email here..." type="text" name="NewsletterEmail" value="">
+                                aria-label="Enter your email here..." type="email" required name="NewsletterEmail" value="">
                             <label for="newsletter-email" class="sr-only">newsletter</label>
                             <div class="input-group-prepend newsletter-button-container">
-                                <button class="btn btn-outline-white d-flex align-items-center" aria-hidden="true"
-                                    id="newsletter-subscribe-button" type="button"><span
+                                <button class="btn btn-outline-white d-flex align-items-center" onclick="dang_ky_nhan_mail()" data-toggle="modal" data-target="#modal-nhan-mail" type="button"><span
                                         class="material-icons mat">local_post_office</span></button>
                             </div>
                         </div>
@@ -153,9 +152,34 @@
     <aside class="js-offcanvas mobile-filters c-offcanvas is-closed c-offcanvas--left c-offcanvas--overlay"
         data-offcanvas-options="{&quot;modifiers&quot;:&quot;left,overlay&quot;,&quot;modal&quot;:true,&quot;resize&quot;:true}"
         id="leftSide" role="dialog" tabindex="-1" aria-hidden="true"></aside>
+        <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
 
-    <!-- Search Modal -->
-    <div class="modal fade" id="modal-search" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    <!-- Modal -->
+    <div class="modal fade" id="modal-nhan-mail" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thông báo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body" id="TH_thong_bao_nhan_mail">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!--Quick Search Modal -->
+    <div class="modal fade" id="modal-quick-search" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
         aria-hidden="true">
         <div class="modal-dialog modal-quickview" role="document">
             <div class="modal-content">
@@ -173,6 +197,58 @@
             </div>
         </div>
     </div>
+    <!-- Search Modal -->
+    <div class="modal fade" id="modal-search" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <form id="small-search-box-form" novalidate="novalidate">
+    <input type="hidden" value="true" data-val="true" data-val-required="The Box field is required." id="Box" name="Box">
+    <label for="small-searchterms" class="sr-only">Search store</label>
+    <div class="input-group flex-row">
+        <input type="text" class="form-control search-box-text ui-autocomplete-input" id="keyword_footer" autocomplete="off" name="q" placeholder="Nhập từ khóa">
+        <div class="input-group-append">
+            <button type="button" onclick="kiem_tra_tim_kiem_footer()" class="btn btn-info search-box-button float-sm-right d-inline-flex">
+                <span class="sr-only">Search store</span>
+                <span class="material-icons mat">
+                    search
+                </span>
+            </button>
+        </div>
+        <ul class="advanced-search-results row">
+            <li class="left-side col-md-6 col-12">
+                <ul>
+                    <li class="categories-container">
+                        <a class="title">Categories</a>
+                        <div class="no-data pl-md-3 pl-0">No categories were found that matched your criteria.</div>
+                        <ul></ul>
+                    </li>
+                    <li class="manufacturers-container">
+                        <a href="/manufacturer/all" class="title">Manufacturers</a>
+                        <div class="no-data pl-0">No manufacturers were found that matched your criteria.</div>
+                        <ul></ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="right-side col-md-6 col-12">
+                <a class="products-title title">Products</a>
+                <div class="no-data pl-md-3 pl-0">No products were found that matched your criteria.</div>
+                <ul class="products-container"></ul>
+            </li>
+            <li class="center-side col-12">
+                <ul>
+                    <li class="blog-container mb-3">
+                        <a href="/blog" class="title">Blog</a>
+                        <div class="no-data pl-md-3 pl-0">No blog posts were found that matched your criteria.</div>
+                        <ul></ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</form></div>
+    </div>
+    </div>
     
     <script>
         function quick_view_click(id) {
@@ -182,7 +258,6 @@
                 type: "GET",
                 success: (data) => {
                     var kq = (JSON.parse(data))[0]
-                    console.log(kq)
                     TH_quick_view.innerHTML += `
                     <div class="page product-details-page">
                         <div class="item-container col d-md-inline-flex d-md-flex px-0">
@@ -253,6 +328,49 @@
     </script>
     <script>
     $(document).ready(function () {
+        if(sessionStorage.getItem('khach_hang_Ten')==null || sessionStorage.getItem('khach_hang_Id')==null)
+        {
+            TH_dangnhap_dangxuat.innerHTML=`
+            <a class="nav-link mr-2" href="/dangnhap">
+                <span class="hl-label">
+                    <span class="material-icons mat">
+                        lock_open
+                    </span>
+                </span>
+                <span class="d-flex align-items-center mobile-desc">Đăng nhập</span>
+            </a>
+            <a class="nav-link ml-2" href="/dangky">
+                <span class="hl-label">
+                    <span class="material-icons mat">
+                        lock
+                    </span>
+                </span>
+                <span class="d-flex align-items-center mobile-desc">Đăng ký</span>
+            </a>
+            `
+        }
+        else
+        {
+            TH_dangnhap_dangxuat.innerHTML=`
+                <a class="nav-link mr-2" href="/users">
+                    <span class="hl-label">
+                        <span class="material-icons mat">
+                            perm_identity
+                        </span>
+                    </span>
+                    <span class="d-flex align-items-center mobile-desc">Chào: ${sessionStorage.getItem('khach_hang_Ten')}</span>
+                </a>
+                <a class="nav-link ml-2" href="#" id="TH_dang_xuat" onclick="dangxuat()">
+                    <span class="hl-label">
+                        <span class="material-icons mat">
+                            lock
+                        </span>
+                    </span>
+                    <span class="d-flex align-items-center mobile-desc">Đăng xuất</span>
+                </a>
+            `
+        }
+    
         if(sessionStorage.getItem('gio_hang') != null)
         {
             so_san_pham.innerHTML=JSON.parse(sessionStorage.getItem('gio_hang')).length
@@ -285,48 +403,7 @@
     });
     </script>
     <script>
-	if(sessionStorage.getItem('khach_hang_Ten')==null || sessionStorage.getItem('khach_hang_Id')==null)
-	{
-		TH_dangnhap_dangxuat.innerHTML=`
-        <a class="nav-link mr-2" href="/dangnhap">
-            <span class="hl-label">
-                <span class="material-icons mat">
-                    lock_open
-                </span>
-            </span>
-            <span class="d-flex align-items-center mobile-desc">Đăng nhập</span>
-        </a>
-        <a class="nav-link ml-2" href="/dangky">
-            <span class="hl-label">
-                <span class="material-icons mat">
-                    lock
-                </span>
-            </span>
-            <span class="d-flex align-items-center mobile-desc">Đăng ký</span>
-        </a>
-		`
-	}
-	else
-	{
-        TH_dangnhap_dangxuat.innerHTML=`
-            <a class="nav-link mr-2" href="/users">
-                <span class="hl-label">
-                    <span class="material-icons mat">
-                        perm_identity
-                    </span>
-                </span>
-                <span class="d-flex align-items-center mobile-desc">Chào: ${sessionStorage.getItem('khach_hang_Ten')}</span>
-            </a>
-            <a class="nav-link ml-2" href="#" id="TH_dang_xuat" onclick="dangxuat()">
-                <span class="hl-label">
-                    <span class="material-icons mat">
-                        lock
-                    </span>
-                </span>
-                <span class="d-flex align-items-center mobile-desc">Đăng xuất</span>
-            </a>
-		`
-	}
+	
 	function dangxuat(){
 		sessionStorage.removeItem('khach_hang_Ten')
 		sessionStorage.removeItem('khach_hang_Id')
@@ -337,107 +414,32 @@
 	}
     </script>
     <script>
-    function kiem_tra_tim_kiem()
+    function checkEmail(email) {
+        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!filter.test(email)) {
+            email.focus;
+            return false;
+        }
+        return true
+    }
+    function dang_ky_nhan_mail()
     {
-        var tim_kiem=document.getElementById("keyword")
-        if(tim_kiem.value.trim()=="")
+        if(checkEmail(document.getElementById('newsletter-email').value))
         {
-            alert("Vui lòng nhập từ khoá tìm kiếm")
-            ten_khach_hang.focus()
+            $.ajax({
+                url: window.location.origin+'/nhan-mail',
+                type: "POST",
+                data: {'email':document.getElementById('newsletter-email').value},
+                success: (data) => {
+                    TH_thong_bao_nhan_mail.innerHTML=data.message
+                }
+            })
         }
         else
         {
-            window.location='/tim-kiem/'+tim_kiem.value.trim()
+            TH_thong_bao_nhan_mail.innerHTML='Email không hợp lệ'
         }
     }
-    function kiem_tra_thong_tin_dang_ky()
-    {
-        var ten_khach_hang=document.getElementById("dang_ky_ten_khach_hang")
-        var dia_chi=document.getElementById("dang_ky_dia_chi")
-        var dien_thoai=document.getElementById("dang_ky_dien_thoai")
-        var ten_dang_nhap=document.getElementById("dang_ky_ten_dang_nhap")
-        var email=document.getElementById("dang_ky_email")
-        var mat_khau=document.getElementById("dang_ky_mat_khau")
-        var nhap_lai_mat_khau=document.getElementById("dang_ky_nhap_lai_mat_khau")
-
-        if(ten_khach_hang.value.trim()=="")
-        {
-            alert("Vui lòng nhập họ tên")
-            ten_khach_hang.focus()
-            return false
-        }
-
-        if(dia_chi.value.trim()=="")
-        {
-            alert("Vui lòng nhập địa chỉ")
-            dia_chi.focus()
-            return false
-        }
-
-        if(dien_thoai.value.trim()=="")
-        {
-            alert("Vui lòng nhập số diện thoại")
-            dien_thoai.focus()
-            return false
-        }
-
-        if(isNaN(dien_thoai.value) || (dien_thoai.value.length)>11)
-        {
-            alert("Số điện thoại không hợp lệ")
-            dien_thoai.focus()
-            return false
-        }
-
-        if(ten_dang_nhap.value.trim()=="")
-        {
-            alert("Vui lòng nhập tên đăng nhập")
-            ten_dang_nhap.focus()
-            return false
-        }
-
-        if(email.value.trim()=="")
-        {
-            alert("Vui lòng nhập email")
-            email.focus()
-            return false
-        }
-
-        if(mat_khau.value.trim()=="")
-        {
-            alert("Vui lòng nhập mật khẩu")
-            mat_khau.focus()
-            return false
-        }
-
-        if(nhap_lai_mat_khau.value.trim()!=mat_khau.value.trim())
-        {
-            alert("Mật khẩu không trùng khớp")
-            nhap_lai_mat_khau.focus()
-            return false
-        }
-
-        return true
-    }
-    
-    function kiem_tra_thong_tin_dang_nhap()
-		{
-			var ten_dang_nhap=document.getElementById("dang_nhap_email")
-			var mat_khau=document.getElementById("dang_nhap_mat_khau")
-			if(ten_dang_nhap.value.trim()=="")
-			{
-				alert("Vui lòng nhập tên đăng nhập")
-				ten_dang_nhap.focus()
-				return false
-			}
-			if(mat_khau.value.trim()=="")
-			{
-				alert("Vui lòng nhập mật khẩu")
-				mat_khau.focus()
-				return false
-			}
-
-			return true
-		}
     </script>
     <script type="text/javascript">
 		$(document).ready(function() {

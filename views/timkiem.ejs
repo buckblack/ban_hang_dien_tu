@@ -19,26 +19,6 @@
                             <a href="/tivi">
                                 Tivi
                             </a>
-                            <ul class="sublist">
-                                <li class="active last">
-                                    <a href="/desktops">
-                                        SAMSUNG
-                                    </a>
-                                </li>
-
-                                <li class="inactive">
-                                    <a href="/notebooks">
-                                        SONY
-                                    </a>
-                                </li>
-
-                                <li class="inactive">
-                                    <a href="/software">
-                                        LG
-                                    </a>
-                                </li>
-
-                            </ul>
                         </li>
 
                         <li class="inactive">
@@ -85,38 +65,19 @@
                 <h2 class="h5 d-block"><strong>Từ khóa phổ biến</strong></h2>
                 <div class="viewBox btn-toolbar">
                     <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/apparel" style="font-size:100%;">apparel</a>
+                        href="/tivi" style="font-size:100%;">tivi</a>
                     <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/awesome" style="font-size:150%;">awesome</a>
+                        href="/tulanh" style="font-size:150%;">tủ lạnh</a>
                     <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/book" style="font-size:85%;">book</a>
+                        href="/maylanh" style="font-size:85%;">máy lạnh</a>
                     <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/camera" style="font-size:85%;">camera</a>
+                        href="/maygiat" style="font-size:85%;">maygat</a>
                     <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/cell" style="font-size:85%;">cell</a>
+                        href="/dienthoai" style="font-size:85%;">diện thoại</a>
                     <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/compact" style="font-size:90%;">compact</a>
+                        href="/laptop" style="font-size:90%;">laptop</a>
                     <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/computer" style="font-size:120%;">computer</a>
-                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/cool" style="font-size:150%;">cool</a>
-                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/digital" style="font-size:85%;">digital</a>
-                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/gift" style="font-size:85%;">gift</a>
-                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/jeans" style="font-size:85%;">jeans</a>
-                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/jewelry" style="font-size:85%;">jewelry</a>
-                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/nice" style="font-size:90%;">nice</a>
-                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/shirt" style="font-size:85%;">shirt</a>
-                    <a class="btn btn-sm btn-outline-secondary d-flex align-items-center"
-                        href="/producttag/shoes" style="font-size:85%;">shoes</a>
-                    <div class="view-all mt-2">
-                        <a class="btn btn-outline-info" href="/producttag/all">View all</a>
-                    </div>
+                        href="/linhkien" style="font-size:120%;">linh kiện</a>
                 </div>
             </div>
         </div>
@@ -135,30 +96,16 @@
                         <div class="sort-container">
                             <label class="mb-0" for="custom-select">Sort by</label>
                             <div class="selectdiv ml-4">
-                                <select class="form-control custom-select" id="custom-select"
-                                    name="custom-select" onchange="">
-                                    <option selected="selected" value="">Mặc định </option>
-                                    <option value="">Tên: A đến Z</option>
-                                    <option value="">Tên: Z đến A</option>
-                                    <option value="">Giá giảm dần</option>
-                                    <option value="">Giá tăng dần</option>
-                                    <option value="">Dưới 5.000.000</option>
-                                    <option value="">5.000.000 - 10.000.000</option>
-                                    <option value="">Trên 10.000.000</option>
+                                <select class="form-control custom-select" id="TH_sap_xep"
+                                    name="custom-select" onchange="sap_xep()">
                                 </select>
                             </div>
                         </div>
                         <div class="sort-container">
                             <label class="mb-0" for="custom-select">Display</label>
                             <div class="selectdiv ml-4">
-                                <select class="custom-select form-control" id=""
-                                    onchange="">
-                                    <option value="">10
-                                    </option>
-                                    <option selected="selected"
-                                        value="">25</option>
-                                    <option value="">50
-                                    </option>
+                                <select class="custom-select form-control" id="so_luong_hien_thi"
+                                    onchange="chon_so_luong()">
                                 </select>
                             </div>
                         </div>
@@ -166,68 +113,9 @@
                 </div>
 
                 <div class="subCategoryList">
-                    <div class="row flex-grid">
-                    <% sanpham.forEach(sp => {%>
-                        <div class="col-lg-4 col-sm-6 col-6 product-container">
-                            <div class="card gen border p-1" >
-                                <a class="picture" href="/chitiet/<%= bo_dau(sp.ten_sp)%>/<%= sp._id%>/<%= sp.ma_loai%>"
-                                    title="Xem chi tiết <%= sp.ten_sp%>">
-                                    <img class="card-img-top img-fluid"
-                                        alt="Xem chi tiết <%= sp.ten_sp%>"
-                                        src="/static/images/<%= sp.loaisp[0].thu_muc_hinh%>/<%= sp.hinh_anh%>"
-                                        title="Xem chi tiết <%= sp.ten_sp%>">
-                                </a>
-                                <div class="card-body p-0">
-                                    <div class="card-buttons">
-                                        <div class="btn-group">
-                                            <input type="button" id="<%= sp._id%>" class="btn btn-info btnAdd"
-                                                value="Thêm vào giỏ">
-                                            <button type="button" onclick="quick_view_click('<%= sp._id%>')" value="Quick View" title="Xem nhanh"
-                                                class="btn btn-secondary btn-quick-view"
-                                                data-toggle="modal" data-target="#modal-search">
-                                                <span class="sr-only">Xem nhanh</span>
-                                                <span class="material-icons mat">
-                                                    search
-                                                </span>
-                                            </button>
-
-                                        </div>
-                                    </div>
-                                    <div class="card-body-content">
-                                        <h3 class="h6 card-title mb-0">
-                                            <strong><a href="/build-your-own-computer"><%= sp.ten_sp%></a></strong>
-                                        </h3>
-
-
-                                        <div class="col-12 px-0">
-                                            <div class="product-rating-box" title="1 review(s)">
-                                                <div class="rating">
-                                                    <div class="rating-ghost">
-                                                        ☆☆☆☆☆
-                                                    </div>
-                                                    <div class="rating-real" style="width: 80%">
-                                                        ★★★★★
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-inline-flex pb-0 pt-0">
-
-                                            <div
-                                                class="p-0 pr-2 align-self-center actual-price-container">
-                                                <span class="h5 card-subtitle">
-                                                    <span class="price actual-price"><%= (sp.gia_ban).toLocaleString()%> VNĐ</span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    <%});%>
+                    <div class="row flex-grid" id="TH_danh_sach">
                     </div>
-
+                    <div class="col-12 text-center" id="Th_Phan_trang_bottom"></div>
 
                 </div>
             </div>
@@ -235,8 +123,158 @@
 
         </div>
     </div>
-
+    <div class="d-none" id="danh_sach_san_pham">
+    <%- sanpham %> 
+    </div>
 </div>
 </div>
 </div>
 <% include layout/footer %>
+<script>
+function xuat_danh_sach(arr)
+{
+    TH_danh_sach.innerHTML=``
+    arr.forEach(row => {
+        TH_danh_sach.innerHTML+=`
+            <div class="col-lg-4 col-sm-6 col-6 product-container">
+                <div class="card gen border p-1" >
+                    <a class="picture" href="/chitiet/${bo_dau(row.ten_sp)}/${row._id}/${row.ma_loai}"
+                        title="Xem chi tiết ${row.ten_sp}">
+                        <img class="card-img-top img-fluid"
+                            alt="Xem chi tiết ${row.ten_sp}"
+                            src="/static/images/${row.loaisp[0].thu_muc_hinh.replace(' ','').replace('\n','')}/${row.hinh_anh}"
+                            title="Xem chi tiết ${row.ten_sp}">
+                    </a>
+                    <div class="card-body p-0">
+                        <div class="card-buttons">
+                            <div class="btn-group">
+                                <input type="button" id="${row._id}" class="btn btn-info btnAdd"
+                                    value="Thêm vào giỏ">
+                                <button type="button" onclick="quick_view_click('${row._id}')" value="Quick View" title="Xem nhanh"
+                                    class="btn btn-secondary btn-quick-view"
+                                    data-toggle="modal" data-target="#modal-quick-search">
+                                    <span class="sr-only">Xem nhanh</span>
+                                    <span class="material-icons mat">
+                                        search
+                                    </span>
+                                </button>
+
+                            </div>
+                        </div>
+                        <div class="card-body-content">
+                            <h3 class="h6 card-title mb-0">
+                                <strong><a href="/build-your-own-computer">${row.ten_sp}</a></strong>
+                            </h3>
+
+
+                            <div class="col-12 px-0">
+                                <div class="product-rating-box" title="1 review(s)">
+                                    <div class="rating">
+                                        <div class="rating-ghost">
+                                            ☆☆☆☆☆
+                                        </div>
+                                        <div class="rating-real" style="width: 80%">
+                                            ★★★★★
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-inline-flex pb-0 pt-0">
+
+                                <div
+                                    class="p-0 pr-2 align-self-center actual-price-container">
+                                    <span class="h5 card-subtitle">
+                                        <span class="price actual-price">${(row.gia_ban).toLocaleString()} VNĐ</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        `
+    });
+}
+function chon_so_luong()
+{
+    window.location= window.location.pathname+`?page=1&size=`+so_luong_hien_thi.value+'&sort='+TH_sap_xep.value
+}
+function xep_theo_gia(arr, ma_loai) {
+    if (ma_loai == 1) {
+        arr = arr.sort((a, b) => {
+            return parseInt(a.gia_ban) - parseInt(b.gia_ban)
+        })
+    } else if (ma_loai == 2) {
+        arr = arr.sort((a, b) => {
+            return parseInt(b.gia_ban) - parseInt(a.gia_ban)
+        })
+    } else {}
+    return arr;
+}
+function sap_xep()
+{
+    window.location= window.location.pathname+`?page=${page}&size=`+so_luong_hien_thi.value+'&sort='+TH_sap_xep.value
+}
+
+function Tao_The_Hien_Phan_trang(Tong_so_san_pham, So_san_pham_cho_mot_trang, Th_Cha) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const sortParam = urlParams.get('sort');
+    sort=0;
+    if (sortParam != null) {
+        sort = sortParam;
+    }
+    dia_chi = window.location.pathname;
+    var Tong_trang = (Tong_so_san_pham % So_san_pham_cho_mot_trang == 0) ? Tong_so_san_pham /
+        So_san_pham_cho_mot_trang : parseInt(Tong_so_san_pham / So_san_pham_cho_mot_trang) + 1
+    var noi_dung_HTML = `<nav aria-label="Page navigation">`
+    noi_dung_HTML += `
+        <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="${dia_chi+'?page=1'+'&size='+size+'&sort='+sort}" ><<</a></li>    
+    `
+    for (var i = 1; i <= Tong_trang; i++) {
+        noi_dung_HTML +=
+            `<li class="page-item"><a class="page-link" href="${dia_chi+'?page='+i+'&size='+size+'&sort='+sort}">${i}</a></li>`
+
+    }
+    noi_dung_HTML += `
+        <li class="page-item"><a class="page-link" href="${dia_chi+'?page='+Tong_trang+'&size='+size+'&sort='+sort}">>></a></li>
+        </ul>
+        </nav>
+    `
+    Th_Cha.innerHTML = noi_dung_HTML
+}
+</script>
+<script>
+    var kq=JSON.parse(danh_sach_san_pham.innerHTML);
+    const urlParams = new URLSearchParams(window.location.search);
+    const sizeParam = urlParams.get('size');
+    const pageParam = urlParams.get('page');
+    const sortParam = urlParams.get('sort');
+    size=5;
+    page=1;
+    sort=0;
+    if (sizeParam != null) {
+        size = sizeParam;
+    }
+    if (pageParam != null) {
+        page = pageParam;
+    }
+    if (sortParam != null) {
+        sort = Number(sortParam);
+    }
+    var vitri = (Number(page) - 1) * size
+    var sx=xep_theo_gia(kq,sort);
+    Tao_The_Hien_Phan_trang(kq.length,size,Th_Phan_trang_bottom)
+    xuat_danh_sach(sx.splice(vitri, size))
+    TH_sap_xep.innerHTML=`
+    <option ${sort==0?'selected':''} value="0">Mặc định </option>
+    <option ${sort==1?'selected':''} value="1">Giá tăng dần</option>
+    <option ${sort==2?'selected':''} value="2">Giá giảm dần</option>
+    `
+    so_luong_hien_thi.innerHTML=`
+        <option ${size==5?'selected':''} value="5">5</option>
+        <option ${size==10?'selected':''} value="10">10</option>
+        <option ${size==20?'selected':''} value="20">20</option>
+    `
+</script>

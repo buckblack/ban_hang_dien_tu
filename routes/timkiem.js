@@ -26,7 +26,7 @@ router.get('/:id', async function (req, res, next) {
   ]).toArray(function (err, result) {
     res.render('timkiem', {
       tieude: 'Gear Srore | Tìm kiếm',
-      sanpham: result,
+      sanpham: JSON.stringify(result),
       trangthai: 'Tìm kiếm'
     });
   });

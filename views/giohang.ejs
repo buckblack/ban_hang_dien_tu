@@ -193,7 +193,8 @@
 		var gio_hang = JSON.parse(sessionStorage.getItem('gio_hang'));
 		var stt = 1;
 		gio_hang.forEach(row => {
-			doc_san_pham(row.id, stt++, row.so_luong)
+			doc_san_pham(row.id, stt, row.so_luong)
+			stt+=1;
 		});
 	}
 </script>
