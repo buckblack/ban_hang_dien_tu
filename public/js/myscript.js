@@ -13,6 +13,19 @@ function bo_dau(str) {
     str= str.replace(/^\-+|\-+$/g,"");//cắt bỏ ký tự - ở đầu và cuối chuỗi
     return str;
 }
+
+function diem_trung_binh(arr)
+{
+    if (arr.length==0) {
+        return 100;
+    }
+    var diem=0;
+    arr.forEach(row => {
+        diem+=Number(row)
+    });
+    return (diem/arr.length)/5*100;
+}
+
 function kiem_tra_tim_kiem()
 {
     var tim_kiem=document.getElementById("keyword")

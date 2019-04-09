@@ -63,7 +63,7 @@
                                             <div class="rating-ghost">
                                                 ☆☆☆☆☆
                                             </div>
-                                            <div class="rating-real" style="width: 100%">
+                                            <div class="rating-real" style="width: <%= diem_trung_binh(sanpham[0].diem_so)%>%">
                                                 ★★★★★
                                             </div>
                                         </div>
@@ -130,13 +130,18 @@
                                 </div>
 
                                 <div class="product-review-list">
-                                    <table class="table table-bordered table-light">
-
+                                    <table id="table_binh_luan" class="table table-bordered table-responsive d-md-table">
+                                    <thead class="d-none">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Position</th>
+                                    </tr>
+                                </thead>
                                         <tbody>
                                             <% sanpham[0].binh_luan.forEach(row => {%>
                                             <tr>
-                                                <th scope=""><%= row.khach_hang.ho_ten%></th>
-                                                <td><%= row.noi_dung%></td>
+                                                <th><%= row.khach_hang.ho_ten%></th>
+                                                <td class="w-100"><%= row.noi_dung%></td>
 
                                             </tr>
                                             <%});%>
@@ -150,14 +155,23 @@
                             <div class="tab-pane fade" id="contact">
                                 <div id="contact-us-product">
                                     <fieldset class="form-group">
+                                        <label class="col-form-label" for="">Điểm:</label>
+                                          <select class="form-control w-auto" name="" id="TH_diem_so">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5" selected>5</option>
+                                          </select>
+                                    </fieldset>
+                                    <fieldset class="form-group">
                                         <label class="col-form-label" for="">Nội dung:</label>
                                         <textarea placeholder="nhập nội dung" class="form-control ask-question-message"
                                             id="AskQuestionMessage"></textarea>
                                     </fieldset>
-
                                     <div class="buttons generalMarginSupporter pt-1 pb-1">
                                         <input type="button" name="send-email"
-                                            class="btn btn-info send-ask-question-button" value="Gửi">
+                                            class="btn btn-info send-ask-question-button" onclick="gui_binh_luan('<%= sanpham[0]._id%>')" value="Gửi">
                                     </div>
 
                                 </div>
@@ -212,7 +226,7 @@
                                                         <div class="rating-ghost">
                                                             ☆☆☆☆☆
                                                         </div>
-                                                        <div class="rating-real" style="width: 100%">
+                                                        <div class="rating-real" style="width: <%= diem_trung_binh(sp.diem_so)%>%">
                                                             ★★★★★
                                                         </div>
                                                     </div>
@@ -238,12 +252,75 @@
                     </div>
                 </div>
                 </div>
-
-
-
-
-
+        </div>
+    </div>
+</div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg d-none" data-toggle="modal" id='btn_thong_bao_binh_luan' data-target="#modal_binh_luan">
+</button>
+<!-- Modal -->
+<div class="modal fade" id="modal_binh_luan" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thông báo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body" id="TH_thong_bao_binh_luan">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
         </div>
     </div>
 </div>
 <% include layout/footer %>
+<script>
+    if(sessionStorage.getItem('khach_hang_Id')==null){
+        document.getElementById('contact-us-product').innerHTML=`
+        <div class="buttons generalMarginSupporter pt-1 pb-1" onclick="window.location='/dangnhap'">
+            <input type="button" name="send-email"
+                class="btn btn-info send-ask-question-button" value="Vui lòng đăng nhập">
+        </div>
+        `
+    }
+</script>
+<script>
+    function gui_binh_luan(id_sp)
+    {
+        btn_thong_bao_binh_luan.click()
+        TH_thong_bao_binh_luan.innerHTML=`Đang xử lý`
+        var form_data={
+            'diem':TH_diem_so.value,
+            'noi_dung': AskQuestionMessage.value,
+            'id_sp': id_sp,
+            'id_kh':sessionStorage.getItem('khach_hang_Id')
+        }
+        $.ajax({
+            url: window.location.origin+'/chitiet/binhluan',
+            type: "POST",
+            data: form_data,
+            success: (data) => {
+                console.log(data)
+                TH_thong_bao_binh_luan.innerHTML=data.message
+                if(data.errorCode==0)
+                {
+                    setTimeout(() => {
+                        window.location=window.location.pathname
+                    }, 1500);
+                }
+            }
+        })
+
+    }
+</script>
+<script>
+$(document).ready(function() {
+    $('#table_binh_luan').DataTable();
+    table_binh_luan_info.innerHTML=``
+    table_binh_luan_filter.innerHTML=``
+} );
+</script>

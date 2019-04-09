@@ -3,6 +3,7 @@ var router = express.Router();
 var ObjectId = require('mongodb').ObjectID;
 var xl_mongo = require('../public/js/KET_NOI')
 cl_san_pham = 'san_pham'
+cl_hoa_don = 'hoa_don'
 
 router.get('/:tensp/:id/:maloai', async function (req, res, next) {
   let db = await xl_mongo.Get();
@@ -65,6 +66,9 @@ router.get('/:tensp/:id/:maloai', async function (req, res, next) {
         trang_thai: {
           "$first": "$trang_thai"
         },
+        diem_so: {
+          "$first": "$diem_so"
+        },
         binh_luan: {
           "$push": "$binh_luan"
         }
@@ -110,4 +114,44 @@ router.get('/:tensp/:id/:maloai', async function (req, res, next) {
 
 });
 
+router.post('/binhluan', async function (req, res, next) {
+  let db = await xl_mongo.Get();
+  var dk_tim={
+    '_id': ObjectId(req.body.id_sp),
+    'binh_luan.khach_hang':ObjectId(req.body.id_kh)
+  }
+  var bl={
+    'khach_hang':ObjectId(req.body.id_kh),
+    'noi_dung': req.body.noi_dung,
+    //'ma_bl': ObjectId()
+  }
+  await db.collection(cl_san_pham).find(dk_tim).toArray(function (err, result) {
+    if(result.length!=0)
+    {
+      res.json({'errorCode':1,'message':'Bạn đã đánh giá sản phẩm này rồi!'})
+    }
+    else
+    {
+      db.collection(cl_hoa_don).find({'khach_hang':ObjectId(req.body.id_kh),'chi_tiet.san_pham':ObjectId(req.body.id_sp)}).toArray((err_hd,res_hd)=>{
+        if(res_hd.length==0)
+        {
+          res.json({'errorCode':2,'message':'Bạn chưa mua sản phẩm này'})
+        }
+        else
+        {
+          db.collection(cl_san_pham).update({'_id': ObjectId(req.body.id_sp)},{
+            $push: {
+              binh_luan: bl,
+              diem_so: Number(req.body.diem)
+            }
+          },()=>{
+            res.json({'errorCode':0,'message':'Đánh giá thành công'})
+          })
+        }
+      })
+    }
+  });
+
+
+});
 module.exports = router;

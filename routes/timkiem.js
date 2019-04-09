@@ -8,13 +8,7 @@ cl_san_pham = 'san_pham'
 cl_nguoi_dung = 'nguoi_dung'
 router.get('/:id', async function (req, res, next) {
   let db = await xl_mongo.Get();
-  db.collection(cl_san_pham).aggregate([{
-      $match: {
-        'ten_sp': {
-          '$regex': req.params.id
-        }
-      }
-    },
+  db.collection(cl_san_pham).aggregate([
     {
       $lookup: {
         from: 'loai_san_pham',
@@ -24,9 +18,10 @@ router.get('/:id', async function (req, res, next) {
       }
     }
   ]).toArray(function (err, result) {
+    var kq= result.filter(x => x.ten_sp.toLowerCase().includes(req.params.id.trim().toLowerCase()));
     res.render('timkiem', {
       tieude: 'Gear Srore | Tìm kiếm',
-      sanpham: JSON.stringify(result),
+      sanpham: JSON.stringify(kq),
       trangthai: 'Tìm kiếm'
     });
   });
@@ -64,12 +59,10 @@ router.get('/gio-hang/:id', async function (req, res, next) {
 /*router.get('/a/a/a', async function (req, res, next) {
   let db = await xl_mongo.Get();
   db.collection(cl_san_pham).updateMany({},{$set:{
-    trang_thai:'kinh doanh',
-    so_luong:100,
-    binh_luan: []
+    diem_so: [5]
   }})
-});
-*/
+});*/
+
 
 /*router.get('/a/a/a', async function (req, res, next) {
   let db = await xl_mongo.Get();

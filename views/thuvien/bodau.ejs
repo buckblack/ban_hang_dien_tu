@@ -19,4 +19,16 @@ trang_thai=function (str) {
     str= str.replace("/ ","");
     return str
 }
+
+diem_trung_binh=function (arr)
+{
+    if (arr.length==0) {
+        return 100;
+    }
+    var diem=0;
+    arr.forEach(row => {
+        diem+=Number(row)
+    });
+    return (diem/arr.length)/5*100;
+}
 %>
