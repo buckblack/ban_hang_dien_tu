@@ -6402,3 +6402,16 @@
     min-width: 1140px;
     margin: auto;
  }
+
+ .an-chu{
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+}
+.an-chu:hover{
+    width: 100%;
+    overflow: unset;
+    white-space: unset; 
+    text-overflow: unset;
+}

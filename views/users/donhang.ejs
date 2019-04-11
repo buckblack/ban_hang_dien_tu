@@ -25,13 +25,15 @@
   <div class="container">
     <h2 class="text-center">Danh sách đơn hàng</h2>
     <br>
-  <table class="table table-striped table-hover table-responsive d-md-table">
+  <table id="table_don_hang" class="table table-striped table-hover table-responsive d-md-table">
     <thead>
       <tr>
         <th>Mã</th>
         <th>Ngày đặt</th>
         <th>Tổng tiền</th>
         <th>Trạng thái</th>
+        <th>In</th>
+        <th>Ghi chú</th>
       </tr>
     </thead>
     <tbody id="TH_don_hang">
@@ -75,11 +77,12 @@
   </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
       </div>
     </div>
   </div>
 </div>
+
  <% include ../layout/footer %>
 <script>
 function tong_tien(arr){
@@ -97,7 +100,6 @@ function tim_thu_muc(arr){
       success: (data) => {
         data=JSON.parse(data)
         var aa=document.getElementById('img_chi_tiet_'+row.id).src=`/static/images/${data[0].loaisp[0].thu_muc_hinh}/`+row.name
-        console.log(aa)
       }
   })
   });
@@ -110,6 +112,7 @@ function chi_tiet_don_hang(id){
     data: {'id_hoa_don':id},
     success: (data) => {
       TH_chi_tiet_don_hang.innerHTML=``
+      var dem=1;
       data.forEach(row => {
         ds_img.push({'name':row.san_pham.hinh_anh,'id':row.san_pham._id})
         TH_chi_tiet_don_hang.innerHTML+=`
@@ -117,7 +120,7 @@ function chi_tiet_don_hang(id){
             <td><img class="img-fluid" style="width:100px;" id="img_chi_tiet_${row.san_pham._id}" name="${row.san_pham.hinh_anh}" alt="" style=""/></td>
             <td>${row.san_pham.ten_sp}</td>
             <td>${row.so_luong}</td>
-            <td>${row.gia_ban} VNĐ</td>
+            <td>${row.gia_ban.toLocaleString('en-GB')} VNĐ</td>
             <td>${(Number(row.so_luong)*Number(row.gia_ban)).toLocaleString('en-GB')} VNĐ</td>
           </tr>
         `
@@ -125,8 +128,8 @@ function chi_tiet_don_hang(id){
       });
     },
 })
-
 }
+
 $.ajax({
     url: window.location.origin + "/users/don-hang",
     type: "POST",
@@ -135,14 +138,22 @@ $.ajax({
       TH_don_hang.innerHTML=``
       data.forEach(row => {
         TH_don_hang.innerHTML+=`
-          <tr data-toggle="modal" data-target="#modal-don-hang" onclick="chi_tiet_don_hang('${row._id}')">
+          <tr data-toggle="modal" data-target="#modal-don-hang" onclick="chi_tiet_don_hang('${row._id}','${row.ma_hd}')">
             <td>${row.ma_hd}</td>
             <td>${row.ngay_lap.split('T')[0]}</td>
             <td>${tong_tien(row.chi_tiet).toLocaleString('en-GB')} VNĐ</td>
             <td>${row.trang_thai}</td>
+            <td onclick="in_hoa_don('${row._id}')"><i class="fa fa-print"></i></td>
+            <td>${row.ghi_chu}</td>
           </tr>
         `
       });
+      $('#table_don_hang').DataTable();
     }
 })
+function in_hoa_don(id)
+{
+  window.open('/users/in-hoa-don/'+id, '_blank');
+}
 </script>
+

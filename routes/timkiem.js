@@ -10,6 +10,9 @@ router.get('/:id', async function (req, res, next) {
   let db = await xl_mongo.Get();
   db.collection(cl_san_pham).aggregate([
     {
+      $match:{trang_thai:'kinh doanh'}
+    },
+    {
       $lookup: {
         from: 'loai_san_pham',
         localField: 'ma_loai',

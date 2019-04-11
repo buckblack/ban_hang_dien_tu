@@ -14,6 +14,7 @@ function bo_dau(str) {
     return str;
 }
 
+
 function diem_trung_binh(arr)
 {
     if (arr.length==0) {
@@ -141,3 +142,28 @@ function kiem_tra_thong_tin_dang_nhap()
     return true
 } 
 
+function them_1_gio_hang(id)
+{
+    var btn=document.getElementById('add_'+id)
+        if(btn.value=="Thêm vào giỏ")
+        {
+            btn.style.backgroundColor="#9C3"
+            btn.value="✔ đã thêm"
+            setTimeout(function(){
+                btn.value="Thêm vào giỏ"
+                btn.style.backgroundColor="#0091b5"
+                },1000)
+            var gio_hang;
+            if (sessionStorage.getItem('gio_hang') == null) {
+                gio_hang = [];
+            } else {
+                gio_hang = JSON.parse(sessionStorage.getItem('gio_hang'));
+            }
+            if(gio_hang.find(x=>x.id==id)==undefined)
+            {
+                gio_hang.push({'id':id,'so_luong':1})
+                sessionStorage.setItem('gio_hang', JSON.stringify(gio_hang))
+                so_san_pham.innerHTML=gio_hang.length
+            }
+        }
+}

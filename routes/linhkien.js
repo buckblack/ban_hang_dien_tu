@@ -34,7 +34,7 @@ router.get('/', async function(req, res, next) {
     {ma_loai:ObjectId("5caa002c363af108fc00ea8a")},
     {ma_loai:ObjectId("5caa006a363af108fc00ea8c")},
     {ma_loai:ObjectId("5caa0052363af108fc00ea8b")}
-    ]}).toArray((err,linhkien)=>{
+    ],trang_thai:'kinh doanh'}).toArray((err,linhkien)=>{
     res.render('sanpham',{tieude:'Gear Srore | Linh kiện',trangthai:'Linh kiện',sanpham:JSON.stringify(linhkien),thumuc:'phukien',sublist_linhkien:sublist_linhkien});
   });
 });
@@ -65,7 +65,7 @@ router.get('/tainghecoday/', async function(req, res, next) {
     </li>
   </ul>
   `
-  db.collection(cl_san_pham).find({ma_loai:ObjectId("5be914ebc4741b03ecfa622e")}).toArray((err,linhkien)=>{
+  db.collection(cl_san_pham).find({ma_loai:ObjectId("5be914ebc4741b03ecfa622e"),trang_thai:'kinh doanh'}).toArray((err,linhkien)=>{
     res.render('sanpham',{tieude:'Gear Srore | Tai nghe có dây',trangthai:'Linh kiện / Tai nghe có dây',sanpham:JSON.stringify(linhkien),thumuc:'phukien',sublist_linhkien:sublist_linhkien});
   });
 });
@@ -96,7 +96,7 @@ router.get('/tainghekhongday/', async function(req, res, next) {
     </li>
   </ul>
   `
-  db.collection(cl_san_pham).find({ma_loai:ObjectId("5caa002c363af108fc00ea8a")}).toArray((err,linhkien)=>{
+  db.collection(cl_san_pham).find({ma_loai:ObjectId("5caa002c363af108fc00ea8a"),trang_thai:'kinh doanh'}).toArray((err,linhkien)=>{
     res.render('sanpham',{tieude:'Gear Srore | Tai nghe không dây',trangthai:'Linh kiện / Tai nghe không dây',sanpham:JSON.stringify(linhkien),thumuc:'phukien',sublist_linhkien:sublist_linhkien});
   });
 });
@@ -127,7 +127,7 @@ router.get('/pinduphong/', async function(req, res, next) {
     </li>
   </ul>
   `
-  db.collection(cl_san_pham).find({ma_loai:ObjectId("5caa006a363af108fc00ea8c")}).toArray((err,linhkien)=>{
+  db.collection(cl_san_pham).find({ma_loai:ObjectId("5caa006a363af108fc00ea8c"),trang_thai:'kinh doanh'}).toArray((err,linhkien)=>{
     res.render('sanpham',{tieude:'Gear Srore | Pin sạc dự phòng',trangthai:'Linh kiện / Pin sạc dự phòng',sanpham:JSON.stringify(linhkien),thumuc:'phukien',sublist_linhkien:sublist_linhkien});
   });
 });
@@ -158,7 +158,7 @@ router.get('/capsac/', async function(req, res, next) {
     </li>
   </ul>
   `
-  db.collection(cl_san_pham).find({ma_loai:ObjectId("5caa0052363af108fc00ea8b")}).toArray((err,linhkien)=>{
+  db.collection(cl_san_pham).find({ma_loai:ObjectId("5caa0052363af108fc00ea8b"),trang_thai:'kinh doanh'}).toArray((err,linhkien)=>{
     res.render('sanpham',{tieude:'Gear Srore | Dây, cáp sạc',trangthai:'Linh kiện / Dây, cáp sạc',sanpham:JSON.stringify(linhkien),thumuc:'phukien',sublist_linhkien:sublist_linhkien});
   });
 

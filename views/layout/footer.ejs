@@ -312,7 +312,7 @@
                                 </div>
                                 <div class="col-lg-12 generalAdToCart px-0 my-3">
                                     <div class="btn-group product-simple-share my-2 d-inline-flex flex-wrap">
-                                    <input type="button" id="${kq._id}" class="btn btn-info btnAdd w-100"
+                                    <input type="button" id="add_${kq._id}" onclick="them_1_gio_hang('${kq._id}')" class="btn btn-info btnAdd w-100"
                                         value="Thêm vào giỏ">
                                     </div>
                                 </div>
@@ -375,31 +375,7 @@
         {
             so_san_pham.innerHTML=JSON.parse(sessionStorage.getItem('gio_hang')).length
         }
-        $(".btnAdd").click(function(){
-            if($(this).val()=="Thêm vào giỏ")
-            {
-                $(this).css({"background-color":"#9C3"})
-                $(this).val("✔ đã thêm")
-                $this=$(this)
-                setTimeout(function(){
-                    $this.val("Thêm vào giỏ")
-                    $this.css({"background-color":"##0091b5"});
-                    },1000)
-                var id=$(this).attr("id");
-                var gio_hang;
-                if (sessionStorage.getItem('gio_hang') == null) {
-                    gio_hang = [];
-                } else {
-                    gio_hang = JSON.parse(sessionStorage.getItem('gio_hang'));
-                }
-                if(gio_hang.find(x=>x.id==id)==undefined)
-                {
-                    gio_hang.push({'id':id,'so_luong':1})
-                    sessionStorage.setItem('gio_hang', JSON.stringify(gio_hang))
-                    so_san_pham.innerHTML=gio_hang.length
-                }
-            }
-        });
+        
     });
     </script>
     <script>
@@ -473,7 +449,35 @@
             };
         })();
     </script>
-    
+    <script>
+    $(document).ready(function() {
+        $(".btnAdd").click(function(){
+            if($(this).val()=="Thêm vào giỏ")
+            {
+                $(this).css({"background-color":"#9C3"})
+                $(this).val("✔ đã thêm")
+                $this=$(this)
+                setTimeout(function(){
+                    $this.val("Thêm vào giỏ")
+                    $this.css({"background-color":"#0091b5"});
+                    },1000)
+                var id=$(this).attr("id");
+                var gio_hang;
+                if (sessionStorage.getItem('gio_hang') == null) {
+                    gio_hang = [];
+                } else {
+                    gio_hang = JSON.parse(sessionStorage.getItem('gio_hang'));
+                }
+                if(gio_hang.find(x=>x.id==id)==undefined)
+                {
+                    gio_hang.push({'id':id,'so_luong':1})
+                    sessionStorage.setItem('gio_hang', JSON.stringify(gio_hang))
+                    so_san_pham.innerHTML=gio_hang.length
+                }
+            }
+        });
+    });
+    </script>
 </body>
 
 </html>

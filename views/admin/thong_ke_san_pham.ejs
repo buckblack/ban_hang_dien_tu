@@ -20,7 +20,7 @@
                 </div>
                 <div class="row">
                     <div class="w-50">
-                        <button class="btn btn-group-lg btn-success float-right mr-1"><i class="fa fa-search">
+                        <button id="btn_tim" class="btn btn-group-lg btn-success float-right mr-1"><i class="fa fa-search">
                                 Tìm</i></button>
                     </div>
                     <div class="w-50">
@@ -105,70 +105,112 @@
     <script>
         dateFrom.value=new Date(Date.now()).toISOString().split('T')[0]
         dateTo.value=new Date(Date.now()).toISOString().split('T')[0]
-    </script>
-    <script>
-        Highcharts.setOptions({
-            lang: {
-                numericSymbols: [` Ngàn`, ` Triệu`],
-                numericSymbolMagnitude: 1000,
-                decimalPoint: ',', ///phân cách thập phân
-                thousandsSep: '.' ///hàng ngàn
-            },
-            chart: {
-                style: {
-                    fontFamily: `tahoma`, /// chỉnh font cho chữ thống dc đúng
-                    fontSize: 16
-                }
-            }
-        })
-        Highcharts.chart('Th_Bieu_do', {
-            chart: {
-                type: 'column', // bar , column, line, pie
-                plotBorderWidth: 1
-            },
-            title: {
-                text: 'Tiêu đề Biểu đồ',
-                align: 'center',
-                style: {
-                    color: 'red',
-                    fontWeight: 'bold',
-                    fontSize: '1.5rem'
-                },
-                y: 20
-            },
-            subtitle: {
-                text: 'Tiêu đề Phụ'
-            },
-            xAxis: {
-                categories: ['Táo', 'Chuối', 'Cam', 'Chanh']
-            },
-            yAxis: {
-                title: {
-                    text: 'Số lượng Bán',
+        function tinh_so_luong(Danh_sach) {
+            var so_luong = 0;
+            Danh_sach.forEach(row => {
+                so_luong += row.so_luong;
+            });
+            return so_luong;
+        }
+        btn_tim.onclick = async () => {
+            var ds;
+            var arrmonan = [];
+            var arrsoluong = [];
+            var ds_hoa_don;
+            var from = new Date(dateFrom.value)
+            var to = new Date(dateTo.value)
+            to.setDate(to.getDate() + 1)
+            $.ajax({
+                url: window.location.origin+'/admin/thong-ke-san-pham',
+                type: "POST",
+                success: (data) => {
+                    ds_hoa_don = data.hoa_don.filter(x => x.ngay_lap >= dateFrom.value).filter(x => x.ngay_lap <= to
+                        .toISOString().split(
+                            'T')[0])
+                    //xuất table sản phẩm
+                    var dem=0;
+                    data.san_pham.forEach(row_sp => {
+                        dem++;
+                        var soluong=0;
+                        //bắt đầu duyệt hóa đơn
+                        ds_hoa_don.forEach(row_hd => {
+                        var dem_ct=0;
+                        row_hd.chi_tiet.forEach(row_hd_ct => {
+                            dem_ct++
+                            if(row_sp._id.toString().trim()==row_hd_ct.san_pham.toString().trim())
+                            {
+                            soluong+=Number(row_hd_ct.so_luong)
+                            }
+                            if(dem_ct==row_hd.chi_tiet.length)
+                            {
+                            row_sp.so_luong_ban=soluong;
+                            }
+                        });
+                        });
+                        //kết thúc duyệt hóa đơn
+                        if(dem==data.san_pham.length)
+                        {
+                        console.log(data.san_pham)
+                        }
+                    });
 
-                    style: {
-                        color: 'blue',
-                        fontWeight: 'bold',
-                        fontSize: '1rem'
-                    }
+                    //kết thúc xuất table sản phẩm
+                    data.san_pham.forEach(row => {
+                        arrmonan.push(row.ten_sp);
+                        var so_luong = 0;
+                        ds_hoa_don.forEach(hd => {
+                            hd.chi_tiet.forEach(ct => {
+                                if (ct.san_pham == row._id) {
+                                    so_luong += Number(ct.so_luong);
+                                }
+                            });
+                        });
+                        arrsoluong.push(so_luong);
+                    });
+                    arrmonan.pop();
+                    arrsoluong.pop();
+                    Highcharts.chart('Th_Bieu_do', {
+                        chart: {
+                            type: 'column', // bar , column, line, pie
+                            plotBorderWidth: 1
+                        },
+                        title: {
+                            text: 'Thống kê món ăn',
+                            align: 'center',
+                            style: {
+                                color: 'red',
+                                fontWeight: 'bold',
+                                fontSize: '1.5rem'
+                            },
+                            y: 20
+                        },
+                        subtitle: {
+                            text: `từ ${dateFrom.value} đến ${dateTo.value}`
+                        },
+                        xAxis: {
+                            categories: arrmonan
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Tổng số lượng bán',
 
-                }
-            },
-            series: [{
-                    name: 'Tèo',
-                    data: [1, 0, 4, 10],
-                    color: 'red'
-                }, {
-                    name: 'Tý',
-                    data: [5, 7, 3, 0],
-                    color: 'green'
-                },
-                {
-                    name: 'Mận',
-                    data: [0, 0, 0, 10],
-                    color: 'blue'
-                }
-            ]
+                                style: {
+                                    color: 'blue',
+                                    fontWeight: 'bold',
+                                    fontSize: '1rem'
+                                }
 
-        });
+                            }
+                        },
+                        series: [{
+                            name: 'Số lượng',
+                            data: arrsoluong,
+                            color: 'red'
+                        }]
+
+                    });
+                }
+            })
+            
+        }
     </script>

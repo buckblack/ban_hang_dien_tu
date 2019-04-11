@@ -13,7 +13,11 @@ router.get('/', async function (req, res, next) {
   await db.collection(cl_thuong_hieu).find({}).toArray((err, result) => {
     thuonghieu=result
   });
-  await db.collection(cl_san_pham).aggregate([{
+  await db.collection(cl_san_pham).aggregate([
+    {
+      $match:{trang_thai:'kinh doanh'}
+    },
+    {
       $sort: {
         ngay_tao: -1,
       }
@@ -48,6 +52,9 @@ router.post('/', async function (req, res, next) {
   let db = await xl_mongo.Get();
   await db.collection(cl_hoa_don).find({}).toArray(function (err, res_hd) {
     db.collection(cl_san_pham).aggregate([
+      {
+        $match:{trang_thai:'kinh doanh'}
+      },
     {
       $lookup: {
         from: 'loai_san_pham',
@@ -102,5 +109,4 @@ router.post('/nhan-mail', async function (req, res, next) {
     }
   })
 });
-
 module.exports = router;

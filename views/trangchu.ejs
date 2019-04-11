@@ -144,7 +144,7 @@
 								</div>
 							</div>
 							<div class="card-body-content px-1">
-								<h3 class="h6 card-title mb-0">
+								<h3 class="h6 card-title mb-0 an-chu">
 									<strong><a href="/htc-one-m8-android-l-50-lollipop"><%= sanpham[i].ten_sp%></a></strong>
 								</h3>
 
@@ -215,7 +215,7 @@ function xuat_danh_sach(arr)
 				<div class="card-body p-0">
 					<div class="card-buttons">
 						<div class="btn-group">
-							<input type="button" id=""${row._id} class="btn btn-info btnAdd" value="Thêm vào giỏ">
+							<input type="button" id="add_${row._id}" onclick="them_1_gio_hang('${row._id}')" class="btn btn-info btnAdd" value="Thêm vào giỏ">
 							<button type="button" value="Quick View" title="Xem nhanh" onclick="quick_view_click('${row._id}')"
 								class="btn btn-secondary btn-quick-view" data-toggle="modal"
 								data-target="#modal-quick-search">
@@ -227,7 +227,7 @@ function xuat_danh_sach(arr)
 						</div>
 					</div>
 					<div class="card-body-content px-1">
-						<h3 class="h6 card-title mb-0">
+						<h3 class="h6 card-title mb-0 an-chu">
 							<strong><a href="/chitiet/${bo_dau(row.ten_sp)}/${row._id}/${row.ma_loai}">${row.ten_sp}</a></strong>
 						</h3>
 						<div class="col-12 px-0">
