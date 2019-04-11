@@ -6,6 +6,8 @@ var xl_mongo = require('../public/js/KET_NOI')
 var md5 = require('md5');
 cl_san_pham = 'san_pham'
 cl_nguoi_dung = 'nguoi_dung'
+cl_hoa_don="hoa_don"
+
 router.get('/:id', async function (req, res, next) {
   let db = await xl_mongo.Get();
   db.collection(cl_san_pham).aggregate([
@@ -76,9 +78,12 @@ router.get('/gio-hang/:id', async function (req, res, next) {
     res.json(result)
   })
 });*/
-/*router.get('/a/a/a', async function (req, res, next) {
+router.post('/hoa-don', async function (req, res, next) {
   let db = await xl_mongo.Get();
-  await db.collection('hoa_don').aggregate([
+  await db.collection(cl_hoa_don).aggregate([
+    {
+      $match:{_id:ObjectId(req.body.id_hd)}
+    },
     {
       $lookup: {
         from: 'nguoi_dung',
@@ -121,6 +126,12 @@ router.get('/gio-hang/:id', async function (req, res, next) {
         khach_hang: {
           "$first": "$khach_hang"
         },
+        ma_hd: {
+          "$first": "$ma_hd"
+        },
+        ngay_lap: {
+          "$first": "$ngay_lap"
+        },
         nhan_vien: {
           "$first": "$nhan_vien"
         },
@@ -136,5 +147,5 @@ router.get('/gio-hang/:id', async function (req, res, next) {
     res.json(sanpham)
   });
 });
-*/
+
 module.exports = router;

@@ -83,11 +83,10 @@
     <% include layout/footer %>
     <script>
         function xep_theo_so_luong_ban(arr) {
-            var ds=arr
-            ds.sort((a, b) => {
-                return Number(b.so_luong_ban) - Number(a.so_luong_ban)
-            })
-            return ds;
+        arr = arr.sort((a, b) => {
+            return parseInt(b.so_luong_ban) - parseInt(a.so_luong_ban)
+        })
+        return arr;
         }
     </script>
     <script>
@@ -106,6 +105,7 @@
             var arrmonan = [];
             var arrsoluong = [];
             var ds_hoa_don;
+            var ds_sp
             var from = new Date(dateFrom.value)
             var to = new Date(dateTo.value)
             to.setDate(to.getDate() + 1)
@@ -113,17 +113,12 @@
                 url: window.location.origin+'/admin/thong-ke-san-pham',
                 type: "POST",
                 success: (data) => {
-                    var ds_sp=xep_theo_so_luong_ban(data.san_pham);
-                    ds_sp.forEach(element => {
-  console.log(element)
-});
-                    
                     ds_hoa_don = data.hoa_don.filter(x => x.ngay_lap >= dateFrom.value).filter(x => x.ngay_lap <= to
                         .toISOString().split(
                             'T')[0])
                     //xuất table sản phẩm
                     var dem=0;
-                    ds_sp.forEach(row_sp => {
+                    data.san_pham.forEach(row_sp => {
                         dem++;
                         var soluong=0;
                         //bắt đầu duyệt hóa đơn
@@ -144,10 +139,10 @@
                         //kết thúc duyệt hóa đơn
                         if(dem==data.san_pham.length)
                         {
+                            ds_sp=xep_theo_so_luong_ban(data.san_pham);
                             TH_ds_san_pham.innerHTML=``;
-                            
                             var instance=1
-                            data.san_pham.forEach(row => {
+                            ds_sp.forEach(row => {
                                 instance++;
                                 TH_ds_san_pham.innerHTML+=`
                                     <tr>
