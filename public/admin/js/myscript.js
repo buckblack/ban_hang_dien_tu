@@ -13,11 +13,6 @@ function check_ghichu() {
     }
 }
 
-
-
-
-
-
 function check_ban() {
     var kq = document.querySelectorAll('.table_ban')
     var check = document.getElementById('check_ban')
