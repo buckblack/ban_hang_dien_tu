@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var ObjectId = require('mongodb').ObjectID;
 var xl_mongo = require('../public/js/KET_NOI')
+var xl_image = require('../public/js/xl_luu_image')
 cl_hoa_don = 'hoa_don'
 cl_san_pham = 'san_pham'
 cl_thong_bao = 'thong_bao'
@@ -170,6 +171,34 @@ router.post('/dem-thong-bao', async function (req, res, next) {
   let db = await xl_mongo.Get();
   db.collection(cl_thong_bao).find({}).toArray((err, result) => {
     res.json({ 'so_thong_bao': result.length })
+  })
+});
+
+router.post('/them-san-pham',async function (req, res, next) {
+  var hinh=JSON.parse(req.body.hinh);
+  var san_pham=JSON.parse(req.body.san_pham);
+  var sp={
+    "ten_sp":san_pham.ten_sp,
+    "ma_thuong_hieu":ObjectId(san_pham.ma_thuong_hieu),
+    "ma_loai":ObjectId(san_pham.ma_loai),
+    "gia_ban":san_pham.gia_ban,
+    "bao_hanh":san_pham.bao_hanh,
+    "so_luong":0,
+    "hinh_anh":san_pham.hinh_anh,
+    "noi_dung":san_pham.noi_dung,
+    "ngay_tao":new Date(),
+    "binh_luan":[],
+    "trang_thai":"kinh doanh",
+    "diem_so":[5],
+  }
+  let db = await xl_mongo.Get();
+  await db.collection(cl_san_pham).insert(sp,(err,result)=>{
+    try {
+        fs.unlinkSync(`./public/images/${hinh.thu_muc}/${hinh.Ten}`);
+    } catch (error) {
+    }
+    xl_image.Ghi_Nhi_phan_Media(hinh.Ten,hinh.Chuoi_nhi_phan,hinh.thu_muc)
+    res.json({errrCode:0,message:'Thêm thành công'});
   })
 });
 

@@ -192,7 +192,7 @@
 <script>
 function xep_theo_so_luong_ban(arr) {
     arr = arr.sort((a, b) => {
-		return parseInt(a.gia_ban) - parseInt(b.gia_ban)
+		return parseInt(b.so_luong_ban) - parseInt(a.so_luong_ban)
 	})
     return arr;
 }
@@ -264,6 +264,11 @@ $(document).ready(function () {
 		type: "POST",
 		success: (data) => {
 			var kq=xep_theo_so_luong_ban(JSON.parse(data))
+			console.log(kq[0])
+			kq.forEach(row => {
+				console.log(row.so_luong_ban);
+			})
+			
 			xuat_danh_sach(kq.splice(0,8));
 		}
 	})

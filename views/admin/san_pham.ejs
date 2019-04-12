@@ -111,7 +111,7 @@
                                 <label>Loại sản phẩm</label>
                                 <select class="form-control" id="them_loai_sp">
                                     <% loai_san_pham.forEach(row => { %>
-                                    <option value="<%=row._id%>"><%=row.ten_loai%></option>
+                                    <option value="<%=row._id%>__<%=row.thu_muc_hinh%>"><%=row.ten_loai%></option>
                                     <%})%>
                                 </select>
                             </div>
@@ -125,7 +125,11 @@
                             </div>
                             <div class="form-group">
                                 <label>Đơn giá</label>
-                                <input type="number" id="them_gia_ban" class="form-control" placeholder="Nhập tên sản phẩm mới">
+                                <input type="number" id="them_gia_ban" class="form-control" placeholder="Nhập tên giá bán">
+                            </div>
+                            <div class="form-group">
+                                <label>Bảo hành</label>
+                                <input type="number" id="them_bao_hanh" class="form-control" placeholder="Nhập thời gian bảo hành (tháng)">
                             </div>
                             <div class="form-group">
                                 <label>Hình ảnh</label>
@@ -141,7 +145,7 @@
                         <div class="
                                 modal-footer">
                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-xac-nhan-them">Thêm</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn_close_them">Đóng</button>
                         </div>
                     </div>
                 </div>
@@ -219,12 +223,37 @@
                                 </button>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">Xác nhận</button>
+                            <button type="button" class="btn btn-primary" onclick="them_san_pham()">Xác nhận</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn_close_xac_nhan_them">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary btn-lg d-none" id="btn_thong_bao" data-toggle="modal" data-target="#modal-thong_bao">
+              
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="modal-thong_bao" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Thông báo</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                        </div>
+                        <div class="modal-body" id="TH_thong_bao">
+                            Đang xử lý...
+                        </div>
+                        <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
@@ -239,4 +268,84 @@ customConfig: 'config_binh_luan.js'
     document.getElementById('table_san_pham_filter').classList.add('w-100')
     document.getElementById('table_san_pham_filter').classList.add('text-right')
     document.getElementById('table_san_pham_wrapper').classList.add('pb-4')
+</script>
+<script>
+function them_san_pham()
+{
+    if(kiem_tra_du_lieu_them()==false)
+    {
+        return
+    }
+    btn_close_xac_nhan_them.click();
+    btn_close_them.click();
+    btn_thong_bao.click()
+    var reader = new FileReader()
+    var Chuoi_nhi_phan = ""
+    reader.onload = function (e) {
+        Chuoi_nhi_phan = e.target.result;
+        var hinh = {
+            "Ten": them_file_hinh.files[0].name,
+            "Chuoi_nhi_phan": Chuoi_nhi_phan,
+            "thu_muc": them_loai_sp.value.split('__')[1]
+        }
+        var san_pham = {
+            "ten_sp": them_ten_sp.value.trim(),
+            "gia_ban": them_gia_ban.value.trim(),
+            "ma_loai": them_loai_sp.value.split('__')[0],
+            "ma_thuong_hieu": them_thuong_hieu.value.split('__')[0],
+            "hinh_anh": them_file_hinh.files[0].name,
+            "bao_hanh": them_bao_hanh.value.trim(),
+            "noi_dung": CKEDITOR.instances.them_noi_dung.getData()
+        }
+        var Doi_tuong={
+            "hinh":JSON.stringify(hinh),
+            "san_pham":JSON.stringify(san_pham)
+        }
+        Kq = ghi_san_pham_moi(Doi_tuong)
+    }
+    reader.readAsDataURL(them_file_hinh.files[0])
+
+    
+
+}
+function ghi_san_pham_moi(Doi_tuong) {
+    $.ajax({
+        url: window.location.origin+'/admin/them-san-pham',
+        type: "POST",
+        data: Doi_tuong,
+        success: (data) => {
+            TH_thong_bao.innerHTML=data.message
+            setTimeout(() => {
+                window.location='/admin/san-pham'
+            }, 1500);
+        }
+    })
+}
+function kiem_tra_du_lieu_them() {
+    if (them_ten_sp.value.trim()=='') {
+        alert('Chưa nhập tên sản phẩm')
+        them_loai_sp.focus();
+        return false;
+    }
+    if (them_gia_ban.value.trim()=='') {
+        alert('Chưa nhập giá sản phẩm')
+        them_gia_ban.focus();
+        return false;
+    }
+    if (them_bao_hanh.value.trim()=='') {
+        alert('Chưa thời gian bảo hành')
+        them_bao_hanh.focus();
+        return false;
+    }
+    /*if (them_noi_dung.value.trim()=='') {
+        alert('Chưa nhập nội dung sản phẩm')
+        them_noi_dung.focus();
+        return false;
+    }*/
+    if (them_file_hinh.files[0]==null || them_file_hinh.files[0]==undefined) {
+        alert('Chưa chọn hình')
+        return false;
+    }
+    return true
+}
 </script>
