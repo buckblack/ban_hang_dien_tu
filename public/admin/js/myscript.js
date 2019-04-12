@@ -155,13 +155,14 @@ function capnhatsp(masp) {
             loai=``
             kq.loai_san_pham.forEach(row => {
                 loai+=`
-                <option value="${row._id}" ${kq.san_pham.ma_loai==row._id?'selected':''}>${row.ten_loai}</option>
+                <option value="${row._id}__${row.thu_muc_hinh}" ${kq.san_pham.ma_loai==row._id?'selected':''}>${row.ten_loai}</option>
                 `
             })
             modalupdate.innerHTML = `
             <div class="form-group">
                 <label>Tên sản phẩm</label>
                 <input type="text" id="cn_ten_sp" class="form-control" value="${kq.san_pham.ten_sp}" placeholder="Nhập tên sản phẩm mới">
+                <input type="hidden" id="cn_id_sp" value="${kq.san_pham._id}">
             </div>
             <div class="form-group">
                 <label>Loại sản phẩm</label>
@@ -170,14 +171,14 @@ function capnhatsp(masp) {
                 </select>
             </div>
             <div class="form-group">
-                <label>Thương hiệu</label>
+                <label>Tình trạng</label>
                 <select class="form-control" id="cn_trang_thai">
                     <option value="kinh doanh" ${kq.san_pham.trang_thai=='kinh doanh'?'selected':''}>kinh doanh</option>
                     <option value="ngừng kinh doanh" ${kq.san_pham.trang_thai=='ngừng kinh doanh'?'selected':''}>ngừng kinh doanh</option>
                 </select>
             </div>
             <div class="form-group">
-                <label>Tình trạng</label>
+                <label>Thương hiệu</label>
                 <select class="form-control" id="cn_thuong_hieu">
                     ${TH}
                 </select>
@@ -186,7 +187,10 @@ function capnhatsp(masp) {
                 <label>Đơn giá</label>
                 <input type="number" id="cn_gia_ban" class="form-control" value="${kq.san_pham.gia_ban}" placeholder="Nhập tên sản phẩm mới">
             </div>
-            
+            <div class="form-group">
+                <label>Bảo hành</label>
+                <input type="number" id="cn_bao_hanh" value="${kq.san_pham.bao_hanh}" class="form-control" placeholder="Nhập thời gian bảo hành (tháng)">
+            </div>
             <div class="form-check form-check-inline">
                 <legend class="mr-2">Cập nhật hình ảnh: </legend>
                 <input class="form-check-input" type="radio" name="file" id="file1" value="co">

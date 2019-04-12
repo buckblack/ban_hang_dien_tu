@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var fs = require("fs")
 var ObjectId = require('mongodb').ObjectID;
 var xl_mongo = require('../public/js/KET_NOI')
 var xl_image = require('../public/js/xl_luu_image')
@@ -10,7 +11,7 @@ cl_thuong_hieu='thuong_hieu'
 cl_loai_san_pham='loai_san_pham'
 
 router.get('/', function (req, res, next) {
-  res.render('admin/san_pham', {});
+  res.redirect('/admin/san-pham');
 });
 
 router.get('/san-pham', async function (req, res, next) {
@@ -200,6 +201,68 @@ router.post('/them-san-pham',async function (req, res, next) {
     xl_image.Ghi_Nhi_phan_Media(hinh.Ten,hinh.Chuoi_nhi_phan,hinh.thu_muc)
     res.json({errrCode:0,message:'Thêm thành công'});
   })
+});
+
+router.post('/cap-nhat-san-pham',async function (req, res, next) {
+  if(req.body.hinh=='')
+  {
+    var san_pham=JSON.parse(req.body.san_pham);
+    var sp={
+      "ten_sp":san_pham.ten_sp,
+      "ma_thuong_hieu":ObjectId(san_pham.ma_thuong_hieu),
+      "ma_loai":ObjectId(san_pham.ma_loai),
+      "gia_ban":san_pham.gia_ban,
+      "bao_hanh":san_pham.bao_hanh,
+      "noi_dung":san_pham.noi_dung,
+      "trang_thai":san_pham.trang_thai
+    }
+    let db = await xl_mongo.Get();
+    db.collection(cl_san_pham).find({'_id':ObjectId(san_pham.ma_sp)}).toArray((err_sp,res_sp)=>{
+      db.collection(cl_san_pham).update({'_id':ObjectId(san_pham.ma_sp)},{$set:sp},(err,result)=>{
+        var oldPath=`./public/images/tivi/${res_sp[0].hinh_anh}`
+        var newPath=`./public/images/tulanh/${res_sp[0].hinh_anh}`
+        fs.rename(oldPath, newPath, function (err) {
+          if (err) {
+              if (err.code === 'EXDEV') {
+                  copy();
+              } else {
+              }
+              return;
+          }
+      });
+        res.json({errrCode:0,message:'Cập nhật thành công'});
+      })
+    })
+  }
+  else
+  {
+    var hinh=JSON.parse(req.body.hinh);
+    console.log(hinh.thu_muc);
+    
+    var san_pham=JSON.parse(req.body.san_pham);
+    var sp={
+      "ten_sp":san_pham.ten_sp,
+      "ma_thuong_hieu":ObjectId(san_pham.ma_thuong_hieu),
+      "ma_loai":ObjectId(san_pham.ma_loai),
+      "gia_ban":san_pham.gia_ban,
+      "bao_hanh":san_pham.bao_hanh,
+      "hinh_anh":san_pham.hinh_anh,
+      "noi_dung":san_pham.noi_dung,
+      "trang_thai":san_pham.trang_thai
+    }
+    let db = await xl_mongo.Get();
+    await db.collection(cl_san_pham).update({'_id':ObjectId(san_pham.ma_sp)},{$set:sp},(err,result)=>{
+      try {
+          fs.unlinkSync(`./public/images/${hinh.thu_muc}/${hinh.Ten}`);
+      } catch (error) {
+      }
+      var kq=xl_image.Ghi_Nhi_phan_Media(hinh.Ten,hinh.Chuoi_nhi_phan,hinh.thu_muc)
+console.log(kq);
+
+      res.json({errrCode:0,message:'Cập nhật thành công'});
+    })
+  }
+
 });
 
 module.exports = router;
