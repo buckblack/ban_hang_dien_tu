@@ -148,4 +148,74 @@ router.post('/hoa-don', async function (req, res, next) {
   });
 });
 
+router.post('/hoa-don-ma-tu-tao', async function (req, res, next) {
+  let db = await xl_mongo.Get();
+  await db.collection(cl_hoa_don).aggregate([
+    {
+      $match:{'ma_hd':Number(req.body.ma_hd)}
+    },
+    {
+      $lookup: {
+        from: 'nguoi_dung',
+        localField: 'khach_hang',
+        foreignField: '_id',
+        as: 'khach_hang'
+      }
+    },
+    {
+      $lookup: {
+        from: 'nguoi_dung',
+        localField: 'nhan_vien',
+        foreignField: '_id',
+        as: 'nhan_vien'
+      }
+    },
+    {
+      $unwind: {
+        path: "$chi_tiet",
+        preserveNullAndEmptyArrays: true
+      }
+    },
+    {
+      $lookup: {
+        from: "san_pham",
+        localField: "chi_tiet.san_pham",
+        foreignField: "_id",
+        as: "chi_tiet.san_pham"
+      }
+    },
+    {
+      $unwind: {
+        path: "$chi_tiet.san_pham",
+        preserveNullAndEmptyArrays: true
+      }
+    },
+    {
+      $group: {
+        _id: "$_id",
+        khach_hang: {
+          "$first": "$khach_hang"
+        },
+        ma_hd: {
+          "$first": "$ma_hd"
+        },
+        ngay_lap: {
+          "$first": "$ngay_lap"
+        },
+        nhan_vien: {
+          "$first": "$nhan_vien"
+        },
+        trang_thai: {
+          "$first": "$trang_thai"
+        },
+        chi_tiet: {
+          "$push": "$chi_tiet"
+        }
+      }
+    }
+  ]).toArray(function (err, sanpham) {
+    res.json(sanpham)
+  });
+});
+
 module.exports = router;

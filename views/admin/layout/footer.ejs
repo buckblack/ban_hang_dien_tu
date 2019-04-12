@@ -37,9 +37,23 @@ crossorigin="anonymous"></script>
       });
       notice.get().css('cursor', 'pointer').click(function(e) {
         if ($(e.target).is('.ui-pnotify-closer *, .ui-pnotify-sticker *')) return;
-        window.location=window.location.origin + "/admin/hoa-don"
+        window.location=window.location.origin + "/admin/thong-bao"
       });
+      $.ajax({
+        url: window.location.origin+'/admin/dem-thong-bao',
+        type: "POST",
+        success: (data) => {
+          TH_so_thong_bao.innerHTML=data.so_thong_bao
+        }
+      })
     });
+    $.ajax({
+      url: window.location.origin+'/admin/dem-thong-bao',
+      type: "POST",
+      success: (data) => {
+        TH_so_thong_bao.innerHTML=data.so_thong_bao
+      }
+    })
   </script>
 </body>
 
