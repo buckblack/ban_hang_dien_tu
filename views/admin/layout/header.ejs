@@ -1,3 +1,9 @@
+<script>
+    if(sessionStorage.getItem('nv_Ten')==null || sessionStorage.getItem('nv_Id')==null)
+    {
+        window.location=window.location.origin+'/admin/dang-nhap'
+    }
+</script>
 <body>
     <section id="container">
         <!--header start-->
@@ -21,13 +27,16 @@
                         <!-- user login dropdown start-->
                         <li class="dropdown mt-1">
                             <a data-toggle="dropdown" class="dropdown-toggle py-2 px-1" href="#">
-                                <img alt="" src="images/2.png">
-                                <span class="username">John Doe</span>
+                            <span id="gioi_tinh_nv">
+                                <img alt="" src="images/1.png">
+                            </span>
+                                
+                                <span class="username" id="TH_username">John Doe</span>
                                 <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu extended logout">
                                 <li><a href="/admin/tai-khoan"><i class=" fa fa-suitcase"></i>Tài khoản</a></li>
-                                <li><a href="login.html"><i class="fa fa-key"></i>Đăng xuất</a></li>
+                                <li><a href="#" onclick="dangxuat()"><i class="fa fa-key"></i>Đăng xuất</a></li>
                             </ul>
                         </li>
                         <!-- user login dropdown end -->
@@ -39,3 +48,15 @@
 
         </header>
         <!--header end-->
+        <script>
+            TH_username.innerHTML=sessionStorage.getItem('nv_Ten');
+            if(sessionStorage.getItem('nv_Gioi_tinh')=='nữ')
+            {
+                gioi_tinh_nv.innerHTML=`<img alt="" src="images/1.png">`
+            }
+            else
+            {
+                gioi_tinh_nv.innerHTML=`<img alt="" src="images/2.png">`
+            }
+            
+        </script>

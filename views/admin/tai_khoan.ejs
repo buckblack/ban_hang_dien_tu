@@ -15,20 +15,16 @@
                             <label for="">Họ tên</label>
                             <input type="text" class="form-control" name="ho_ten" id="ho_ten">
                         </div>
-                        <div class="form-group form-check form-check-inline">
+                        <div class="form-group form-check form-check-inline d-none">
                             <label for="">Giới tính</label>
                             <label class="form-check-label ml-2">
-                                <input type="radio" class="form-check-input" name="sex" id="" value="nam" checked>
+                                <input type="radio" class="form-check-input" name="sex" id="gt_nam" value="nam">
                                 Nam
                             </label>
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input ml-2" name="sex" id="" value="nu" checked>
+                                <input type="radio" class="form-check-input ml-2" name="sex" id="gt_nu" value="nu" checked>
                                 Nữ
                             </label>
-                        </div>
-                        <div class="form-group">
-                            <label for="">Ngày sinh</label>
-                            <input type="date" class="form-control" name="ngay_sinh" id="ngay_sinh">
                         </div>
                         <div class="form-group">
                             <label for="">Địa chỉ</label>
@@ -40,7 +36,7 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class='btn btn-primary'>Cập nhật</button>
+                        <button type="button" onclick="cap_nhat_thong_tin()" class='btn btn-primary'>Cập nhật</button>
                     </div>
                 </form>
                 <form class="w-100 mt-5">
@@ -48,7 +44,7 @@
                         <h3 class="text-center text-info">Thông tin đăng nhập</h3>
                         <div class="form-group">
                             <label for="">Email</label>
-                            <input type="text" class="form-control" name="email" id="email">
+                            <input type="text" class="form-control" name="email" id="email" readonly>
                         </div>
                         <div class="form-group">
                             <label for="">Mật khẩu hiện tại</label>
@@ -64,7 +60,7 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <button type="submit" onclick="return kiem_tra()" class='btn btn-primary'>Đổi mật khẩu</button>
+                        <button type="button" id="btn_doi_mat_khau" onclick="return kiem_tra()" class='btn btn-primary'>Đổi mật khẩu</button>
                     </div>
                 </form>
             </div>
@@ -72,25 +68,107 @@
 
         </div>
     </div>
-    <% include layout/footer %>
-    <script>
-        function kiem_tra()
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-lg d-none" id="modal_thongbao" data-toggle="modal" data-target="#modelId">
+      Launch
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thông báo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body" id="TH_thongbao">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<% include layout/footer %>
+<script>
+    if(sessionStorage.getItem('nv_Gioi_tinh')=='nam')
+    {
+        gt_nam.checked=true;
+    }
+    ho_ten.value=sessionStorage.getItem('nv_Ten')
+    dia_chi.value=sessionStorage.getItem('nv_Dia_chi')
+    dien_thoai.value=sessionStorage.getItem('nv_Dien_thoai')
+    email.value=sessionStorage.getItem('nv_Email')
+</script>
+<script>
+    function kiem_tra()
+    {
+        if(password.value.trim()=='')
         {
-            if(password.value.trim()=='')
-            {
-                alert('Chưa nhập mật khẩu');
-                return false;
-            }
-            if(newpassword.value.trim()=='')
-            {
-                alert('Chưa nhập mật khẩu mới');
-                return false;
-            }
-            if(renewpassword.value.trim()!=newpassword.value.trim())
-            {
-                alert('Mật khẩu chưa trùng khớp');
-                return false;
-            }
-            return true;
+            alert('Chưa nhập mật khẩu');
+            return false;
         }
-    </script>
+        if(newpassword.value.trim()=='')
+        {
+            alert('Chưa nhập mật khẩu mới');
+            return false;
+        }
+        if(renewpassword.value.trim()!=newpassword.value.trim())
+        {
+            alert('Mật khẩu chưa trùng khớp');
+            return false;
+        }
+        return true;
+    }
+    function cap_nhat_thong_tin()
+    {
+        TH_thongbao.innerHTML=`Đang xử lý...`
+        modal_thongbao.click();
+        var form_data={
+        'id':sessionStorage.getItem('nv_Id'),
+        'ho_ten':ho_ten.value,
+        'dia_chi':dia_chi.value,
+        'dien_thoai':dien_thoai.value
+        }
+        $.ajax({
+        url: window.location.origin+'/users/cap-nhat',
+        type: "POST",
+        data: form_data,
+        success: (data) => {
+            TH_thongbao.innerHTML=data.message
+            sessionStorage.setItem('nv_Ten',data.ho_ten)
+            sessionStorage.setItem('nv_Dia_chi',data.dia_chi)
+            sessionStorage.setItem('nv_Dien_thoai',data.dien_thoai)
+        }
+        })
+    }
+</script>
+<script>
+    btn_doi_mat_khau.onclick=()=>{
+        if(kiem_tra()==false){
+            return;
+        }
+        TH_thongbao.innerHTML='Đang xử lý...'
+        modal_thongbao.click();
+        var form_data={
+                'id' : sessionStorage.getItem('nv_Id'),
+                'mat_khau_moi' : newpassword.value.trim(),
+                'mat_khau_hien_tai' : password.value.trim()
+            }
+            $.ajax(
+                {
+                    url:window.location.origin+"/doimatkhau",
+                    type:"POST",
+                    data:form_data,
+                    success:(data)=>{
+                        data=JSON.parse(data)
+            TH_thongbao.innerHTML=data.message
+                    }
+        
+                }
+            )
+    }
+</script>

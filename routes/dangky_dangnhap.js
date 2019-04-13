@@ -110,8 +110,6 @@ router.post('/doimatkhau',async function(req, res, next) {
       else
       {
         db.collection(cl_nguoi_dung).update({'_id':ObjectId(req.body.id)},{$set:{'password':md5(req.body.mat_khau_moi)}},(loi,ket_qua)=>{
-          console.log(ket_qua);
-          
           var kq={
             'errorCode':0,
             'message':'Đổi mật khẩu thành công',

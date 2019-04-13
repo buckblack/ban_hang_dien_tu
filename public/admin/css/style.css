@@ -3181,12 +3181,13 @@ input.hoa-don
         width: 90%;
         margin-bottom: 5px;
     }
-}
-@media screen and (max-width: 992px){
     .ten-nha-hang
     {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
+}
+@media screen and (max-width: 992px){
+
 }
 .asasas
 {

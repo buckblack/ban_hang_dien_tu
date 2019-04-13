@@ -323,8 +323,13 @@ function ghi_san_pham_moi(Doi_tuong) {
 }
 function cap_nhat_san_pham()
 {
-    /*alert(cn_id_sp.value)
-    kiem_tra_du_lieu_cap_nhat();*/
+    if(kiem_tra_du_lieu_cap_nhat()==false)
+    {
+        return
+    }
+    btn_close_xac_nhan_cap_nhat.click();
+    btn_close_cap_nhat.click();
+    btn_thong_bao.click()
     if (file_hinh.files[0]==null || file_hinh.files[0]==undefined) {
         var san_pham = {
             "ten_sp": cn_ten_sp.value.trim(),
@@ -346,11 +351,10 @@ function cap_nhat_san_pham()
             type: "POST",
             data: Doi_tuong,
             success: (data) => {
-                /*TH_thong_bao.innerHTML=data.message
+                TH_thong_bao.innerHTML=data.message
                 setTimeout(() => {
                     window.location='/admin/san-pham'
-                }, 1500);*/
-                console.log(data);
+                }, 1500);
             }
         })
         
@@ -366,8 +370,6 @@ function cap_nhat_san_pham()
                 "Chuoi_nhi_phan": Chuoi_nhi_phan,
                 "thu_muc": cn_loai_sp.value.split('__')[1]
             }
-            console.log(hinh);
-            
             var san_pham = {
                 "ten_sp": cn_ten_sp.value.trim(),
                 "ma_sp": cn_id_sp.value,
@@ -383,27 +385,23 @@ function cap_nhat_san_pham()
                 "hinh":JSON.stringify(hinh),
                 "san_pham":JSON.stringify(san_pham)
             }
-            aaa(Doi_tuong);
+            $.ajax({
+                url: window.location.origin+'/admin/cap-nhat-san-pham',
+                type: "POST",
+                data: Doi_tuong,
+                success: (data) => {
+                    TH_thong_bao.innerHTML=data.message
+                    setTimeout(() => {
+                        window.location='/admin/san-pham'
+                    }, 1500);
+                }
+            })
         }
         reader.readAsDataURL(file_hinh.files[0])
     }
     
 }
-function aaa(Doi_tuong){
-    $.ajax({
-                url: window.location.origin+'/admin/cap-nhat-san-pham',
-                type: "POST",
-                data: Doi_tuong,
-                success: (data) => {
-                    console.log(data);
-                    
-                    /*TH_thong_bao.innerHTML=data.message
-                    setTimeout(() => {
-                        window.location='/admin/san-pham'
-                    }, 1500);*/
-                }
-            })
-}
+
 function kiem_tra_du_lieu_them() {
     if (them_ten_sp.value.trim()=='') {
         alert('Chưa nhập tên sản phẩm')

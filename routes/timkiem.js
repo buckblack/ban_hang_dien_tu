@@ -138,6 +138,9 @@ router.post('/hoa-don', async function (req, res, next) {
         trang_thai: {
           "$first": "$trang_thai"
         },
+        ghi_chu: {
+          "$first": "$ghi_chu"
+        },
         chi_tiet: {
           "$push": "$chi_tiet"
         }
@@ -207,6 +210,9 @@ router.post('/hoa-don-ma-tu-tao', async function (req, res, next) {
         },
         trang_thai: {
           "$first": "$trang_thai"
+        },
+        ghi_chu: {
+          "$first": "$ghi_chu"
         },
         chi_tiet: {
           "$push": "$chi_tiet"

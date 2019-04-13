@@ -1,0 +1,71 @@
+<% include layout/head %>
+<body>
+    <div class="log-w3">
+        <div class="w3layouts-main text-center">
+            <h2>Đăng nhập</h2>
+            <input type="email" class="ggg form-control" id="dang_nhap_email" name="Email" placeholder="E-MAIL" required="">
+            <input type="password" class="ggg form-control" id="dang_nhap_mat_khau" name="Password" placeholder="PASSWORD" required="">
+            <div class="clearfix"></div>
+            <input type="button" class="btn btn-primary" id="btn_dang_nhap" value="Đăng nhập" name="login">
+        </div>
+    </div>
+</body>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg d-none" id="modal_thongbao" data-toggle="modal" data-target="#modalthongbao">
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="modalthongbao" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thông báo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body" id="TH_thongbao">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+btn_dang_nhap.onclick=()=>{
+	TH_thongbao.innerHTML='Đang xử lý...'
+	modal_thongbao.click()
+		var form_data={
+			'email':dang_nhap_email.value,
+			'password' : dang_nhap_mat_khau.value,
+		}
+		$.ajax(
+			{
+				url:window.location.origin+"/admin/dang-nhap",
+				type:"POST",
+				data:form_data,
+				success:(data)=>{
+					data=JSON.parse(data)
+					if(data.errorCode==0)
+					{
+						sessionStorage.setItem('nv_Id',data.nv_Id)
+						sessionStorage.setItem('nv_Ten',data.nv_Ten)
+						sessionStorage.setItem('nv_Email',data.nv_Email)
+						sessionStorage.setItem('nv_Dia_chi',data.nv_Dia_chi)
+						sessionStorage.setItem('nv_Dien_thoai',data.nv_Dien_thoai)
+						sessionStorage.setItem('nv_Gioi_tinh',data.nv_Gioi_tinh)
+						setTimeout(() => {
+							window.location=window.location.origin+"/admin/san-pham"
+    					}, 1500);
+					}
+					TH_thongbao.innerHTML=data.message
+				}
+	
+			}
+		)
+	}
+</script>
