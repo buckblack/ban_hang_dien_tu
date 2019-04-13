@@ -20,7 +20,7 @@ router.get('/don-hang', function(req, res, next) {
 
 router.post('/don-hang',async function(req, res, next) {
   let db = await xl_mongo.Get();
-  db.collection(cl_hoa_don).find({'khach_hang':ObjectId(req.body.khach_hang_Id)}).sort({ngay_lap: -1}).toArray((error,result)=>{
+  db.collection(cl_hoa_don).find({'khach_hang':ObjectId(req.body.khach_hang_Id),'loai_hd':'xuất'}).sort({ngay_lap: -1}).toArray((error,result)=>{
     res.json(result)
   });
 });

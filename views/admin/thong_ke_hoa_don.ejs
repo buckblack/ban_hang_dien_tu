@@ -136,6 +136,30 @@
     <div class="w-auto h-75">
         <div class="col-sm-12 px-0" id="Th_Bieu_do"></div>
     </div>
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg d-none" id="btn_thong_bao" data-toggle="modal" data-target="#modal-thong-bao">
+  
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-thong-bao" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thông báo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body" id="TH_thong_bao">
+                Đang xử lý....
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
     <% include layout/footer %>
     <script>
     var ma_hd_in;
@@ -149,6 +173,47 @@
             type: "POST",
             data:{'id_hd':mahd},
             success: (data) => {
+                if(data.length==0)
+                {
+                    TH_modal_detail.innerHTML = `Không tìm thấy hóa đơn nào`
+                    TH_modal_detail_footer.innerHTML=`
+                    <button type="button" class="btn btn-secondary" id="btn_close_detai"
+                                data-dismiss="modal">Đóng</button>
+                    `
+                    return;
+                }
+                if(data[0].trang_thai=="Chưa xác nhận")
+                {
+                    TH_modal_detail_footer.innerHTML=`
+                    <button type="button" class="btn btn-danger" id="" onclick="huy_don_hang('${data[0]._id}')">Hủy</button>
+                                <button type="button" class="btn btn-warning" id="" onclick="xac_nhan('${data[0]._id}')">Xác nhận</button>
+                            <button type="button" class="btn btn-secondary" id="btn_close_detai"
+                                data-dismiss="modal">Đóng</button>
+                    `
+                }
+                if(data[0].trang_thai=="Đã xác nhận")
+                {
+                    TH_modal_detail_footer.innerHTML=`
+                    <button type="button" class="btn btn-danger" id="" onclick="huy_sau_xac_nhan('${data[0]._id}')">Hủy</button>
+                                <button type="button" class="btn btn-warning" id="" onclick="xac_nhan_da_thanh_toan('${data[0]._id}')">Xác nhận đã thanh toán</button>
+                            <button type="button" class="btn btn-secondary" id="btn_close_detai"
+                                data-dismiss="modal">Đóng</button>
+                    `
+                }
+                if(data[0].trang_thai=="Đã thanh toán")
+                {
+                    TH_modal_detail_footer.innerHTML=`
+                            <button type="button" class="btn btn-secondary" id="btn_close_detai"
+                                data-dismiss="modal">Đóng</button>
+                    `
+                }
+                if(data[0].trang_thai=="Đã hủy")
+                {
+                    TH_modal_detail_footer.innerHTML=`
+                            <button type="button" class="btn btn-secondary" id="btn_close_detai"
+                                data-dismiss="modal">Đóng</button>
+                    `
+                }
                 var ct = ``;
                 var tongtien = 0;
                 data[0].chi_tiet.forEach(row => {
@@ -197,10 +262,86 @@
                             </table>
                         </div>
                     </div>
+                    <label>Ghi chú:</label>
+                    <input type="text" class="form-control" id="TH_ghi_chu" value="${data[0].ghi_chu}"/>
                 `
             }
         })
 
+    }
+        function xac_nhan(mahd)
+    {
+        TH_thong_bao.innerHTML=`Đang xử lý....`
+        btn_thong_bao.click();
+        $.ajax({
+            url: window.location.origin +'/admin/xac-nhan-hoa-don',
+            type: "POST",
+            data:{'ma_hd':mahd,'ghi_chu':TH_ghi_chu.value},
+            success: (data) => {
+                console.log(data);
+                TH_thong_bao.innerHTML=data.message
+                if (data.errorCode==0) {
+                    setTimeout(() => {
+                        window.location='/admin/hoa-don'
+                    }, 1500);
+                }
+            }
+        })
+    }
+    function xac_nhan_da_thanh_toan(mahd)
+    {
+        TH_thong_bao.innerHTML=`Đang xử lý....`
+        btn_thong_bao.click();
+        $.ajax({
+            url: window.location.origin +'/admin/xac-nhan-da-thanh-toan',
+            type: "POST",
+            data:{'ma_hd':mahd,'ghi_chu':TH_ghi_chu.value},
+            success: (data) => {
+                console.log(data);
+                TH_thong_bao.innerHTML=data.message
+                if (data.errorCode==0) {
+                    setTimeout(() => {
+                        window.location='/admin/hoa-don'
+                    }, 1500);
+                }
+            }
+        })
+    }
+    function huy_don_hang(mahd) {
+        TH_thong_bao.innerHTML=`Đang xử lý....`
+        btn_thong_bao.click();
+        $.ajax({
+            url: window.location.origin +'/admin/huy-don-hang',
+            type: "POST",
+            data:{'ma_hd':mahd,'ghi_chu':TH_ghi_chu.value},
+            success: (data) => {
+                console.log(data);
+                TH_thong_bao.innerHTML=data.message
+                if (data.errorCode==0) {
+                    setTimeout(() => {
+                        window.location='/admin/hoa-don'
+                    }, 1500);
+                }
+            }
+        })
+    }
+    function huy_sau_xac_nhan(mahd) {
+        TH_thong_bao.innerHTML=`Đang xử lý....`
+        btn_thong_bao.click();
+        $.ajax({
+            url: window.location.origin +'/admin/huy-sau-xac-nhan',
+            type: "POST",
+            data:{'ma_hd':mahd,'ghi_chu':TH_ghi_chu.value},
+            success: (data) => {
+                console.log(data);
+                TH_thong_bao.innerHTML=data.message
+                if (data.errorCode==0) {
+                    setTimeout(() => {
+                        window.location='/admin/hoa-don'
+                    }, 1500);
+                }
+            }
+        })
     }
     </script>
     <script>

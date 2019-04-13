@@ -10,6 +10,7 @@ cl_san_pham = 'san_pham'
 cl_thong_bao = 'thong_bao'
 cl_thuong_hieu = 'thuong_hieu'
 cl_loai_san_pham = 'loai_san_pham'
+cl_nha_cung_cap ='nha_cung_cap'
 
 router.get('/', function (req, res, next) {
   res.redirect('/admin/dang-nhap');
@@ -140,19 +141,19 @@ router.get('/hoa-don/', async function (req, res, next) {
   var dk
   if(sort==0)
   {
-    dk={}
+    dk={'loai_hd':'xuất'}
   } else if(sort==1)
   {
-    dk={'trang_thai':'Chưa xác nhận'}
+    dk={'trang_thai':'Chưa xác nhận','loai_hd':'xuất'}
   }else if(sort==2)
   {
-    dk={'trang_thai':'Đã xác nhận'}
+    dk={'trang_thai':'Đã xác nhận','loai_hd':'xuất'}
   }else if(sort==3)
   {
-    dk={'trang_thai':'Đã thanh toán'}
+    dk={'trang_thai':'Đã thanh toán','loai_hd':'xuất'}
   }else if(sort==4)
   {
-    dk={'trang_thai':'Đã hủy'}
+    dk={'trang_thai':'Đã hủy','loai_hd':'xuất'}
   }
   db.collection(cl_hoa_don).aggregate([
     {
@@ -190,14 +191,120 @@ router.get('/hoa-don/', async function (req, res, next) {
 });
 router.post('/xac-nhan-hoa-don/', async function (req, res, next) {
   let db = await xl_mongo.Get();
-  db.collection(cl_hoa_don).update({_id:ObjectId(req.body.ma_hd)},{$set:{'trang_thai':'Đã xác nhận','ghi_chu':req.body.ghi_chu}},()=>{
-    res.json({erroCode:0,message:'Xác nhận thành công'})
+  db.collection(cl_san_pham).find({}).toArray((err_sp,res_sp)=>{
+    db.collection(cl_hoa_don).find({_id:ObjectId(req.body.ma_hd)}).toArray((err_hd,res_hd)=>{
+      if(res_hd[0].trang_thai=='Chưa xác nhận')
+      {
+        var dem=0;
+        var loi=0;
+        var sp_loi=[]
+        res_sp.forEach(row_sp => {
+          res_hd[0].chi_tiet.forEach(row_ct => {
+            if(row_ct.san_pham.toString()==row_sp._id.toString())
+            {
+              dem++;
+              sp_loi.push(row_sp._id)
+              if(row_sp.so_luong<row_ct.so_luong)
+              {
+                loi++;
+              }
+              db.collection(cl_san_pham).update({_id:ObjectId(row_sp._id)},{$set:{'so_luong':Number(row_sp.so_luong)-Number(row_ct.so_luong)}}) //cập nhật số lượng
+              if(dem==res_hd[0].chi_tiet.length)
+              {
+                if(loi==0)
+                {
+                  db.collection(cl_hoa_don).update({_id:ObjectId(res_hd[0]._id)},{$set:{'nhan_vien':ObjectId(req.body.nv_Id),'trang_thai':'Đã xác nhận','ghi_chu':req.body.ghi_chu}},()=>{
+                    res.json({errorCode:0,message:'Xác nhận thành công'})
+                  })
+                }
+                else
+                {
+                  res_sp.forEach(row_sp1 => {
+                    res_hd[0].chi_tiet.forEach(row_ct1 => {
+                      if(row_ct1.san_pham.toString()==row_sp1._id.toString())
+                      {
+                        db.collection(cl_san_pham).update({_id:ObjectId(row_sp1._id)},{$set:{'so_luong':Number(row_sp1.so_luong)}})
+                      }
+                    })
+                  })
+                  res.json({errorCode:2,message:'Số lượng sản phẩm trong kho không đủ'})
+                }
+              }
+            }
+          });
+        });
+      }
+      else
+      {
+        res.json({errorCode:1,message:'Có lỗi xảy ra, xin thử lại...'})
+      }
+    })
   })
+  
+  
 });
 router.post('/xac-nhan-da-thanh-toan/', async function (req, res, next) {
   let db = await xl_mongo.Get();
-  db.collection(cl_hoa_don).update({_id:ObjectId(req.body.ma_hd)},{$set:{'trang_thai':'Đã thanh toán','ghi_chu':req.body.ghi_chu}},()=>{
-    res.json({erroCode:0,message:'Xác nhận thành công'})
+  db.collection(cl_hoa_don).find({_id:ObjectId(req.body.ma_hd)}).toArray((e,r)=>{
+    if(r[0].trang_thai=='Chưa xác nhận')
+    {
+      res.json({errorCode:1,message:'Hóa đơn này chưa được xác nhận'})
+    }
+    if(r[0].trang_thai=='Đã xác nhận')
+    {
+      db.collection(cl_hoa_don).update({_id:ObjectId(req.body.ma_hd)},{$set:{'nhan_vien':ObjectId(req.body.nv_Id),'trang_thai':'Đã thanh toán','ghi_chu':req.body.ghi_chu}},()=>{
+        res.json({errorCode:0,message:'Xác nhận thành công'})
+      })
+    }
+    else
+    {
+      res.json({errorCode:2,message:'Có lỗi xảy ra, xin thử lại...'})
+    }
+  })
+});
+router.post('/huy-don-hang/', async function (req, res, next) {
+  let db = await xl_mongo.Get();
+  db.collection(cl_hoa_don).find({_id:ObjectId(req.body.ma_hd)}).toArray((e,r)=>{
+    if(r[0].trang_thai=='Chưa xác nhận')
+    {
+      db.collection(cl_hoa_don).update({_id:ObjectId(req.body.ma_hd)},{$set:{'nhan_vien':ObjectId(req.body.nv_Id),'trang_thai':'Đã hủy','ghi_chu':req.body.ghi_chu}},()=>{
+        res.json({errorCode:0,message:'Hủy đơn hàng thành công'})
+      })
+    }
+    else
+    {
+      res.json({errorCode:1,message:'Có lỗi xảy ra, xin thử lại...'})
+    }
+  })
+});
+router.post('/huy-sau-xac-nhan/', async function (req, res, next) {
+  let db = await xl_mongo.Get();
+  db.collection(cl_san_pham).find({}).toArray((err_sp,res_sp)=>{
+    db.collection(cl_hoa_don).find({_id:ObjectId(req.body.ma_hd)}).toArray((err_hd,res_hd)=>{
+      if(res_hd[0].trang_thai=='Đã xác nhận')
+      {
+        var dem=0;
+        res_sp.forEach(row_sp => {
+          res_hd[0].chi_tiet.forEach(row_ct => {
+            if(row_ct.san_pham.toString()==row_sp._id.toString())
+            {
+              dem++;
+              db.collection(cl_san_pham).update({_id:ObjectId(row_sp._id)},{$set:{'so_luong':Number(row_sp.so_luong)+Number(row_ct.so_luong)}}) //cập nhật số lượng
+              if(dem==res_hd[0].chi_tiet.length)
+              {
+                db.collection(cl_hoa_don).update({_id:ObjectId(req.body.ma_hd)},{$set:{'nhan_vien':ObjectId(req.body.nv_Id),'trang_thai':'Đã hủy','ghi_chu':req.body.ghi_chu}},()=>{
+                  res.json({errorCode:0,message:'Hủy đơn hàng thành công'})
+                })
+              }
+            }
+          });
+        });
+      }
+      else
+      {
+        res.json({errorCode:1,message:'Có lỗi xảy ra, xin thử lại...'})
+      }
+    })
   })
 });
 
@@ -213,6 +320,9 @@ router.get('/thong-ke-hoa-don', function (req, res, next) {
 router.post('/thong-ke-hoa-don', async function (req, res, next) {
   let db = await xl_mongo.Get();
   db.collection(cl_hoa_don).aggregate([
+    {
+      $match: {'loai_hd':'xuất'}
+    },
     {
       $lookup: {
         from: 'nguoi_dung',
@@ -237,7 +347,7 @@ router.post('/thong-ke-hoa-don', async function (req, res, next) {
 
 router.post('/thong-ke-san-pham', async function (req, res, next) {
   let db = await xl_mongo.Get();
-  db.collection(cl_hoa_don).find({}).toArray((err, res_hd) => {
+  db.collection(cl_hoa_don).find({'loai_hd':'xuất'}).toArray((err, res_hd) => {
     db.collection(cl_san_pham).aggregate([
       {
         $lookup: {
@@ -257,8 +367,28 @@ router.get('/thong-ke-san-pham', function (req, res, next) {
   res.render('admin/thong_ke_san_pham', {});
 });
 
-router.get('/nhap-hang', function (req, res, next) {
-  res.render('admin/nhap_hang', {});
+
+router.get('/nhap-hang', async function (req, res, next) {
+  let db = await xl_mongo.Get();
+  await db.collection(cl_thuong_hieu).find({}).toArray(function (err_th, res_th) {
+    db.collection(cl_loai_san_pham).find({}).toArray(function (err_loai, res_loai) {
+      db.collection(cl_nha_cung_cap).find({}).toArray(function (err_loai, res_ncc) {
+        res.render('admin/nhap_hang', {thuong_hieu:res_th,loai_san_pham:res_loai,nha_cung_cap:res_ncc});
+      });
+    });
+  });
+});
+router.post('/load-nhap-hang', async function (req, res, next) {
+  let db = await xl_mongo.Get();
+  await db.collection(cl_san_pham).find({ma_loai:ObjectId(req.body.ma_loai),ma_thuong_hieu:ObjectId(req.body.thuong_hieu),trang_thai:'kinh doanh'}).toArray(function (err_th, result) {
+    res.json(result);
+  });
+});
+router.post('/load-gia-1-san-pham', async function (req, res, next) {
+  let db = await xl_mongo.Get();
+  await db.collection(cl_san_pham).find({_id:ObjectId(req.body.ma_sp),trang_thai:'kinh doanh'}).toArray(function (err_th, result) {
+    res.json({gia_ban:result[0].gia_ban});
+  });
 });
 
 router.get('/thong-bao', async function (req, res, next) {

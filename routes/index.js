@@ -50,7 +50,7 @@ router.get('/', async function (req, res, next) {
 
 router.post('/', async function (req, res, next) {
   let db = await xl_mongo.Get();
-  await db.collection(cl_hoa_don).find({}).toArray(function (err, res_hd) {
+  await db.collection(cl_hoa_don).find({'loai_hd':'xuất'}).toArray(function (err, res_hd) {
     db.collection(cl_san_pham).aggregate([
       {
         $match:{trang_thai:'kinh doanh'}

@@ -11,39 +11,37 @@
                 <h3 class="text-center text-info">Chọn hàng cần nhập</h3>
                 <div class="form-group">
                     <label for="">Loại sản phẩm</label>
-                    <select class="form-control" name="" id="">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                    <select class="form-control" name="" id="TH_loai" onchange="load_san_pham()">
+                    <% loai_san_pham.forEach(row => { %>
+                        <option value="<%=row._id%>"><%=row.ten_loai%></option>
+                    <% }) %>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="">Thương hiệu</label>
-                    <select class="form-control" name="" id="">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                    <select class="form-control" name="" id="TH_thuong_hieu" onchange="load_san_pham()">
+                    <% thuong_hieu.forEach(row => { %>
+                        <option value="<%=row._id%>"><%=row.ten_thuong_hieu%></option>
+                    <% }) %>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="">Tên sản phẩm</label>
-                    <select class="form-control" name="" id="">
+                    <select class="form-control" name="" id="TH_ds_san_pham" onchange="hien_gia_ban()">
                         <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="">Giá bán</label>
-                    <input type="number" readonly class="form-control" name="ho_ten" id="ho_ten">
+                    <input type="text" readonly class="form-control" name="" id="TH_gia_ban">
                 </div>
                 <div class="form-group">
                     <label for="">Giá nhập</label>
-                    <input type="number" class="form-control" name="ho_ten" id="ho_ten">
+                    <input type="number" class="form-control" name="" id="TH_gia_nhap">
                 </div>
                 <div class="form-group">
                     <label for="">Số lượng</label>
-                    <input type="number" class="form-control" name="ho_ten" id="ho_ten">
+                    <input type="number" class="form-control" name="" id="TH_so_luong">
                 </div>
             </div>
             <div class="text-center">
@@ -56,78 +54,169 @@
                 style="width:100%">
                 <thead>
                     <tr>
-                        <th>Mã sản phẩm</th>
                         <th>Tên sản phẩm</th>
                         <th>Loại hàng</th>
                         <th>Thương hiệu</th>
                         <th>Giá bán</th>
                         <th>Số lượng</th>
                         <th>Tổng tiền</th>
+                        <th></th>
 
                     </tr>
                 </thead>
                 <tbody id="TH_ds_nhap">
-                    <tr>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>3</td>
-                        <td>4</td>
-                    </tr>
                 </tbody>
             </table>
             <div class="form-inline justify-content-center">
                     <label for="">Nhà cung cấp</label>
-                    <select class="form-control ml-2 w-auto " name="" id="">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                    <select class="form-control ml-2 w-auto " name="" id="TH_ncc">
+                    <% nha_cung_cap.forEach(row => { %>
+                        <option value="<%=row._id%>"><%=row.ten_ncc%></option>
+                    <% }) %>
                     </select>
                 </div>
             <div class="text-center">
                 <button type="button" class='btn btn-primary my-3'>Xác nhận nhập hàng</button>
-                <button type="button" onclick="lam_lai()" class='btn btn-info my-3'>Làm lại</button>
+                <button type="button" onclick="xoa_nhap_hang()" class='btn btn-info my-3'>Làm lại</button>
             </div>
         </div>
     </div>
     <% include layout/footer %>
-    <script>
-        function lam_lai(){
-            TH_ds_nhap.innerHTML = ``;
-            TH_tong_tien.innerHTML=0;
-            sessionStorage.removeItem('nhap_hang')
-        }
-        function them_danh_sach() {
-            TH_ds_nhap.innerHTML = ``;
+<script>
+load_ds_nhap()
+    function load_ds_nhap()
+    {
+        TH_ds_nhap.innerHTML = ``;
             var nhap_hang;
             if (sessionStorage.getItem('nhap_hang') == null) {
                 nhap_hang = [];
             } else {
                 nhap_hang = JSON.parse(sessionStorage.getItem('nhap_hang'));
             }
-            var sp = {
-                'masp': 1,
-                'tensp': 2
-            }
-            nhap_hang.push(sp)
-            sessionStorage.setItem('nhap_hang', JSON.stringify(nhap_hang))
-            console.log(sessionStorage.getItem('nhap_hang'))
+            var tongtien=0;
             nhap_hang.forEach(row => {
+                tongtien+=Number(row.so_luong)*Number(row.gia_nhap)
                 TH_ds_nhap.innerHTML +=
                     `
                 <tr>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>3</td>
-                    <td>4</td>
+                    <td>${row.ten_sp}</td>
+                    <td>${row.ten_loai}</td>
+                    <td>${row.ten_th}</td>
+                    <td>${(row.gia_nhap).toLocaleString('en-GB')}</td>
+                    <td>${row.so_luong}</td>
+                    <td>${(Number(row.so_luong)*Number(row.gia_nhap)).toLocaleString('en-GB')}</td>
+                    <td class="text-center"><a href="#" onclick="xoa_1_nhap_hang('${row.ma_sp}')"><i class="fa fa-trash"></i></a></td>
                 </tr>
             `
             });
+            TH_tong_tien.innerHTML=tongtien.toLocaleString('en-GB')
+    }
+    function them_danh_sach() {
+        if(TH_gia_nhap.value.trim()=='')
+        {
+            alert('Chưa nhập giá nhập')
+            return;
+        }
+        if(TH_so_luong.value.trim()=='')
+        {
+            alert('Chưa nhập số lượng')
+            return;
+        }
+        
+        var nhap_hang;
+        if (sessionStorage.getItem('nhap_hang') == null) {
+            nhap_hang = [];
+        } else {
+            nhap_hang = JSON.parse(sessionStorage.getItem('nhap_hang'));
+        }
+        if(nhap_hang.find(x=>x.ma_sp==TH_ds_san_pham.value)==undefined)
+        {
+            var sp = {
+                'ma_sp': TH_ds_san_pham.value,
+                'ten_sp': TH_ds_san_pham.options[TH_ds_san_pham.selectedIndex].text,
+                'ma_loai': TH_loai.value,
+                'ten_loai': TH_loai.options[TH_loai.selectedIndex].text,
+                'ma_th': TH_thuong_hieu.value,
+                'ten_th': TH_thuong_hieu.options[TH_thuong_hieu.selectedIndex].text,
+                'so_luong':TH_so_luong.value.trim(),
+                'gia_nhap':TH_gia_nhap.value.trim(),
+                'gia_ban':TH_gia_ban.value.trim()
+            }
+            nhap_hang.push(sp)
+            sessionStorage.setItem('nhap_hang', JSON.stringify(nhap_hang))
+            TH_ds_nhap.innerHTML = ``;
+            tongtien=0
+            nhap_hang.forEach(row => {
+                tongtien+=Number(row.so_luong)*Number(row.gia_nhap)
+                TH_ds_nhap.innerHTML +=
+                    `
+                <tr>
+                    <td>${row.ten_sp}</td>
+                    <td>${row.ten_loai}</td>
+                    <td>${row.ten_th}</td>
+                    <td>${(row.gia_nhap).toLocaleString('en-GB')}</td>
+                    <td>${row.so_luong}</td>
+                    <td>${(Number(row.so_luong)*Number(row.gia_nhap)).toLocaleString('en-GB')}</td>
+                    <td class="text-center"><a href="#" onclick="xoa_1_nhap_hang('${row.ma_sp}')"><i class="fa fa-trash"></i></a></td>
+                </tr>
+            `
+            });
+            TH_tong_tien.innerHTML=tongtien.toLocaleString('en-GB')
+        }
 
+
+    }
+    function xoa_nhap_hang() {
+		if (confirm("Xác nhận xoá danh sách nhập hàng")) {
+			sessionStorage.removeItem('nhap_hang')
+			window.location = "/admin/nhap-hang"
+		}
+
+	}
+
+	function xoa_1_nhap_hang(id) {
+		nhap_hang = JSON.parse(sessionStorage.getItem('nhap_hang'));
+		nhap_hang = nhap_hang.filter(x => x.ma_sp != id)
+		if (nhap_hang.length == 0) {
+			sessionStorage.removeItem('nhap_hang')
+		} else {
+			sessionStorage.setItem('nhap_hang', JSON.stringify(nhap_hang))
+        }
+        window.location = "/admin/nhap-hang"
+	}
+</script>
+    <script>
+        $('#TH_thuong_hieu').change()
+        function load_san_pham()
+        {
+            var form_data={
+                'ma_loai': TH_loai.value,
+                'thuong_hieu': TH_thuong_hieu.value
+            }
+            $.ajax({
+                url: window.location.origin+'/admin/load-nhap-hang',
+                type: "POST",
+                data: form_data,
+                success: (data) => {
+                    TH_ds_san_pham.innerHTML=``
+                    data.forEach(row => {
+                         TH_ds_san_pham.innerHTML+=`
+                        <option value="${row._id}">${row.ten_sp}</option>
+                        `
+                    });
+                   hien_gia_ban()
+                }
+            })
+        }
+        function hien_gia_ban()
+        {
+            $.ajax({
+                url: window.location.origin+'/admin/load-gia-1-san-pham',
+                type: "POST",
+                data: {'ma_sp':TH_ds_san_pham.value},
+                success: (data) => {
+                    TH_gia_ban.value=data.gia_ban.toLocaleString('en-GB') +' VNĐ'
+                }
+            })
         }
     </script>

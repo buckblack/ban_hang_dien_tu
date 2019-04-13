@@ -132,7 +132,7 @@ router.post('/binhluan', async function (req, res, next) {
     }
     else
     {
-      db.collection(cl_hoa_don).find({'khach_hang':ObjectId(req.body.id_kh),'chi_tiet.san_pham':ObjectId(req.body.id_sp)}).toArray((err_hd,res_hd)=>{
+      db.collection(cl_hoa_don).find({'khach_hang':ObjectId(req.body.id_kh),'chi_tiet.san_pham':ObjectId(req.body.id_sp),'loai_hd':'xuất'}).toArray((err_hd,res_hd)=>{
         if(res_hd.length==0)
         {
           res.json({'errorCode':2,'message':'Bạn chưa mua sản phẩm này'})
