@@ -24,6 +24,15 @@ tongtien=function (arr)
     return tien
 }
 
+tongtiennhap=function (arr)
+{
+    var tien=0;
+    arr.forEach(row => {
+        tien+=Number(row.so_luong)*Number(row.gia_nhap)
+    });
+    return tien
+}
+
 trang_thai=function (str) {
     str= str.replace("/ ","");
     return str

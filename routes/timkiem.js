@@ -82,7 +82,7 @@ router.post('/hoa-don', async function (req, res, next) {
   let db = await xl_mongo.Get();
   await db.collection(cl_hoa_don).aggregate([
     {
-      $match:{_id:ObjectId(req.body.id_hd)}
+      $match:{_id:ObjectId(req.body.id_hd),'loai_hd':'xuất'}
     },
     {
       $lookup: {
@@ -150,12 +150,83 @@ router.post('/hoa-don', async function (req, res, next) {
     res.json(sanpham)
   });
 });
-
+router.post('/hoa-don-nhap', async function (req, res, next) {
+  let db = await xl_mongo.Get();
+  await db.collection(cl_hoa_don).aggregate([
+    {
+      $match:{_id:ObjectId(req.body.id_hd),'loai_hd':'nhập'}
+    },
+    {
+      $lookup: {
+        from: 'nha_cung_cap',
+        localField: 'nha_cung_cap',
+        foreignField: '_id',
+        as: 'nha_cung_cap'
+      }
+    },
+    {
+      $lookup: {
+        from: 'nguoi_dung',
+        localField: 'nhan_vien',
+        foreignField: '_id',
+        as: 'nhan_vien'
+      }
+    },
+    {
+      $unwind: {
+        path: "$chi_tiet",
+        preserveNullAndEmptyArrays: true
+      }
+    },
+    {
+      $lookup: {
+        from: "san_pham",
+        localField: "chi_tiet.san_pham",
+        foreignField: "_id",
+        as: "chi_tiet.san_pham"
+      }
+    },
+    {
+      $unwind: {
+        path: "$chi_tiet.san_pham",
+        preserveNullAndEmptyArrays: true
+      }
+    },
+    {
+      $group: {
+        _id: "$_id",
+        nha_cung_cap: {
+          "$first": "$nha_cung_cap"
+        },
+        ma_hd: {
+          "$first": "$ma_hd"
+        },
+        ngay_lap: {
+          "$first": "$ngay_lap"
+        },
+        nhan_vien: {
+          "$first": "$nhan_vien"
+        },
+        trang_thai: {
+          "$first": "$trang_thai"
+        },
+        ghi_chu: {
+          "$first": "$ghi_chu"
+        },
+        chi_tiet: {
+          "$push": "$chi_tiet"
+        }
+      }
+    }
+  ]).toArray(function (err, sanpham) {
+    res.json(sanpham)
+  });
+});
 router.post('/hoa-don-ma-tu-tao', async function (req, res, next) {
   let db = await xl_mongo.Get();
   await db.collection(cl_hoa_don).aggregate([
     {
-      $match:{'ma_hd':Number(req.body.ma_hd)}
+      $match:{'ma_hd':Number(req.body.ma_hd),'loai_hd':'xuất'}
     },
     {
       $lookup: {
@@ -223,5 +294,76 @@ router.post('/hoa-don-ma-tu-tao', async function (req, res, next) {
     res.json(sanpham)
   });
 });
-
+router.post('/hoa-don-nhap-ma-tu-tao', async function (req, res, next) {
+  let db = await xl_mongo.Get();
+  await db.collection(cl_hoa_don).aggregate([
+    {
+      $match:{'ma_hd':Number(req.body.ma_hd),'loai_hd':'nhập'}
+    },
+    {
+      $lookup: {
+        from: 'nha_cung_cap',
+        localField: 'nha_cung_cap',
+        foreignField: '_id',
+        as: 'nha_cung_cap'
+      }
+    },
+    {
+      $lookup: {
+        from: 'nguoi_dung',
+        localField: 'nhan_vien',
+        foreignField: '_id',
+        as: 'nhan_vien'
+      }
+    },
+    {
+      $unwind: {
+        path: "$chi_tiet",
+        preserveNullAndEmptyArrays: true
+      }
+    },
+    {
+      $lookup: {
+        from: "san_pham",
+        localField: "chi_tiet.san_pham",
+        foreignField: "_id",
+        as: "chi_tiet.san_pham"
+      }
+    },
+    {
+      $unwind: {
+        path: "$chi_tiet.san_pham",
+        preserveNullAndEmptyArrays: true
+      }
+    },
+    {
+      $group: {
+        _id: "$_id",
+        nha_cung_cap: {
+          "$first": "$nha_cung_cap"
+        },
+        ma_hd: {
+          "$first": "$ma_hd"
+        },
+        ngay_lap: {
+          "$first": "$ngay_lap"
+        },
+        nhan_vien: {
+          "$first": "$nhan_vien"
+        },
+        trang_thai: {
+          "$first": "$trang_thai"
+        },
+        ghi_chu: {
+          "$first": "$ghi_chu"
+        },
+        chi_tiet: {
+          "$push": "$chi_tiet"
+        }
+      }
+    }
+  ]).toArray(function (err, sanpham) {
+    res.json(sanpham)
+  });
+});
 module.exports = router;
