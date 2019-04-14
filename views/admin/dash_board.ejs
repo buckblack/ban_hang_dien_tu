@@ -5,17 +5,199 @@
 <section class="wrapper p-0">
     <div class="table-agile-info p-0">
         <div class="panel panel-default">
-fghfgh
-<br>
-<br>
-<br>
+            <div class="panel-heading h-auto">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-12 bg-none my-1" style="height:80px;">
+                        <button type="button" class="btn btn-danger h-100 w-100">
+                            <h4><i class="fa fa-group"></i> Khách hàng : 2000</h4>
+                        </button>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 bg-none my-1" style="height:80px;">
+                        <button type="button" class="btn btn-info h-100 w-100">
+                            <h4><i class="fa fa-phone"></i> Liên hệ : 2000</h4>
+                        </button>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 bg-none my-1" style="height:80px;">
+                        <button type="button" class="btn btn-warning h-100 w-100">
+                            <h4><i class="fa fa-book"></i> Hóa đơn mới : 2000</h4>
+                        </button>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 bg-none my-1" style="height:80px;">
+                        <button type="button" class="btn btn-success h-100 w-100">
+                            <h4><i class="fa fa-database"></i> Doanh thu ngày : <br><span id="TH_doanh_thu">200000000<span> VNĐ</h4>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <h2 class="text-center mt-4">Danh sách hóa đơn chưa xác nhận</h2>
+            <table id="table_ds_hoa_don"
+                class="table table-striped table-bordered bg-light table-hover d-md-table table-responsive-sm">
 
-<br>
-<br>
-<br>
-<br><br><br><br><br><br><br><br>
+                <thead>
 
+                    <tr>
+
+                        <th>Mã Hóa đơn</th>
+                        <th>Tên khách hàng</th>
+                        <th>Người lập</th>
+                        <th>Ngày</th>
+                        <th>Tổng tiền</th>
+                        <th class="table_ghichu d-none">Ghi chú</th>
+
+                    </tr>
+                </thead>
+
+
+                <tbody id="TH_ds_hoa_don">
+
+                </tbody>
+            </table>
+            <div class="w-auto h-100">
+                <div class="col-sm-12 px-0" id="Th_Bieu_do"></div>
+            </div>
+            <h2 class="text-center mt-4">Sản phẩm bán được trong ngày</h2>
+            <table id="table_ds_san_pham"
+                class="table table-striped table-bordered bg-light table-hover d-md-table table-responsive-sm"
+                style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Mã hàng</th>
+                        <th>Tên hàng</th>
+                        <th>Giá bán</th>
+                        <th>Loại hàng</th>
+                        <th>Số lượng bán</th>
+                    </tr>
+                </thead>
+                <tbody id="TH_ds_san_pham">
+
+                </tbody>
+            </table>
         </div>
     </div>
-</div>
+    </div>
 <% include layout/footer %>
+<script>
+    $('#table_ds_hoa_don').DataTable();
+    document.getElementById('table_ds_hoa_don_filter').classList.add('d-none')
+    document.getElementById('table_ds_hoa_don_wrapper').classList.add('pb-4')
+    document.getElementById('table_ds_hoa_don_length').classList.add('d-none')
+    document.getElementById('table_ds_hoa_don_info').classList.add('d-none')
+    $('#table_ds_san_pham').DataTable();
+    document.getElementById('table_ds_san_pham_filter').classList.add('d-none')
+    document.getElementById('table_ds_san_pham_wrapper').classList.add('pb-4')
+    document.getElementById('table_ds_san_pham_length').classList.add('d-none')
+    document.getElementById('table_ds_san_pham_info').classList.add('d-none')
+</script>
+<script>
+    var ds;
+    var arrngay = [];
+    var arrtongtien = [];
+    $.ajax({
+        url: window.location.origin+'/admin/thong-ke-hoa-don',
+        type: "POST",
+        success: (data) => {
+            var dateFrom = new Date(Date.now()).toISOString().split('T')[0]
+            var dateTo=new Date(Date.now()).toISOString().split('T')[0]
+            var from = new Date(dateFrom)
+            var to = new Date(dateTo)
+            to.setDate(to.getDate() + 1)
+            ds = data.filter(x => x.ngay_lap >= dateFrom.value).filter(x => x.ngay_lap <= to.toISOString().split('T')[0])
+            //xuất ra table
+            TH_ds_hoa_don.innerHTML=``
+            var dem=1;
+            ds.forEach(row => {
+                dem++;
+                TH_ds_hoa_don.innerHTML+=`
+                <tr onclick="show_chi_tiet_hoa_don('${row._id}')" data-toggle="modal" data-target="#modal-detai">
+                    <td>${row.ma_hd}</td>
+                    <td>${row.khach_hang[0].ho_ten}</td>
+                    <td>${row.nhan_vien[0].ho_ten}</td>
+                    <td>${row.ngay_lap.split('T')[0]}</td>
+                    <td>${tinh_tong_tien(row.chi_tiet).toLocaleString('en-GB')} VNĐ</td>
+                    <td class="table_ghichu d-none">${row.ghi_chu}</td>
+                </tr>
+                `
+                if(dem==ds.length)
+                {
+                    $('#table_ds_hoa_don').DataTable();
+                    
+                    document.getElementById('table_ds_hoa_don_filter').classList.add('w-100')
+                    document.getElementById('table_ds_hoa_don_filter').classList.add('text-right')
+                    document.getElementById('table_ds_hoa_don_wrapper').classList.add('pb-4')
+                }
+            });
+                
+            //kết thúc xuất ra table
+            var dem = 0;
+            while (from <= to) {
+                arrngay.push(from.toISOString().split('T')[0])
+                var tien = 0
+                ds.forEach(row => {
+                    if (row.ngay_lap.toString().indexOf(from.toISOString().split('T')[0]) >=
+                        0) {
+                        tien += tinh_tong_tien(row.chi_tiet)
+                    }
+                });
+                arrtongtien.push(tien)
+                from.setDate(from.getDate() + 1)
+            }
+            arrngay.pop();
+            arrtongtien.pop();
+            Highcharts.chart('Th_Bieu_do', {
+                chart: {
+                    type: 'column', // bar , column, line, pie
+                    plotBorderWidth: 1
+                },
+                title: {
+                    text: 'Thống kê hóa đơn',
+                    align: 'center',
+                    style: {
+                        color: 'red',
+                        fontWeight: 'bold',
+                        fontSize: '1.5rem'
+                    },
+                    y: 20
+                },
+                subtitle: {
+                    text: `Ngày ${dateFrom}`
+                },
+                xAxis: {
+                    categories: arrngay
+                },
+                yAxis: {
+                    title: {
+                        text: 'Tổng tiền hóa đơn',
+
+                        style: {
+                            color: 'blue',
+                            fontWeight: 'bold',
+                            fontSize: '1rem'
+                        }
+
+                    }
+                },
+                series: [{
+                    name: 'Tổng tiền',
+                    data: arrtongtien,
+                    color: 'red'
+                }]
+
+            });
+        
+        }
+    })
+    Highcharts.setOptions({
+            lang: {
+                numericSymbols: [` Ngàn`, ` Triệu`],
+                numericSymbolMagnitude: 1000,
+                decimalPoint: ',', ///phân cách thập phân
+                thousandsSep: '.' ///hàng ngàn
+            },
+            chart: {
+                style: {
+                    fontFamily: `tahoma`, /// chỉnh font cho chữ thống dc đúng
+                    fontSize: 16
+                }
+            }
+        })
+</script>
