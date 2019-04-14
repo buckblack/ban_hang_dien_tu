@@ -41,6 +41,28 @@ router.post('/dang-nhap', async function (req, res, next) {
   })
 });
 
+//thêm loại sản phẩm mới
+router.post('/them-loai-san-pham',async function(req,res,next){
+  var loai={'ten_loai':req.body.ten_loai,'thu_muc_hinh':req.body.thu_muc}
+  let db=await xl_mongo.Get();
+  await db.collection(cl_loai_san_pham).insert(loai,(err,result)=>{
+    if(err)
+    {
+      var kq={'errorCode':1,'message':'Không thêm được'}
+      res.json(kq)
+    }
+    else
+    {
+      var kq={
+        'errorCode':0,
+        'message':'Thêm thành công',
+      }
+      res.json(kq)
+    }
+  })
+});
+
+
 //lấy thương hiệu
 router.get('/lay-thuong-hieu', async function (req, res, next) {
   let db = await xl_mongo.Get();
@@ -53,8 +75,11 @@ router.get('/lay-thuong-hieu', async function (req, res, next) {
       res.json(kq)
     }
     else {
-      
-      res.json(result)
+      var kq = {
+        'errorCode': 0,
+        'data':result
+      }
+      res.json(kq)
     }
   })
 });
@@ -72,35 +97,85 @@ router.get('/lay-loai-san-pham', async function (req, res, next) {
       res.json(kq)
     }
     else {
-      
-      res.json(result)
-    }
-  })
-});
-
-
-//lấy danh sách sản phẩm nổi bật
-router.get('/lay-san-pham-noi-bat', async function (req, res, next) {
-  let db = await xl_mongo.Get();
-  db.collection(cl_san_pham).find({'hot':1}).toArray((err, result) => {
-    if (result.length == 0) {
-      var kq = {
-        'errorCode': 1,
-        'message': 'Không tìm thấy'
+      var kq={
+        'errorCode':0,
+        'data':result
       }
       res.json(kq)
     }
-    else {
-      
-      res.json(result)
-    }
   })
 });
+
+
+
 
 //lấy danh sách hóa đơn
 router.get('/lay-hoa-don', async function (req, res, next) {
   let db = await xl_mongo.Get();
-  await db.collection(cl_hoa_don).find({}).toArray((err, result) => {
+  await db.collection(cl_hoa_don).aggregate([
+    {
+      $lookup: {
+        from: 'nguoi_dung',
+        localField: 'khach_hang',
+        foreignField: '_id',
+        as: 'khach_hang'
+      }
+    },
+    {
+      $lookup: {
+        from: 'nguoi_dung',
+        localField: 'nhan_vien',
+        foreignField: '_id',
+        as: 'nhan_vien'
+      }
+    },
+    {
+      $unwind: {
+        path: "$chi_tiet",
+        preserveNullAndEmptyArrays: true
+      }
+    },
+    {
+      $lookup: {
+        from: "san_pham",
+        localField: "chi_tiet.san_pham",
+        foreignField: "_id",
+        as: "chi_tiet.san_pham"
+      }
+    },
+    {
+      $unwind: {
+        path: "$chi_tiet.san_pham",
+        preserveNullAndEmptyArrays: true
+      }
+    },
+    {
+      $group: {
+        _id: "$_id",
+        khach_hang: {
+          "$first": "$khach_hang"
+        },
+        ma_hd: {
+          "$first": "$ma_hd"
+        },
+        ngay_lap: {
+          "$first": "$ngay_lap"
+        },
+        nhan_vien: {
+          "$first": "$nhan_vien"
+        },
+        trang_thai: {
+          "$first": "$trang_thai"
+        },
+        ghi_chu: {
+          "$first": "$ghi_chu"
+        },
+        chi_tiet: {
+          "$push": "$chi_tiet"
+        }
+      }
+    }
+  ]).toArray((err, result) => {
     if (result.length == 0) {
       var kq = {
         'errorCode': 1,
@@ -109,8 +184,11 @@ router.get('/lay-hoa-don', async function (req, res, next) {
       res.json(kq)
     }
     else {
-      
-      res.json(result)
+      var kq={
+        'errorCode':0,
+        'data':result
+      }
+      res.json(kq)
     }
   })
 });
@@ -149,8 +227,11 @@ router.get('/lay-hoa-don/:id', async function (req, res, next) {
       res.json(kq)
     }
     else {
-      
-      res.json(result)
+      var kq={
+        'errorCode':0,
+        'data':result
+      }
+      res.json(kq)
     }
   })
 });
