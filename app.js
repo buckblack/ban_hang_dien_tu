@@ -25,6 +25,7 @@ var apiRouter=require('./routes/api');
 var userRouter=require('./routes/users');
 var timkiemRouter=require('./routes/timkiem');
 var adminRouter=require('./routes/admin');
+var quantriRouter=require('./routes/quantri');
 
 
 var app = express();
@@ -80,6 +81,7 @@ app.use('/linhkien',linhkienRouter);
 app.use('/users',userRouter);
 app.use('/tim-kiem',timkiemRouter);
 app.use('/admin',adminRouter);
+app.use('/quantri',quantriRouter);
 app.use('/api',apiRouter)
 
 // catch 404 and forward to error handler

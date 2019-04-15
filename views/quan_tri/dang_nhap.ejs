@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<head>
+    <title>Sản phẩm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript">
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- bootstrap-css -->
+    <link rel="shortcut icon" href="http://demo.grandnode.com/favicon.ico">
+    <link href="/admin/css/bootstrap.min.css" rel='stylesheet' type='text/css'>
+    <link href="/admin/css/style.css" rel='stylesheet' type='text/css' />
+    <link href="/admin/css/style-responsive.css" rel="stylesheet" />
+    <!-- font CSS -->
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
+    <!-- font-awesome icons -->
+    <link rel="stylesheet" href="/admin/css/font.css" type="text/css" />
+    <link href="/admin/css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons -->
+    <link href="/admin/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="/admin/css/skdslider.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="log-w3">
+        <div class="w3layouts-main text-center">
+            <h2>Đăng nhập</h2>
+            <input type="text" class="ggg form-control" id="dang_nhap_email" name="Email" placeholder="Tên đăng nhập" required="">
+            <input type="password" class="ggg form-control" id="dang_nhap_mat_khau" name="Password" placeholder="Mật khẩu" required="">
+            <div class="clearfix"></div>
+            <input type="button" class="btn btn-primary" id="btn_dang_nhap" value="Đăng nhập" name="login">
+        </div>
+    </div>
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg d-none" id="modal_thongbao" data-toggle="modal" data-target="#modalthongbao">
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="modalthongbao" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thông báo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body" id="TH_thongbao">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/admin/js/jquery-3.3.1.min.js"></script>
+<script src="/admin/js/bootstrap.min.js"></script>
+<script>
+btn_dang_nhap.onclick=()=>{
+	TH_thongbao.innerHTML='Đang xử lý...'
+	modal_thongbao.click()
+		var form_data={
+			'email':dang_nhap_email.value,
+			'password' : dang_nhap_mat_khau.value,
+		}
+		$.ajax(
+			{
+				url:window.location.origin+"/quantri/dang-nhap",
+				type:"POST",
+				data:form_data,
+				success:(data)=>{
+					data=JSON.parse(data)
+					if(data.errorCode==0)
+					{
+						sessionStorage.setItem('qt_Id',data.qt_Id)
+						sessionStorage.setItem('qt_Ten',data.qt_Ten)
+						sessionStorage.setItem('qt_Email',data.qt_Email)
+						sessionStorage.setItem('qt_Dia_chi',data.qt_Dia_chi)
+						sessionStorage.setItem('qt_Dien_thoai',data.qt_Dien_thoai)
+						sessionStorage.setItem('qt_Gioi_tinh',data.qt_Gioi_tinh)
+						setTimeout(() => {
+							window.location=window.location.origin+"/quantri"
+    					}, 1500);
+					}
+					TH_thongbao.innerHTML=data.message
+				}
+	
+			}
+		)
+	}
+</script>
