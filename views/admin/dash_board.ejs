@@ -6,25 +6,27 @@
     <div class="table-agile-info p-0">
         <div class="panel panel-default">
             <div class="panel-heading h-auto">
+            <input type="date" class="d-none" name="" id="dateFrom">
+            <input type="date" class="d-none" name="" id="dateTo">
                 <div class="row">
                     <div class="col-lg-3 col-md-6 col-sm-12 bg-none my-1" style="height:80px;">
                         <button type="button" class="btn btn-danger h-100 w-100">
-                            <h4><i class="fa fa-group"></i> Khách hàng : 2000</h4>
+                            <h4><i class="fa fa-group"></i> Khách hàng : <%=khach_hang%></h4>
                         </button>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 bg-none my-1" style="height:80px;">
                         <button type="button" class="btn btn-info h-100 w-100">
-                            <h4><i class="fa fa-phone"></i> Liên hệ : 2000</h4>
+                            <h4><i class="fa fa-phone"></i> Liên hệ : <%=lien_he%></h4>
                         </button>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 bg-none my-1" style="height:80px;">
                         <button type="button" class="btn btn-warning h-100 w-100">
-                            <h4><i class="fa fa-book"></i> Hóa đơn mới : 2000</h4>
+                            <h4><i class="fa fa-book"></i> Hóa đơn mới : <%=hoa_don.length%></h4>
                         </button>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 bg-none my-1" style="height:80px;">
                         <button type="button" class="btn btn-success h-100 w-100">
-                            <h4><i class="fa fa-database"></i> Doanh thu ngày : <br><span id="TH_doanh_thu">200000000<span> VNĐ</h4>
+                            <h4><i class="fa fa-database"></i> Doanh thu ngày : <br><span id="TH_doanh_thu">load..</span> VNĐ</h4>
                         </button>
                     </div>
                 </div>
@@ -36,20 +38,21 @@
                 <thead>
 
                     <tr>
-
                         <th>Mã Hóa đơn</th>
-                        <th>Tên khách hàng</th>
-                        <th>Người lập</th>
                         <th>Ngày</th>
                         <th>Tổng tiền</th>
-                        <th class="table_ghichu d-none">Ghi chú</th>
-
+                        <th>Ghi chú</th>
                     </tr>
                 </thead>
-
-
                 <tbody id="TH_ds_hoa_don">
-
+                <% hoa_don.forEach(row => { %>
+                    <tr onclick="show_chi_tiet_hoa_don('<%=row._id%>')" data-toggle="modal" data-target="#modal-detai">
+                        <td><%=row.ma_hd%></td>
+                        <td><%=row.ngay_lap%></td>
+                        <td><%=tongtien(row.chi_tiet).toLocaleString('en-GB') %> VNĐ</td>
+                        <td><%=row.ghi_chu%></td>
+                    </tr>
+                <% }) %>
                 </tbody>
             </table>
             <div class="w-auto h-100">
@@ -75,20 +78,204 @@
         </div>
     </div>
     </div>
+    <div class="modal fade" id="modal-detai" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Chi tiết hóa đơn</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="TH_modal_detail">
+                            <div class="row w-100">
+                                <div class="h3 text-primary mr-auto">Hóa đơn 123</div>
+                                <div class="h3 text-danger">Tổng tiền:288,000 VNĐ</div>
+                            </div>
+                            <div class="row w-100">
+                                <div class="h6 mr-auto">Người lập: NVA</div>
+                                <div class="h6">Ngày lập: 1-1-2019</div>
+                            </div>
+                            <div class="row w-100">
+                                <div class="h6 mr-auto">Khách hàng: Khách lẻ</div>
+                                <div class="h6">Tình trạng:Đã thanh toán</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+
+                                </div>
+                                <div class="col-sm-12">
+                                    <table
+                                        class="table table-striped table-hover table-bordered table-responsive d-lg-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Mã sản phẩm</th>
+                                                <th>Tên sản phẩm</th>
+                                                <th>Số lượng</th>
+                                                <th>Thành tiền</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>1</td>
+                                                <td>2</td>
+                                                <td>3</td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>3</td>
+                                                <td>2</td>
+                                                <td>9</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" id="TH_modal_detail_footer">
+                                <button type="button" class="btn btn-danger" id="" data-dismiss="modal">Hủy</button>
+                                <button type="button" class="btn btn-warning" id="" data-dismiss="modal">Xác nhận</button>
+                            <button type="button" class="btn btn-secondary" id="btn_close_detai"
+                                data-dismiss="modal">Đóng</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg d-none" id="btn_thong_bao" data-toggle="modal" data-target="#modal-thong-bao">
+  
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-thong-bao" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thông báo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body" id="TH_thong_bao">
+                Đang xử lý....
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
 <% include layout/footer %>
 <script>
+    function show_chi_tiet_hoa_don(mahd) {
+        ma_hd_in=mahd;
+        $.ajax({
+            url: window.location.origin +'/tim-kiem/hoa-don',
+            type: "POST",
+            data:{'id_hd':mahd},
+            success: (data) => {
+                if(data.length==0)
+                {
+                    TH_modal_detail.innerHTML = `Không tìm thấy hóa đơn nào`
+                    TH_modal_detail_footer.innerHTML=`
+                    <button type="button" class="btn btn-secondary" id="btn_close_detai"
+                                data-dismiss="modal">Đóng</button>
+                    `
+                    return;
+                }
+                if(data[0].trang_thai=="Chưa xác nhận")
+                {
+                    TH_modal_detail_footer.innerHTML=`
+                    <button type="button" class="btn btn-danger" id="" onclick="huy_don_hang('${data[0]._id}')">Hủy</button>
+                                <button type="button" class="btn btn-warning" id="" onclick="xac_nhan('${data[0]._id}')">Xác nhận</button>
+                            <button type="button" class="btn btn-secondary" id="btn_close_detai"
+                                data-dismiss="modal">Đóng</button>
+                    `
+                }
+                var ct = ``;
+                var tongtien = 0;
+                data[0].chi_tiet.forEach(row => {
+                    tongtien += (row.so_luong) * (row.gia_ban);
+                    ct += `
+                        <tr>
+                            <td>${row.san_pham._id}</td>
+                            <td>${row.san_pham.ten_sp}</td>
+                            <td>${row.gia_ban}</td>
+                            <td>${row.so_luong}</td>
+                            <td>${((row.so_luong)*(row.gia_ban)).toLocaleString('en-GB')}</td>
+                        </tr>
+                    `
+                });
+                TH_modal_detail.innerHTML = `
+                    <div class="row w-100">
+                        <div class="h3 text-primary mr-auto">Hóa đơn ${data[0].ma_hd}</div>
+                        <div class="h3 text-danger">Tổng tiền:${(tongtien).toLocaleString('en-GB')} VNĐ</div>
+                    </div>
+                    <div class="row w-100">
+                        <div class="h6 mr-auto">Người lập: ${data[0].nhan_vien[0].ho_ten}</div>
+                        <div class="h6">Ngày lập: ${data[0].ngay_lap}</div>
+                    </div>
+                    <div class="row w-100">
+                        <div class="h6 mr-auto">Khách hàng: ${data[0].khach_hang[0].ho_ten}</div>
+                        <div class="h6">Tình trạng:${data[0].trang_thai}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                        </div>
+                        <div class="col-sm-12">
+                            <table class="table table-striped table-hover table-bordered table-responsive d-lg-table">
+                                <thead>
+                                    <tr>
+                                        <th>Mã sản phẩm</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Số lượng</th>
+                                        <th>Giá bán</th>
+                                        <th>Thành tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                ${ct}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <label>Ghi chú:</label>
+                    <input type="text" class="form-control" id="TH_ghi_chu" value="${data[0].ghi_chu}"/>
+                `
+            }
+        })
+
+    }
+</script>
+<script>
+    $.ajax({
+		url: window.location.origin+'/admin/doanh-thu-ngay',
+		type: "POST",
+		success: (data) => {
+			TH_doanh_thu.innerHTML=(data.doanh_thu).toLocaleString('en-GB')
+		}
+	})
+    function tinh_tong_tien(Danh_sach) {
+        var tong_tien = 0;
+        Danh_sach.forEach(row => {
+            tong_tien += row.so_luong * row.gia_ban
+        });
+        return tong_tien;
+    }
     $('#table_ds_hoa_don').DataTable();
     document.getElementById('table_ds_hoa_don_filter').classList.add('d-none')
     document.getElementById('table_ds_hoa_don_wrapper').classList.add('pb-4')
     document.getElementById('table_ds_hoa_don_length').classList.add('d-none')
     document.getElementById('table_ds_hoa_don_info').classList.add('d-none')
-    $('#table_ds_san_pham').DataTable();
-    document.getElementById('table_ds_san_pham_filter').classList.add('d-none')
-    document.getElementById('table_ds_san_pham_wrapper').classList.add('pb-4')
-    document.getElementById('table_ds_san_pham_length').classList.add('d-none')
-    document.getElementById('table_ds_san_pham_info').classList.add('d-none')
 </script>
 <script>
+    dateFrom.value = new Date(Date.now()).toISOString().split('T')[0]
+    dateTo.value = new Date(Date.now()).toISOString().split('T')[0]
     var ds;
     var arrngay = [];
     var arrtongtien = [];
@@ -96,38 +283,11 @@
         url: window.location.origin+'/admin/thong-ke-hoa-don',
         type: "POST",
         success: (data) => {
-            var dateFrom = new Date(Date.now()).toISOString().split('T')[0]
-            var dateTo=new Date(Date.now()).toISOString().split('T')[0]
-            var from = new Date(dateFrom)
-            var to = new Date(dateTo)
+            var from = new Date(dateFrom.value)
+            var to = new Date(dateTo.value)
+            from.setDate(to.getDate() - 7)
             to.setDate(to.getDate() + 1)
             ds = data.filter(x => x.ngay_lap >= dateFrom.value).filter(x => x.ngay_lap <= to.toISOString().split('T')[0])
-            //xuất ra table
-            TH_ds_hoa_don.innerHTML=``
-            var dem=1;
-            ds.forEach(row => {
-                dem++;
-                TH_ds_hoa_don.innerHTML+=`
-                <tr onclick="show_chi_tiet_hoa_don('${row._id}')" data-toggle="modal" data-target="#modal-detai">
-                    <td>${row.ma_hd}</td>
-                    <td>${row.khach_hang[0].ho_ten}</td>
-                    <td>${row.nhan_vien[0].ho_ten}</td>
-                    <td>${row.ngay_lap.split('T')[0]}</td>
-                    <td>${tinh_tong_tien(row.chi_tiet).toLocaleString('en-GB')} VNĐ</td>
-                    <td class="table_ghichu d-none">${row.ghi_chu}</td>
-                </tr>
-                `
-                if(dem==ds.length)
-                {
-                    $('#table_ds_hoa_don').DataTable();
-                    
-                    document.getElementById('table_ds_hoa_don_filter').classList.add('w-100')
-                    document.getElementById('table_ds_hoa_don_filter').classList.add('text-right')
-                    document.getElementById('table_ds_hoa_don_wrapper').classList.add('pb-4')
-                }
-            });
-                
-            //kết thúc xuất ra table
             var dem = 0;
             while (from <= to) {
                 arrngay.push(from.toISOString().split('T')[0])
@@ -149,7 +309,7 @@
                     plotBorderWidth: 1
                 },
                 title: {
-                    text: 'Thống kê hóa đơn',
+                    text: 'Thống kê hóa đơn 7 ngày gần đây',
                     align: 'center',
                     style: {
                         color: 'red',
@@ -159,7 +319,7 @@
                     y: 20
                 },
                 subtitle: {
-                    text: `Ngày ${dateFrom}`
+                    text: `Từ ngày ${dateFrom.value} đến ${dateTo.value}`
                 },
                 xAxis: {
                     categories: arrngay
@@ -188,8 +348,8 @@
     })
     Highcharts.setOptions({
             lang: {
-                numericSymbols: [` Ngàn`, ` Triệu`],
-                numericSymbolMagnitude: 1000,
+                numericSymbols: [` Triệu`],
+                numericSymbolMagnitude: 1000000,
                 decimalPoint: ',', ///phân cách thập phân
                 thousandsSep: '.' ///hàng ngàn
             },
@@ -201,3 +361,113 @@
             }
         })
 </script>
+<script>
+    function huy_don_hang(mahd) {
+        TH_thong_bao.innerHTML=`Đang xử lý....`
+        btn_thong_bao.click();
+        $.ajax({
+            url: window.location.origin +'/admin/huy-don-hang',
+            type: "POST",
+            data:{'ma_hd':mahd,'ghi_chu':TH_ghi_chu.value,'nv_Id':sessionStorage.getItem('nv_Id')},
+            success: (data) => {
+                console.log(data);
+                TH_thong_bao.innerHTML=data.message
+                if (data.errorCode==0) {
+                    setTimeout(() => {
+                        window.location='/admin/'
+                    }, 1500);
+                }
+            }
+        })
+    }
+    function xac_nhan(mahd)
+    {
+        TH_thong_bao.innerHTML=`Đang xử lý....`
+        btn_thong_bao.click();
+        $.ajax({
+            url: window.location.origin +'/admin/xac-nhan-hoa-don',
+            type: "POST",
+            data:{'ma_hd':mahd,'ghi_chu':TH_ghi_chu.value,'nv_Id':sessionStorage.getItem('nv_Id')},
+            success: (data) => {
+                console.log(data);
+                TH_thong_bao.innerHTML=data.message
+                if (data.errorCode==0) {
+                    setTimeout(() => {
+                        window.location='/admin/'
+                    }, 1500);
+                }
+            }
+        })
+    }
+</script>
+    <script>
+        function xep_theo_so_luong_ban(arr) {
+        arr = arr.sort((a, b) => {
+            return parseInt(b.so_luong_ban) - parseInt(a.so_luong_ban)
+        })
+        return arr;
+        }
+    </script>
+    <script>
+        function tinh_so_luong(Danh_sach) {
+            var so_luong = 0;
+            Danh_sach.forEach(row => {
+                so_luong += row.so_luong;
+            });
+            return so_luong;
+        }
+        var ds_hoa_don;
+        var ds_sp
+        $.ajax({
+            url: window.location.origin+'/admin/san-pham-ban-trong-ngay',
+            type: "POST",
+            success: (data) => {
+                ds_hoa_don = data.hoa_don;
+                //xuất table sản phẩm
+                var dem=0;
+                data.san_pham.forEach(row_sp => {
+                    dem++;
+                    var soluong=0;
+                    //bắt đầu duyệt hóa đơn
+                    ds_hoa_don.forEach(row_hd => {
+                    var dem_ct=0;
+                    row_hd.chi_tiet.forEach(row_hd_ct => {
+                        dem_ct++
+                        if(row_sp._id.toString().trim()==row_hd_ct.san_pham.toString().trim())
+                        {
+                            soluong+=Number(row_hd_ct.so_luong)
+                        }
+                        if(dem_ct==row_hd.chi_tiet.length)
+                        {
+                            row_sp.so_luong_ban=soluong;
+                        }
+                    });
+                    });
+                    //kết thúc duyệt hóa đơn
+                    if(dem==data.san_pham.length)
+                    {
+                        ds_sp=xep_theo_so_luong_ban(data.san_pham).filter(x=>x.so_luong_ban>0);
+                        var instance=1
+                        TH_ds_san_pham.innerHTML+=``
+                        ds_sp.forEach(row => {
+                            instance++;
+                            TH_ds_san_pham.innerHTML+=`
+                                <tr>
+                                    <td>${row._id}</td>
+                                    <td>${row.ten_sp}</td>
+                                    <td>${(row.gia_ban).toLocaleString('en-GB')}</td>
+                                    <td>${row.loaisp[0].ten_loai}</td>
+                                    <td>${row.so_luong_ban==undefined?0:row.so_luong_ban}</td>
+                                </tr>
+                            `
+                        });
+                            $('#table_ds_san_pham').DataTable();
+                            document.getElementById('table_ds_san_pham_filter').classList.add('d-none')
+                            document.getElementById('table_ds_san_pham_wrapper').classList.add('pb-4')
+                            document.getElementById('table_ds_san_pham_length').classList.add('d-none')
+                            document.getElementById('table_ds_san_pham_info').classList.add('d-none')
+                    }
+                });
+            }
+        })
+    </script>

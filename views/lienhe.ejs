@@ -15,30 +15,73 @@
 			<div class="form-fields">
 				<div class="form-group">
 					<label class="col-form-label" for="">Họ tên:</label>
-					<input placeholder="Nhập họ tên" class="fullname form-control" type="text" id="FullName" name="FullName" value="">
+					<input placeholder="Nhập họ tên" class="fullname form-control" type="text" id="ho_ten" name="FullName" value="">
 				</div>
 				<div class="form-group">
 					<label class="col-form-label" for="">Điện thoại:</label>
-					<input placeholder="Nhập số điệ thoại" class="fullname form-control" type="text" id="FullName" name="FullName" value="">
+					<input placeholder="Nhập số điện thoại" class="fullname form-control" type="text" id="dien_thoai" name="FullName" value="">
 				</div>
 				<div class="form-group">
 					<label class="col-form-label" for="">Email:</label>
-					<input placeholder="Enter your email address" class="form-control email" type="text" data-val="true"
-						data-val-email="Wrong email" data-val-required="Nhập email" id="Email" name="Email" value="">
-					<span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+					<input placeholder="Nhập email" class="form-control email" type="text" id="email" name="Email" value="">
 				</div>
 				<div class="form-group">
 					<label class="col-form-label" for="">Nội dung:</label>
-					<textarea placeholder="Nhập nội dung" class="form-control enquiry" data-val="true"
-						data-val-required="Enter enquiry" id="Enquiry" name="Enquiry"></textarea>
-					<span class="field-validation-valid" data-valmsg-for="Enquiry" data-valmsg-replace="true"></span>
+					<textarea placeholder="Nhập nội dung" class="form-control enquiry" id="noi_dung" name="Enquiry"></textarea>
 				</div>
 			</div>
 			<div class="buttons mt-1 mb-1">
-				<input type="button" name="send-email" class="btn btn-info contact-us-button" value="Gửi">
+				<input type="button" name="send-email" id="btn_lien_he" class="btn btn-info contact-us-button" value="Gửi">
 			</div>
 		</div>
 			</div>
 		</div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg d-none" id="btn_thong_bao" data-toggle="modal" data-target="#modal-thong-bao">
+  Launch
+</button>
 
+<!-- Modal -->
+<div class="modal fade" id="modal-thong-bao" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Thông báo</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+			</div>
+			<div class="modal-body" id="TH_thong_bao">
+				Đang xử lý
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+			</div>
+		</div>
+	</div>
+</div>
 <% include layout/footer %>
+<script>
+	btn_lien_he.onclick=()=>{
+		TH_thong_bao.innerHTML=`Đang xử lý...`
+		btn_thong_bao.click();
+		var form_data={
+			'ho_ten': ho_ten.value,
+			'email': email.value,
+			'dien_thoai': dien_thoai.value,
+			'ngay_tao':new Date(),
+			'noi_dung': noi_dung.value
+		}
+	$.ajax({
+		url: window.location.origin+'/lienhe',
+		type: "POST",
+		data:{lien_he:JSON.stringify(form_data)},
+		success: (data) => {
+			if(data.errorCode==0)
+			{
+				TH_thong_bao.innerHTML=data.message
+			}
+		}
+	})
+	}
+</script>

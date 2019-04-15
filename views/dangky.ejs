@@ -84,7 +84,7 @@
 
                     </div>
                     <input type="button"
-                        class="btn btn-secondary register-next-step-button mt-3 mb-3" id="btn_dang_ky" value="Đăng ký" onclick="return kiem_tra_thong_tin_dang_ky()"
+                        class="btn btn-secondary register-next-step-button mt-3 mb-3" id="btn_dang_ky" value="Đăng ký"
                         name="register-button">
                 </form>
 			</div>
@@ -116,6 +116,10 @@ Launch
 <% include layout/footer %>
 <script>
 	btn_dang_ky.onclick=()=>{
+        if(!kiem_tra_thong_tin_dang_ky())
+        {
+            return
+        }
 		TH_thongbao.innerHTML='Đang xử lý...'
 		modal_thongbao.click()
 		var form_data={

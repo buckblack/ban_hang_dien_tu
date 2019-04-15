@@ -201,6 +201,9 @@
     </div>
     <% include layout/footer %>
 <script>
+    function in_hoa_don(mahd){
+        window.open('/users/in-hoa-don/'+mahd, '_blank');
+    }
     function show_chi_tiet_hoa_don(mahd) {
         ma_hd_in=mahd;
         $.ajax({
@@ -238,6 +241,8 @@
                 if(data[0].trang_thai=="Đã thanh toán")
                 {
                     TH_modal_detail_footer.innerHTML=`
+                    <button type="button" class="btn btn-secondary" onclick="in_hoa_don('${data[0]._id}')" id="btn_in_hoa_don"
+                                data-dismiss="modal">Xuất hóa đơn</button>
                             <button type="button" class="btn btn-secondary" id="btn_close_detai"
                                 data-dismiss="modal">Đóng</button>
                     `
@@ -341,6 +346,8 @@
                 if(data[0].trang_thai=="Đã thanh toán")
                 {
                     TH_modal_detail_footer.innerHTML=`
+                    <button type="button" class="btn btn-secondary" onclick="in_hoa_don('${data[0]._id}')" id="btn_in_hoa_don"
+                                data-dismiss="modal">Xuất hóa đơn</button>
                             <button type="button" class="btn btn-secondary" id="btn_close_detai"
                                 data-dismiss="modal">Đóng</button>
                     `

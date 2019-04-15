@@ -11,13 +11,22 @@ cl_thong_bao = 'thong_bao'
 cl_thuong_hieu = 'thuong_hieu'
 cl_loai_san_pham = 'loai_san_pham'
 cl_nha_cung_cap ='nha_cung_cap'
+cl_lien_he ='lien_he'
 
 router.get('/', function (req, res, next) {
   res.redirect('/admin/dashboard');
 });
 
-router.get('/dashboard', function (req, res, next) {
-  res.render('admin/dash_board', {});
+router.get('/dashboard',async function (req, res, next) {
+  let db = await xl_mongo.Get();
+  db.collection(cl_hoa_don).find({loai_hd:'xuất',trang_thai:'Chưa xác nhận'}).toArray((e,hoa_don)=>{
+    db.collection(cl_nguoi_dung).countDocuments({chuc_vu:'khách hàng'}, (e_kh,tong_kh)=>{
+      db.collection(cl_lien_he).countDocuments({}, (e_lh,tong_lh)=>{
+        res.render('admin/dash_board', {hoa_don:hoa_don,khach_hang:tong_kh,lien_he:tong_lh});
+      })
+    })
+  })
+  
 });
 
 router.get('/dang-nhap', function (req, res, next) {
@@ -569,7 +578,6 @@ router.post('/cap-nhat-san-pham', async function (req, res, next) {
   }
   else {
     var hinh = JSON.parse(req.body.hinh);
-    console.log(hinh.thu_muc);
 
     var san_pham = JSON.parse(req.body.san_pham);
     var sp = {
@@ -595,4 +603,50 @@ router.post('/cap-nhat-san-pham', async function (req, res, next) {
 
 });
 
+router.post('/doanh-thu-ngay', async function (req, res, next) {
+  let db = await xl_mongo.Get();
+  var ngay_ht=new Date().toISOString().split('T')[0]
+  var from = new Date(ngay_ht+'T00:00:00.000Z');
+  var to = new Date(ngay_ht+'T23:59:59.999Z');
+  db.collection(cl_hoa_don).find({ 'ngay_lap': {$gte: from, $lt:to},'loai_hd':'xuất'}).toArray((err, result) => {
+    var tongtien=0;
+    result.forEach(row => {
+      row.chi_tiet.forEach(row_ct => {
+        tongtien+=Number(row_ct.so_luong)*Number(row_ct.gia_ban)
+      });
+    });
+    res.json({erroCode:0,doanh_thu:tongtien})
+  })
+  
+});
+
+router.post('/san-pham-ban-trong-ngay', async function (req, res, next) {
+  let db = await xl_mongo.Get();
+  var ngay_ht=new Date().toISOString().split('T')[0]
+  var from = new Date(ngay_ht+'T00:00:00.000Z');
+  var to = new Date(ngay_ht+'T23:59:59.999Z');
+  db.collection(cl_hoa_don).find({ 'ngay_lap': {$gte: from, $lt:to},'loai_hd':'xuất'}).toArray((err, result) => {
+    db.collection(cl_san_pham).aggregate([
+      {
+        $lookup: {
+          from: 'loai_san_pham',
+          localField: 'ma_loai',
+          foreignField: '_id',
+          as: 'loaisp'
+        }
+      }
+    ]).toArray((err_sp,res_sp)=>{
+      res.json({erroCode:0,hoa_don:result,san_pham:res_sp})
+    })
+  })
+  
+});
+
+router.get('/lien-he', async function (req, res, next) {
+  let db = await xl_mongo.Get();
+  db.collection(cl_lien_he).find({}).sort({ngay_tao:-1}).toArray((err, result) => {
+    res.render('admin/lien_he',{lien_he:result})
+  })
+  
+});
 module.exports = router;
